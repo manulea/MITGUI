@@ -1,4 +1,3 @@
 # MITGUI
 
-Helping Josh write a gui for facial recognition.
-
+Helping Josh write a gui for facial recognition
