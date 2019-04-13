@@ -1,3 +1,8 @@
 # MITGUI
 
-Helping Josh write a gui for facial recognition
+- GUI Installation -
+- Read Requirement.txt and download necessary packages
+
+--- RUNNING ---
+* python FRON.py
+

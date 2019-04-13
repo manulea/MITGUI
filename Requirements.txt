@@ -1,0 +1,6 @@
+sys
+PyQt5
+dlib
+cv2
+imutils
+numpy
