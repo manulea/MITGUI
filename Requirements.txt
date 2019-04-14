@@ -1,6 +1,6 @@
 sys
 PyQt5
 dlib
-cv2
+opencv-python
 imutils
 numpy
