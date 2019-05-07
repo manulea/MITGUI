@@ -3,12 +3,14 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QMainWindow, QCheckBox, QApplication, QWidget, QPushButton, QLabel
 from PyQt5.QtGui import QIcon, QPalette, QColor
 from PyQt5.QtCore import pyqtSlot, QSize, Qt
-import cv2
 
 from imutils import face_utils
 import numpy as np
 
+import cv2
 import dlib
+
+from pyautogui import press, typewrite, hotkey
 
 class App(QWidget):
 	def __init__(self):
@@ -22,7 +24,7 @@ class App(QWidget):
 		self.height = 200
 		
 		self.setWindowIcon(QtGui.QIcon('icon.png'))
-		self.captureFacePositions = False
+		self.captureFacePositions = True
 		self.capturedPositions = False
 		self.initUI()
 		
@@ -39,75 +41,27 @@ class App(QWidget):
 		self.EyeTopLeft = 0
 		self.EyeTopRight = 0
 		
+		self.capturedEyeTopLeft = 0
+		self.capturedEyeTopRight = 0
 		self.capturedEyebrowLeft = 0
 		self.capturedEyebrowRight = 0
+		
+		# Open Mouth
+		self.topMouth = 0
+		self.bottomMouth = 0
+		
+		self.capturedTopMouth = 0
+		self.capturedBottomMouth = 0
 		
 		self.smileActivated = False
 		self.openMouthActivated = False
 		self.raiseEyebrowsActivated = False
 		
-		self.faceShapePredictorActivated = False
+		self.faceShapePredictorActivated = True
+		
 		self.landmarks()
 
-		
-	def webcam(self):
-		cap = cv2.VideoCapture(0)
-
-		while(True):
-			# Capture frame-by-frame
-			ret, frame = cap.read()
-
-			# Our operations on the frame come here
-			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-			# Display the resulting frame
-			cv2.imshow('hey', gray)
-			if cv2.waitKey(1) & 0xFF == ord('q'):
-				break
-
-		# When everything done, release the capture
-		cap.release()
-		cv2.destroyAllWindows()
-	
-	def Face(self):
-		cascPath = sys.argv[1]
-		faceCascade = cv2.CascadeClassifier(cascPath)
-		#smile_cascade = cv2.CascadeClassifier(casc
-		video_capture = cv2.VideoCapture(0)
-		while True:
-			# Capture frame-by-frame
-			ret, frame = video_capture.read()
-
-			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-			faces = faceCascade.detectMultiScale(
-				gray,
-				scaleFactor = 1.1,
-				minNeighbors = 5,
-				minSize = (30, 30),
-				# flags = cv2.cv.CV_HAAR_SCALE_IMAGE
-				flags = cv2.CASCADE_SCALE_IMAGE
-			)
-
-			# Draw a rectangle around the faces
-			for (x, y, w, h) in faces:
-				cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-			# Display the resulting frame
-			cv2.imshow('Video', frame)
-
-			if cv2.waitKey(1) & 0xFF == ord('q'):
-				break
-
-		# When everything is done, release the capture
-		video_capture.release()
-		cv2.destroyAllWindows()
-
 	def landmarks(self):
-		# Vamos inicializar um detector de faces (HOG) para então
-		# let's go code an faces detector(HOG) and after detect the 
-		# landmarks on this detected face
-
 		# p = our pre-treined model directory, on my case, it's on the same script's diretory.
 		p = "shape_predictor_68_face_landmarks.dat"
 		
@@ -125,8 +79,6 @@ class App(QWidget):
 			# Get faces into webcam's image
 			rects = detector(gray, 0)
 			
-			count = 0
-			
 			# For each detected face, find the landmark.
 			if self.faceShapePredictorActivated == True:
 				
@@ -134,101 +86,115 @@ class App(QWidget):
 					# Make the prediction and transfom it to numpy array
 					shape = predictor(gray, rect)
 					shape = face_utils.shape_to_np(shape)
+					
+					count = 1
 
-					# Draw on our image, all the finded cordinate points (x,y)
-					
-					#cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-					#cv2.line(frame, (x, y+50), (x, y-50), (255, 102, 255), thickness=1, lineType=8, shift=0)
-					#cv2.line(frame, (x, y+50), (x, y-50), (255, 102, 255), thickness=1, lineType=8, shift=0)
-					
-					for (x, y) in shape:
-					
-						# SMILE
-						if (count == 48):
-							if self.smileActivated == True:
-								if (self.captureFacePositions == True):
-									self.capturedLeftSideMouth = x
-									
-							self.LeftSideMouth = (x)
-							
-						if (count == 54):
-							if self.smileActivated == True:
-								if (self.captureFacePositions == True):
-									self.capturedRightSideMouth = x
-									
-							self.RightSideMouthSide = (x)
-						
-						if (self.captureFacePositions == True):
-							if (self.capturedRightSideMouth >= 0 and self.capturedLeftSideMouth >= 0):
-								self.capturedPositions = True
-						# END SMILE
-						
-						# RAISE EYEBROW
-						if (count == 19):
-							if self.raiseEyebrowsActivated == True:
-								
-								if (self.captureFacePositions == True):
-									self.EyebrowLeft = y
-									
-								self.capturedEyebrowLeft = y
-								
-						if (count == 24):
-							if self.raiseEyebrowsActivated == True:
-								if (self.captureFacePositions == True):
-									self.EyebrowRight = y
-								
-							self.capturedEyebrowRight = y
-							
-						if (self.captureFacePositions == True):
-							if (self.capturedEyebrowLeft >= 0 and self.capturedEyebrowRight >= 0):
-								self.capturedPositions = True
-						
-						# END RAISE EYEBROW
-						
-						if count >= 48:
+					# Draw on our image, all the found coordinate points (x,y)
+					for (x, y) in shape:				
+						# draw all the points in shape (x,y)
+						if count >= 0 and count <= 68:
 							cv2.circle(frame, (x, y), 2, (255, 200, 255), -1)
-						
-						if count == 1:
+							
+						# display text underneath the face object
+						if count == 9:
+							font = cv2.FONT_HERSHEY_SIMPLEX
+							cv2.putText(frame, ("text"), (x - 40, y + 30), font, 1, (0, 0, 0), 1, cv2.LINE_AA)	
+							
+						# raise eyebrow
+						# left eyebrow
+						elif (count == 20):
+							if (self.captureFacePositions == True):
+								self.capturedEyebrowLeft = y	
+								
+							if self.raiseEyebrowsActivated == True:
+								self.EyebrowLeft = y
+								
+						# right eyebrow
+						elif (count == 25):
+							if self.raiseEyebrowsActivated == True:
+								self.EyebrowRight = y
+								
+							if (self.captureFacePositions == True):
+								self.capturedEyebrowRight = y
+									
+						# left eye
+						elif (count == 38): 
+							if self.raiseEyebrowsActivated == True:
+								self.EyeTopLeft = y
+								
+							if (self.captureFacePositions == True):
+								self.capturedEyeTopLeft = y
+								
+						# right eye
+						elif (count == 44):
+							if self.raiseEyebrowsActivated == True:
+								self.EyeTopRight = y
+								
+							if (self.captureFacePositions == True):
+								self.capturedEyeTopRight = y
+						# end eyebrow
+						# smile
+						elif (count == 49):
+							if (self.captureFacePositions == True):
+								self.capturedLeftSideMouth = x	
+								
+							if self.smileActivated == True:
+								self.LeftSideMouth = (x)
+							
+						elif (count == 55):
+							if (self.captureFacePositions == True):
+								self.capturedRightSideMouth = x
+								
+							if self.smileActivated == True:
+								self.RightSideMouthSide = (x)
+						# end smile
+						# open mouth
+						elif (count == 52):
+							if (self.openMouthActivated == True):
+								self.topMouth = y
+								
+							if (self.captureFacePositions == True):
+								self.capturedTopMouth = y
+								
+								
+						elif (count == 58):
+							if (self.openMouthActivated == True):
+								self.bottomMouth = y
+								
+							if (self.captureFacePositions == True):
+								self.capturedBottomMouth = y
+						# end open mouth
 
-							w = 200
-							h = 180
-							cv2.rectangle(frame, (x-30, y-100), (x+w, y+h), (0, 255, 0), 2)
-			
-						elif (count < 48):
-							cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
+						count += 1
 						
-						font = cv2.FONT_HERSHEY_SIMPLEX
-						
-						# Could be used for face identity
-						# Detect smiles
-						if count == 34:
-							cv2.putText(frame, ("sione"), (x-40, y+180), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
-						
-						count = count + 1
-
-					if self.captureFacePositions == True:
-						print("Successfully captured positions")					
-						self.captureFacePositions = False
+					# check if all needed positions have been captured.
+					if (self.captureFacePositions == True):
+						if (self.capturedTopMouth > 0 and self.capturedBottomMouth > 0):
+							if (self.capturedEyebrowLeft > 0 and self.capturedEyebrowRight > 0):
+								if (self.capturedRightSideMouth > 0 and self.capturedLeftSideMouth > 0):
+									self.capturedPositions = True
+									self.captureFacePositions = False
+									print("successfully captured landmarks.")	
 					
+					#  when all landmarks have been captured:
 					if (self.capturedPositions == True):
-						#print(LeftSideMouth)
-						#print(capturedLeftSideMouth)
+						# smile
 						if self.smileActivated == True:
 							if (self.RightSideMouthSide - self.LeftSideMouth - 8 > self.capturedRightSideMouth - self.capturedLeftSideMouth):
-								print("Smiled")
-						elif self.openMouthActivated == True:
-							pass
-							
-							
-						elif self.raiseEyebrowsActivated == True:
-							#if (self.EyebrowLeft - 1 < self.capturedEyebrowLeft and self.EyebrowRight - 1 < self.capturedEyebrowRight):
-							#if (self.EyebrowLeft < 
-							#	print(
-							pass
+								print("smile detected")
+						# mouth
+						if self.openMouthActivated == True:
+							if (self.bottomMouth - self.topMouth - 5 > self.capturedBottomMouth - self.capturedTopMouth):
+								print("open mouth detected")
+						# eyebrow raised
+						if self.raiseEyebrowsActivated == True:
+							if ((self.capturedEyeTopLeft - self.capturedEyebrowLeft + 3 < self.EyeTopLeft - self.EyebrowLeft) and
+							(self.capturedEyeTopRight - self.capturedEyebrowRight + 3 < self.EyeTopRight - self.EyebrowRight)):
+								print("eyebrow detected")
+								#press('a')
 						
-					
 			# Show the image
-			cv2.imshow("Output", frame)
+			cv2.imshow("Face Recognition", frame)
 				
 			k = cv2.waitKey(5) & 0xFF
 			if k == 27:
@@ -263,116 +229,110 @@ class App(QWidget):
 		dark_palette.setColor(QPalette.HighlightedText, Qt.black)
 		QApplication.setPalette(dark_palette)
 
-		#QApplication.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
-		
 		self.setStyleSheet("QPushButton { background-color: gray; }\n"
               "QPushButton:enabled { background-color: green; }\n");
 			  
 		# Buttons 
-		btnInitialize = QPushButton('Initialize', self)
-		btnInitialize.setToolTip('Activate face detection')
-		btnInitialize.move(100,140)
+		btnInitialize = QPushButton('activate', self)
+		btnInitialize.setToolTip('activate face detection')
+		btnInitialize.move(100, 140)
 		btnInitialize.clicked.connect(self.on_click_initialize)
 
-		btnCapture = QPushButton('Capture Face', self)
-		btnCapture.setToolTip('Used to capture the initial face array.')
-		btnCapture.move(200,140)
+		btnCapture = QPushButton('recapture', self)
+		btnCapture.setToolTip('used to capture the initial face array.')
+		btnCapture.move(200, 140)
 		btnCapture.clicked.connect(self.on_click_capture)
-	 
-		# # Labels
-		
-		# # Open Mouth
-		# self.openMouthlbl = QLabel("Open Mouth", self)		
-		# self.openMouthlbl.move(65, 50)
-		# # Eyebrows
-		# self.eyebrowslbl = QLabel("Eyebrows", self)
-		# self.eyebrowslbl.move(170, 50)
-		# # Smile
-		# self.smilelbl = QLabel("Smile", self)
-		# self.smilelbl.move(280, 50)
-		# # Bottom Label
-		# #self.styleChoice = QLabel("Option 1: A", self)
-		# #self.styleChoice.move(50,180)
 
 		# CheckBoxes
 		# Open Mouth
-		self.checkboxOpenMouth = QCheckBox("Open Mouth",self)
-		self.checkboxOpenMouth.move(87, 64)
-		self.checkboxOpenMouth.resize(320,40)
+		self.checkboxOpenMouth = QCheckBox("open mouth",self)
+		self.checkboxOpenMouth.move(30, 64)
+		self.checkboxOpenMouth.resize(320, 40)
 		self.checkboxOpenMouth.stateChanged.connect(lambda:self.btnState(self.checkboxOpenMouth))
 		# Raise Eyebrows
-		self.checkboxRaiseEyebrows = QCheckBox("Raise Eyebrows",self)
-		self.checkboxRaiseEyebrows.move(187, 64)
-		self.checkboxRaiseEyebrows.resize(320,40)
+		self.checkboxRaiseEyebrows = QCheckBox("raise eyebrows",self)
+		self.checkboxRaiseEyebrows.move(120, 64)
+		self.checkboxRaiseEyebrows.resize(320, 40)
 		self.checkboxRaiseEyebrows.stateChanged.connect(lambda:self.btnState(self.checkboxRaiseEyebrows))
 		# Smile
-		self.checkboxSmile = QCheckBox("Smile",self)
-		self.checkboxSmile.move(287, 64)
-		self.checkboxSmile.resize(320,40)
+		self.checkboxSmile = QCheckBox("smile",self)
+		self.checkboxSmile.move(230, 64)
+		self.checkboxSmile.resize(320, 40)
 		self.checkboxSmile.stateChanged.connect(lambda:self.btnState(self.checkboxSmile))
+		# 
+		self.checkboxSnarl = QCheckBox("snarl",self)
+		self.checkboxSnarl.move(310, 64)
+		self.checkboxSnarl.resize(320, 40)
+		self.checkboxSnarl.stateChanged.connect(lambda:self.btnState(self.checkboxSmile))		
 		
 		# ComboBox
 		# Open Mouth
 		comboBox = QtWidgets.QComboBox(self)
-		comboBox.addItem("Option 1")
-		comboBox.addItem("Option 2")
-		comboBox.move(50, 100)
+		comboBox.addItem("a")
+		comboBox.addItem("b")
+		comboBox.move(30, 100)
 		
 		comboBox.activated[str].connect(self.style_choice)
 		
 		# Eyebrows
 		comboBox2 = QtWidgets.QComboBox(self)
-		comboBox2.addItem("Option 1")
-		comboBox2.addItem("Option 2")
-		comboBox2.move(150, 100)
+		comboBox2.addItem("a")
+		comboBox2.addItem("b")
+		comboBox2.move(120, 100)
 		
 		comboBox2.activated[str].connect(self.style_choice)
 		
 		# Smile
 		comboBox3 = QtWidgets.QComboBox(self)
-		comboBox3.addItem("Option 1")
-		comboBox3.addItem("Option 2")
-		comboBox3.move(250, 100)
+		comboBox3.addItem("a")
+		comboBox3.addItem("b")
+		comboBox3.move(230, 100)
 
 		comboBox3.activated[str].connect(self.style_choice)
 
+		# Smile
+		comboBox3 = QtWidgets.QComboBox(self)
+		comboBox3.addItem("a")
+		comboBox3.addItem("b")
+		comboBox3.move(310, 100)
+
+		comboBox3.activated[str].connect(self.style_choice)
+		
 		self.show()
 		
 	def style_choice(self, text):
-		self.styleChoice.setText(text)
+		if (text == "a"):
+			press('a')
 
 	def btnState(self, state):
-		if state.text() == "Smile":
+		# checkBox activations
+		# smile checkbox
+		if state.text() == "smile":
 			if state.isChecked() == True:
 				if (self.smileActivated == False):
-					print("Smile Detection Activated")
+					print("smile detection activated")
 					self.smileActivated = True
 			else:
 				self.smileActivated = False
-				print("Smile Detection Deactivated")
-				
-		if state.text() == "Raise Eyebrows":
+				print("smile detection deactivated")
+		# raise eyebrow checkbox
+		if state.text() == "raise eyebrows":
 			if state.isChecked() == True:
 				if (self.raiseEyebrowsActivated == False):
-					print("Raise Eyebrows Detection Activated")
+					print("raise eyebrows detection activated")
 					self.raiseEyebrowsActivated = True
 			else:
 				self.raiseEyebrowsActivated = False
-				print("Raise Eyebrows Detection Deactivated")
-								
-		if state.text() == "Open Mouth":
+				print("raise eyebrows detection deactivated")
+	    # open mouth checkbox
+		if state.text() == "open mouth":
 			if state.isChecked() == True:
 				if (self.openMouthActivated == False):
-					print("Open Mouth Detection Activated")
+					print("open mouth detection activated")
 					self.openMouthActivated = True
 			else:
 				self.openMouthActivated = False
-				print("Open Mouth Detection Deactivated")								
-								
-		# if state == QtCore.Qt.Checked:
-			# print('Checked')
-		# else:
-			# print('Unchecked')
+				print("open mouth detection deactivated")								
 			
 	@pyqtSlot()
 	def on_click_initialize(self):
@@ -382,14 +342,14 @@ class App(QWidget):
 		elif self.faceShapePredictorActivated == False:
 			self.faceShapePredictorActivated = True
 	
-	# This method captures the points of the face, so we can detect the differences between the values.
+	# this method captures the points of the face, so we can detect the differences between the values.
 	def on_click_capture(self):
 		if (self.faceShapePredictorActivated == True):
 			self.captureFacePositions = True
-			print("Capturing positions")
+			print("capturing landmarks")
 			
 		elif (self.faceShapePredictorActivated == False):
-			print("Required: Initialization")
+			print("activate required")
 		
 if __name__ == '__main__':
 	app = QApplication(sys.argv)

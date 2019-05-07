@@ -3,3 +3,5 @@ dlib
 opencv-python
 imutils
 numpy
+
+pyautogui
