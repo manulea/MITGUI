@@ -53,9 +53,38 @@ class App(QWidget):
 		self.capturedTopMouth = 0
 		self.capturedBottomMouth = 0
 		
+		# Snarl
+		self.snarlLeftEyebrowTip = 0
+		self.snarlRightEyebrowTip = 0
+		
+		self.snarlTopNose = 0
+		self.snarlEyeTopCenterLeft = 0
+		self.snarlEyeBotCenterLeft = 0
+		
+		self.snarlEyeTopCenterRight = 0
+		self.snarlEyeBotCenterRight = 0
+		
+		self.snarlCenterChin = 0
+		self.snarlCenterNose = 0
+		
+		# Snarl
+		self.CapturedsnarlLeftEyebrowTip = 0
+		self.CapturedsnarlRightEyebrowTip = 0
+		
+		self.CapturedsnarlTopNose = 0
+		self.CapturedsnarlEyeTopCenterLeft = 0
+		self.CapturedsnarlEyeBotCenterLeft = 0
+		
+		self.CapturedsnarlEyeTopCenterRight = 0
+		self.CapturedsnarlEyeBotCenterRight = 0
+		
+		self.CapturedsnarlCenterChin = 0
+		self.CapturedsnarlCenterNose = 0
+		
 		self.smileActivated = False
 		self.openMouthActivated = False
 		self.raiseEyebrowsActivated = False
+		self.snarlActivated = False
 		
 		self.faceShapePredictorActivated = True
 		
@@ -108,7 +137,34 @@ class App(QWidget):
 								
 							if self.raiseEyebrowsActivated == True:
 								self.EyebrowLeft = y
-								
+						# snarl
+						elif (count == 22):
+							if (self.captureFacePositions == True):
+								self.CapturedsnarlLeftEyebrowTip = y
+							if (self.snarlActivated == True):
+								self.snarlLeftEyebrowTip = y
+						elif (count == 23):
+							if (self.captureFacePositions == True):
+								self.CapturedsnarlRightEyebrowTip = y
+							if (self.snarlActivated == True):
+								self.snarlRightEyebrowTip = y
+						elif (count == 28):
+							if (self.captureFacePositions == True):
+								self.CapturedsnarlCenterNose = y
+							if (self.snarlActivated == True):
+								self.snarlCenterNose = y
+						elif (count == 42):
+							if (self.captureFacePositions == True):
+								self.CapturedsnarlEyeBotCenterLeft = y
+							if (self.snarlActivated == True):
+								self.snarlEyeBotCenterLeft = y
+						elif (count == 48):
+							if (self.captureFacePositions == True):
+								self.CapturedsnarlEyeBotCenterRight = y
+							if (self.snarlActivated == True):
+								self.snarlEyeBotCenterRight = y							
+						
+						
 						# right eyebrow
 						elif (count == 25):
 							if self.raiseEyebrowsActivated == True:
@@ -192,6 +248,14 @@ class App(QWidget):
 							(self.capturedEyeTopRight - self.capturedEyebrowRight + 3 < self.EyeTopRight - self.EyebrowRight)):
 								print("eyebrow detected")
 								#press('a')
+						# snarl
+						if (self.snarlActivated == True):
+							if (self.CapturedsnarlCenterNose - self.CapturedsnarlLeftEyebrowTip - 2 > self.snarlCenterNose - self.snarlLeftEyebrowTip):
+								if (self.CapturedsnarlCenterNose - self.CapturedsnarlRightEyebrowTip - 2 > self.snarlCenterNose - self.snarlRightEyebrowTip):
+									#if (self.CapturedsnarlEyeBotCenterLeft - self.capturedEyeTopLeft + 1 > self.snarlEyeBotCenterLeft - self.EyeTopLeft):
+										#if (self.CapturedsnarlEyeBotCenterRight - self.capturedEyeTopRight + 1 > self.snarlEyeBotCenterRight - self.EyeTopRight):
+											#if (self.CapturedsnarlCenterChin - self.CapturedsnarlCenterNose - 2 > self.snarlCenterChin - self.snarlCenterNose):
+									print("snarl detected")
 						
 			# Show the image
 			cv2.imshow("Face Recognition", frame)
@@ -263,7 +327,7 @@ class App(QWidget):
 		self.checkboxSnarl = QCheckBox("snarl",self)
 		self.checkboxSnarl.move(310, 64)
 		self.checkboxSnarl.resize(320, 40)
-		self.checkboxSnarl.stateChanged.connect(lambda:self.btnState(self.checkboxSmile))		
+		self.checkboxSnarl.stateChanged.connect(lambda:self.btnState(self.checkboxSnarl))		
 		
 		# ComboBox
 		# Open Mouth
@@ -333,7 +397,16 @@ class App(QWidget):
 			else:
 				self.openMouthActivated = False
 				print("open mouth detection deactivated")								
-			
+		# snarl checkbox
+		if state.text() == "snarl":
+			if state.isChecked() == True:
+				if (self.snarlActivated == False):
+					print("snarl detection activated")
+					self.snarlActivated = True
+			else:
+				self.snarlActivated = False
+				print("snarl detection deactivated")
+		
 	@pyqtSlot()
 	def on_click_initialize(self):
 		if self.faceShapePredictorActivated == True:
