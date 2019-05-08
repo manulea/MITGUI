@@ -86,7 +86,7 @@ class App(QWidget):
 		self.raiseEyebrowsActivated = False
 		self.snarlActivated = False
 		
-		self.faceShapePredictorActivated = True
+		self.faceShapePredictorActivated = False
 		
 		self.landmarks()
 
@@ -99,6 +99,75 @@ class App(QWidget):
 
 		cap = cv2.VideoCapture(0)
 		 
+		T = [[ 239, 181],
+				[239, 208],
+				[241, 234],
+				[245, 259],
+				[253, 283],
+				[268, 302],
+				[287, 317],
+				[307, 330],
+				[329, 333],
+				[351, 329],
+				[370, 316],
+				[390, 303],
+				[406, 285],
+				[417, 263],
+				[422, 239],
+				[424, 214],
+				[425, 188],
+				[256, 169],
+				[267, 157],
+				[284, 152],
+				[303, 154],
+				[319, 161],
+				[345, 162],
+				[361, 158],
+				[379, 157],
+				[395, 162],
+				[405, 174],
+				[331, 185],
+				[331, 201],
+				[330, 216],
+				[330, 232],
+				[311, 241],
+				[319, 245],
+				[329, 247],
+				[339, 245],
+				[348, 242],
+				[276, 186],
+				[285, 182],
+				[297, 183],
+				[308, 189],
+				[296, 192],
+				[284, 192],
+				[353, 191],
+				[363, 185],
+				[374, 186],
+				[385, 191],
+				[375, 195],
+				[363, 195],
+				[296, 271],
+				[308, 265],
+				[321, 262],
+				[329, 264],
+				[337, 263],
+				[348, 267],
+				[359, 273],
+				[348, 284],
+				[337, 288],
+				[328, 289],
+				[319, 287],
+				[307, 283],
+				[301, 271],
+				[320, 270],
+				[329, 271],
+				[337, 270],
+				[353, 274],
+				[337, 276],
+				[328, 277],
+				[320, 276]]
+		 
 		while True:
 			# Getting out image by webcam 
 			_, frame = cap.read()
@@ -108,8 +177,15 @@ class App(QWidget):
 			# Get faces into webcam's image
 			rects = detector(gray, 0)
 			
+			
+			if (self.faceShapePredictorActivated == False):
+				
+				for (x, y) in T:
+					cv2.circle(frame, (x, y), 2, (255, 200, 255), -1)
+					
 			# For each detected face, find the landmark.
-			if self.faceShapePredictorActivated == True:
+			if (self.faceShapePredictorActivated == True):
+				
 				
 				for (i, rect) in enumerate(rects):
 					# Make the prediction and transfom it to numpy array
@@ -119,7 +195,8 @@ class App(QWidget):
 					count = 1
 
 					# Draw on our image, all the found coordinate points (x,y)
-					for (x, y) in shape:				
+					for (x, y) in shape:
+				
 						# draw all the points in shape (x,y)
 						if count >= 0 and count <= 68:
 							cv2.circle(frame, (x, y), 2, (255, 200, 255), -1)
@@ -128,7 +205,6 @@ class App(QWidget):
 						if count == 9:
 							font = cv2.FONT_HERSHEY_SIMPLEX
 							cv2.putText(frame, ("text"), (x - 40, y + 30), font, 1, (0, 0, 0), 1, cv2.LINE_AA)	
-							
 						# raise eyebrow
 						# left eyebrow
 						elif (count == 20):
@@ -164,7 +240,6 @@ class App(QWidget):
 							if (self.snarlActivated == True):
 								self.snarlEyeBotCenterRight = y							
 						
-						
 						# right eyebrow
 						elif (count == 25):
 							if self.raiseEyebrowsActivated == True:
@@ -175,7 +250,7 @@ class App(QWidget):
 									
 						# left eye
 						elif (count == 38): 
-							if self.raiseEyebrowsActivated == True:
+							if self.raiseEyebrowsActivated == True  or self.snarlActivated == True:
 								self.EyeTopLeft = y
 								
 							if (self.captureFacePositions == True):
@@ -183,7 +258,7 @@ class App(QWidget):
 								
 						# right eye
 						elif (count == 44):
-							if self.raiseEyebrowsActivated == True:
+							if self.raiseEyebrowsActivated == True  or self.snarlActivated == True:
 								self.EyeTopRight = y
 								
 							if (self.captureFacePositions == True):
@@ -250,12 +325,12 @@ class App(QWidget):
 								#press('a')
 						# snarl
 						if (self.snarlActivated == True):
-							if (self.CapturedsnarlCenterNose - self.CapturedsnarlLeftEyebrowTip - 2 > self.snarlCenterNose - self.snarlLeftEyebrowTip):
-								if (self.CapturedsnarlCenterNose - self.CapturedsnarlRightEyebrowTip - 2 > self.snarlCenterNose - self.snarlRightEyebrowTip):
-									#if (self.CapturedsnarlEyeBotCenterLeft - self.capturedEyeTopLeft + 1 > self.snarlEyeBotCenterLeft - self.EyeTopLeft):
-										#if (self.CapturedsnarlEyeBotCenterRight - self.capturedEyeTopRight + 1 > self.snarlEyeBotCenterRight - self.EyeTopRight):
-											#if (self.CapturedsnarlCenterChin - self.CapturedsnarlCenterNose - 2 > self.snarlCenterChin - self.snarlCenterNose):
-									print("snarl detected")
+							if (self.CapturedsnarlCenterNose - self.CapturedsnarlLeftEyebrowTip - 2 >= self.snarlCenterNose - self.snarlLeftEyebrowTip):
+								if (self.CapturedsnarlCenterNose - self.CapturedsnarlRightEyebrowTip - 2 >= self.snarlCenterNose - self.snarlRightEyebrowTip):
+									if (self.CapturedsnarlEyeBotCenterLeft - self.capturedEyeTopLeft  + 1 > self.snarlEyeBotCenterLeft - self.EyeTopLeft):
+										if (self.CapturedsnarlEyeBotCenterRight - self.capturedEyeTopRight + 1 > self.snarlEyeBotCenterRight - self.EyeTopRight):
+											if (self.CapturedsnarlCenterChin - self.CapturedsnarlCenterNose + 1 > self.snarlCenterChin - self.snarlCenterNose ):
+												print("snarl detected")
 						
 			# Show the image
 			cv2.imshow("Face Recognition", frame)
