@@ -191,6 +191,12 @@ class App(QWidget):
 					shape = face_utils.shape_to_np(shape)
 					
 					count = 1
+					
+					minValueTopLeftX = 0
+					minValueTopLeftY = 0
+					
+					maxValueBotRightX = 0
+					maxValueBotRightY = 0
 
 					# Draw on our image, all the found coordinate points (x,y)
 					for (x, y) in shape:
@@ -202,6 +208,18 @@ class App(QWidget):
 						if count == 9:
 							font = cv2.FONT_HERSHEY_SIMPLEX
 							cv2.putText(frame, ("text"), (x - 40, y + 70), font, 1, (255, 255, 255), 1, cv2.LINE_AA)	
+						
+						# Rectangle
+						if x <= minValueTopLeftX and x > 0:
+							minValueTopLeftX = x
+						if y <= minValueTopLeftY and y > 0:
+							minValueTopLeftY = y
+							
+						if x >= maxValueBotRightX:
+							minValueBotRightX = x
+						if y >= maxValueBotRightY:
+							maxValueBotRightY = y
+							
 						# raise eyebrow
 						# left eyebrow
 						elif (count == 20):
@@ -292,11 +310,10 @@ class App(QWidget):
 							if (self.captureFacePositions == True):
 								self.capturedBottomMouth = y
 						# end open mouth
-
 						count += 1
-
-					cv2.rectangle(frame, (shape[1, 0], shape[1, 1]), (shape[9, 0], shape[9, 1]), (0, 255, 0), 8)
-			
+															
+					cv2.rectangle(frame, (minValueTopLeftX, minValueTopLeftY), (maxValueBotRightX, maxValueBotRightY), (0, 255, 0), 8)
+											
 					# check if all needed positions have been captured.
 					if (self.captureFacePositions == True):
 						if (self.capturedTopMouth > 0 and self.capturedBottomMouth > 0):
@@ -331,8 +348,6 @@ class App(QWidget):
 											if (self.CapturedsnarlCenterChin - self.CapturedsnarlCenterNose + 1 > self.snarlCenterChin - self.snarlCenterNose ):
 												print("snarl detected")
 												
-												
-						
 			# Show the image
 			cv2.imshow("Face Recognition", frame)
 			
