@@ -177,15 +177,13 @@ class App(QWidget):
 			# Get faces into webcam's image
 			rects = detector(gray, 0)
 			
-			
 			if (self.faceShapePredictorActivated == False):
-				
 				for (x, y) in T:
-					cv2.circle(frame, (x, y), 2, (255, 200, 255), -1)
+					cv2.circle(frame, (x, y), 2, (255, 255, 255), -1)
+					#cv2.circle(frame, (x, y), 2, (137, 205, 230), -1)
 					
 			# For each detected face, find the landmark.
 			if (self.faceShapePredictorActivated == True):
-				
 				
 				for (i, rect) in enumerate(rects):
 					# Make the prediction and transfom it to numpy array
@@ -196,15 +194,14 @@ class App(QWidget):
 
 					# Draw on our image, all the found coordinate points (x,y)
 					for (x, y) in shape:
-				
 						# draw all the points in shape (x,y)
 						if count >= 0 and count <= 68:
-							cv2.circle(frame, (x, y), 2, (255, 200, 255), -1)
-							
+							#cv2.circle(frame, (x, y), 2, (255, 200, 255), -1)
+							cv2.circle(frame, (x, y), 2, (255, 255, 255), -1)
 						# display text underneath the face object
 						if count == 9:
 							font = cv2.FONT_HERSHEY_SIMPLEX
-							cv2.putText(frame, ("text"), (x - 40, y + 30), font, 1, (0, 0, 0), 1, cv2.LINE_AA)	
+							cv2.putText(frame, ("text"), (x - 40, y + 70), font, 1, (255, 255, 255), 1, cv2.LINE_AA)	
 						# raise eyebrow
 						# left eyebrow
 						elif (count == 20):
@@ -297,7 +294,9 @@ class App(QWidget):
 						# end open mouth
 
 						count += 1
-						
+
+					cv2.rectangle(frame, (shape[1, 0], shape[1, 1]), (shape[9, 0], shape[9, 1]), (0, 255, 0), 8)
+			
 					# check if all needed positions have been captured.
 					if (self.captureFacePositions == True):
 						if (self.capturedTopMouth > 0 and self.capturedBottomMouth > 0):
@@ -331,10 +330,12 @@ class App(QWidget):
 										if (self.CapturedsnarlEyeBotCenterRight - self.capturedEyeTopRight + 1 > self.snarlEyeBotCenterRight - self.EyeTopRight):
 											if (self.CapturedsnarlCenterChin - self.CapturedsnarlCenterNose + 1 > self.snarlCenterChin - self.snarlCenterNose ):
 												print("snarl detected")
+												
+												
 						
 			# Show the image
 			cv2.imshow("Face Recognition", frame)
-				
+			
 			k = cv2.waitKey(5) & 0xFF
 			if k == 27:
 				break
