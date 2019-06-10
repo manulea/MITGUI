@@ -220,7 +220,8 @@ class App(QWidget):
 						self.leftRight(x, y, self.topLeftX, self.topLeftY, self.botRightX, self.botRightY, frame, self.count)
 						self.count += 1		
 
-					cv2.rectangle(frame, (self.topLeftX, self.topLeftY), (self.botRightX, self.botRightY), (0, 255, 0), 5)
+					addLength = 10
+					cv2.rectangle(frame, (self.topLeftX-addLength, self.topLeftY-addLength), (self.botRightX+addLength, self.botRightY+addLength), (0, 255, 0), 5)
 					
 
 					# check if all needed positions have been captured.
@@ -442,7 +443,7 @@ class App(QWidget):
 		btnInitialize.move(100, 460)
 		btnInitialize.clicked.connect(self.on_click_initialize)
 
-		btnCapture = QPushButton('recapture', self)
+		btnCapture = QPushButton('revalue', self)
 		btnCapture.setToolTip('used to capture the initial face array.')
 		btnCapture.move(200, 460)
 		btnCapture.clicked.connect(self.on_click_capture)
@@ -450,7 +451,7 @@ class App(QWidget):
 		# Webcam
 		self.webcam = QLabel(self)
 		self.webcam.setText("Webcam")
-		self.webcam.move(10, 50)
+		self.webcam.move(10, 10)
 		self.webcam.resize(800, 400)
 
 		# CheckBoxes
