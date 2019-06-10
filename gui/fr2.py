@@ -14,9 +14,9 @@ import numpy as np
 import cv2
 import dlib
 
-from pynput.keyboard import Key, Controller
+import win32com.client as comclt
 
-keyboard = Controller()
+import os
 
 class App(QWidget):
 	def __init__(self):
@@ -26,7 +26,7 @@ class App(QWidget):
 		
 		self.left = 200
 		self.top = 200
-		self.width = 850
+		self.width = 910
 		self.height = 420
 		
 		self.setWindowIcon(QtGui.QIcon('icon.png'))
@@ -49,6 +49,8 @@ class App(QWidget):
 		self.botRightX = 0
 		self.botRightY = 0
 		
+		os.startfile('file.txt')
+
 		self.landmarks()
 
 	def landmarks(self):
@@ -139,9 +141,9 @@ class App(QWidget):
 			# Get faces into webcam's image
 			rects = detector(gray, 0)
 			
-			#if (self.faceShapePredictorActivated == False):
-			#	for (x, y) in T:
-			#		cv2.circle(frame, (x, y), 2, (255, 255, 255), -1)
+			if (self.faceShapePredictorActivated == False):
+				for (x, y) in T:
+					cv2.circle(frame, (x, y), 2, (255, 255, 255), -1)
 					
 			# For each detected face, find the landmark.
 			if (self.faceShapePredictorActivated == True):
@@ -160,35 +162,29 @@ class App(QWidget):
 					for (x, y) in shape:
 						self.leftRight(x, y, self.topLeftX, self.topLeftY, self.botRightX, self.botRightY, frame, self.count)
 						self.count += 1
-
-						#All points (Outline)
-						cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
-						# Eyebrows
-						# if count > 17 and count < 28:
-							# cv2.circle(frame, (x, y), 2, (255, 0, 0), -1)
-						# Eyes
-						# elif count > 36 and count < 49:
-							# cv2.circle(frame, (x, y), 2, (255, 0, 0), -1)
-						# Nose
-						# elif count > 27 and count < 37:
-							# cv2.circle(frame, (x, y), 2, (0, 0, 255), -1)
-						# Mouth
-						# elif count > 48:
-							# cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
-						
+						cv2.circle(frame, (x, y), 2, (255, 0, 0), -1)
 						count = count + 1
+						
 					# Recognise gestures
 					# Baseline
 					base_line = ((shape[16][0]) - (shape[0][0]))
 					#print(base_line)
 					# Open mouth
-					#if (self.openMouthActivated == True):
-					mouth_top = ((shape[61][1]) + (shape[62][1]) + (shape[63][1]))/3
-					mouth_bottom = ((shape[65][1]) + (shape[66][1]) + (shape[67][1]))/3
-					mouth_height = mouth_bottom - mouth_top
+					
+					if (self.openMouthActivated == True):
+						mouth_top = ((shape[61][1]) + (shape[62][1]) + (shape[63][1]))/3
+						mouth_bottom = ((shape[65][1]) + (shape[66][1]) + (shape[67][1]))/3
+						mouth_height = mouth_bottom - mouth_top
 						
-					if(mouth_height/base_line > 0.18):
-						print("Mouth opened! - ",(mouth_height/base_line))
+						try:
+							if(mouth_height/base_line > float(self.txtOpenMouthT.toPlainText())):
+								print("Mouth opened! - ",(mouth_height/base_line))
+								wsh = comclt.Dispatch("WScript.Shell")
+								wsh.AppActivate("Notepad") # select another application
+								wsh.SendKeys(self.txtOpenMouth.toPlainText())
+						except:
+							pass
+						
 					
 					# Raise Eyebrow
 					if (self.raiseEyebrowsActivated == True):
@@ -196,8 +192,14 @@ class App(QWidget):
 						eye_bottom = ((shape[27][1]) + (shape[28][1]))/2
 						eye_height = eye_bottom - eye_top
 						
-						if(eye_height/base_line > 0.2):
-							print("Eyebrows raised! - ",(eye_height/base_line))
+						try:
+							if(eye_height/base_line > float(self.txtRaiseEyebrowsT.toPlainText())):
+								print("Eyebrows raised! - ",(eye_height/base_line))
+								wsh = comclt.Dispatch("WScript.Shell")
+								wsh.AppActivate("Notepad") # select another application
+								wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
+						except:
+							pass
 					
 					# Blink
 					if (self.blinkActivated == True):
@@ -205,17 +207,29 @@ class App(QWidget):
 						eyelid_bottom = ((shape[40][1]) + (shape[41][1]) + (shape[46][1]) + (shape[47][1]))/4
 						eyelid_height = eyelid_bottom - eyelid_top
 						
-						if(eyelid_height/base_line < 0.0225):
-							print("Blink detected! - ",(eyelid_height/base_line))
-					
+						try:
+							if(eyelid_height/base_line < float(self.txtBlinkT.toPlainText())):
+								print("Blink detected! - ",(eyelid_height/base_line))
+								wsh = comclt.Dispatch("WScript.Shell")
+								wsh.AppActivate("Notepad") # select another application
+								wsh.SendKeys(self.txtBlink.toPlainText())
+						except:
+							pass
+							
 					# Smile
 					if (self.smileActivated == True):
 						mouth_left = ((shape[48][0]) + (shape[49][0]) + (shape[59][0]) + (shape[60][0]))/4
 						mouth_right = ((shape[53][0]) + (shape[54][0]) + (shape[55][0]) + (shape[64][0]))/4
 						mouth_width = mouth_right - mouth_left
 						
-						if(mouth_width/base_line > 0.34):
-							print("Smile detected! - ",(mouth_width/base_line))
+						try:
+							if(mouth_width/base_line > float(self.txtSmileT.toPlainText())):
+								print("Smile detected! - ",(mouth_width/base_line))
+								wsh = comclt.Dispatch("WScript.Shell")
+								wsh.AppActivate("Notepad") # select another application
+								wsh.SendKeys(self.txtSmile.toPlainText())
+						except:
+							pass
 					
 					# Scrunch nose
 					if (self.snarlActivated == True):
@@ -223,9 +237,14 @@ class App(QWidget):
 						nose_bottom = ((shape[31][1]) + (shape[35][1]))/2
 						nose_height = nose_bottom - nose_top
 						#print(nose_height/base_line)
-						
-						if(nose_height/base_line < 0.36):
-							print("Anger detected! - ",(nose_height/base_line))
+						try:
+							if(nose_height/base_line < float(self.txtSnarlT.toPlainText())):
+								print("Anger detected! - ",(nose_height/base_line))
+								wsh = comclt.Dispatch("WScript.Shell")
+								wsh.AppActivate("Notepad") # select another application
+								wsh.SendKeys(self.txtSnarl.toPlainText())
+						except:
+							pass
 
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
@@ -238,10 +257,10 @@ class App(QWidget):
 			
 			k = cv2.waitKey(5) & 0xFF
 			if k == 27:
-				break
+				self.exit()
 			# Press 'q' to break out of loop
 			if cv2.waitKey(1) & 0xFF == ord('q'):
-				break
+				self.exit()
 				
 		cv2.destroyAllWindows()
 		cap.release()
@@ -283,43 +302,61 @@ class App(QWidget):
 		
 		# Introducing - The QPalette 
 		dark_palette = QPalette()
-
 		dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
-		dark_palette.setColor(QPalette.WindowText, Qt.green)
-		dark_palette.setColor(QPalette.Base, QColor(25, 25, 25))
+		dark_palette.setColor(QPalette.WindowText, Qt.red)
+		dark_palette.setColor(QPalette.Base, Qt.red)
 		dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
 		dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
 		dark_palette.setColor(QPalette.ToolTipText, Qt.white)
-		dark_palette.setColor(QPalette.Text, QColor(25, 25, 25))
-		dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
+		dark_palette.setColor(QPalette.Text, Qt.white)
+		dark_palette.setColor(QPalette.Button, Qt.red)
 		dark_palette.setColor(QPalette.ButtonText, Qt.white)
 		#dark_palette.setColor(QPalette.BRightSideMouthText, Qt.red)
 		dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
-		dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-		dark_palette.setColor(QPalette.HighlightedText, Qt.black)
+		dark_palette.setColor(QPalette.Highlight, Qt.white)
+		dark_palette.setColor(QPalette.HighlightedText, Qt.red)
 		QApplication.setPalette(dark_palette)
 
 		self.setStyleSheet("QPushButton { background-color: gray; }\n"
-              "QPushButton:enabled { background-color: green; }\n")
+              "QPushButton:enabled { background-color: red; }\n")
 
 		# Webcam
 		self.webcam = QLabel(self)
 		self.webcam.setText("Webcam")
 		self.webcam.move(10, 10)
-		self.webcam.resize(800, 400)
-
-		# CheckBoxes
-		# Open Mouth
+		self.webcam.resize(800, 400)	
+		
+		# Open Mouth	
 		self.cboxOpenMouth = QCheckBox("open mouth", self)
 		self.cboxOpenMouth.move(670,90)
 		self.cboxOpenMouth.resize(500,40)
 		self.cboxOpenMouth.stateChanged.connect(lambda:self.btnState(self.cboxOpenMouth))
 		
-		# Raise Eyebrows
+		self.txtOpenMouth = QPlainTextEdit(self)
+		self.txtOpenMouth.insertPlainText("a")
+		self.txtOpenMouth.move(780, 100)
+		self.txtOpenMouth.resize(50, 25)
+		
+		self.txtOpenMouthT = QPlainTextEdit(self)
+		self.txtOpenMouthT.insertPlainText("0.10")
+		self.txtOpenMouthT.move(835, 100)
+		self.txtOpenMouthT.resize(50, 25)
+		
+		# Eyebrows
 		self.cboxRaiseEyebrows = QCheckBox("raise eyebrows", self)
 		self.cboxRaiseEyebrows.move(670,130)
 		self.cboxRaiseEyebrows.resize(320,40)
 		self.cboxRaiseEyebrows.stateChanged.connect(lambda:self.btnState(self.cboxRaiseEyebrows))
+		
+		self.txtRaiseEyebrows = QPlainTextEdit(self)
+		self.txtRaiseEyebrows.insertPlainText("b")
+		self.txtRaiseEyebrows.move(780, 140)
+		self.txtRaiseEyebrows.resize(50, 25)
+		
+		self.txtRaiseEyebrowsT = QPlainTextEdit(self)
+		self.txtRaiseEyebrowsT.insertPlainText("0.2")
+		self.txtRaiseEyebrowsT.move(835, 140)
+		self.txtRaiseEyebrowsT.resize(50, 25)
 		
 		# Smile
 		self.cboxSmile = QCheckBox("smile",self)
@@ -327,94 +364,59 @@ class App(QWidget):
 		self.cboxSmile.resize(320,40)
 		self.cboxSmile.stateChanged.connect(lambda:self.btnState(self.cboxSmile))
 		
+		self.txtSmile = QPlainTextEdit(self)
+		self.txtSmile.insertPlainText("c")
+		self.txtSmile.move(780, 180)
+		self.txtSmile.resize(50, 25)
+		
+		self.txtSmileT = QPlainTextEdit(self)
+		self.txtSmileT.insertPlainText("0.3")
+		self.txtSmileT.move(835, 180)
+		self.txtSmileT.resize(50, 25)
+
 		# Snarl
 		self.cboxSnarl = QCheckBox("snarl",self)
 		self.cboxSnarl.move(670,210)
 		self.cboxSnarl.resize(320,40)
-		self.cboxSnarl.stateChanged.connect(lambda:self.btnState(self.cboxSnarl))		
+		self.cboxSnarl.stateChanged.connect(lambda:self.btnState(self.cboxSnarl))	
 		
-		# Blink
+		self.txtSnarl = QPlainTextEdit(self)
+		self.txtSnarl.insertPlainText("d")
+		self.txtSnarl.move(780, 220)
+		self.txtSnarl.resize(50, 25)
+		
+		self.txtSnarlT = QPlainTextEdit(self)
+		self.txtSnarlT.insertPlainText("0.354")
+		self.txtSnarlT.move(835, 220)
+		self.txtSnarlT.resize(50, 25)
+		
+		# Blink	
 		self.cboxBlink = QCheckBox("blink",self)
 		self.cboxBlink.move(670,250)
 		self.cboxBlink.resize(320,40)
 		self.cboxBlink.stateChanged.connect(lambda:self.btnState(self.cboxBlink))	
 		
-		# ComboBox
-		# Open Mouth
-		#comboBox = QtWidgets.QComboBox(self)
-		#comboBox.addItem("a")
-		#comboBox.addItem("b")
-		#comboBox.move(30,550)
-		self.txtOpenMouth = QPlainTextEdit(self)
-		self.txtOpenMouth.insertPlainText("")
-		self.txtOpenMouth.move(780, 100)
-		self.txtOpenMouth.resize(50, 25)
+		self.txtBlink = QPlainTextEdit(self)
+		self.txtBlink.insertPlainText("e")
+		self.txtBlink.move(780, 260)
+		self.txtBlink.resize(50, 25)
 		
-		#comboBox.activated.connect( lambda index: self.style_choice(comboBox) )
-		
-		# Eyebrows
-		#comboBox2 = QtWidgets.QComboBox(self)
-		#comboBox2.addItem("a")
-		#comboBox2.addItem("b")
-		#comboBox2.move(190,550)
-		#comboBox2.activated.connect( lambda index: self.style_choice(comboBox2) )
-		self.txtRaiseEyebrows = QPlainTextEdit(self)
-		self.txtRaiseEyebrows.insertPlainText("")
-		self.txtRaiseEyebrows.move(780, 140)
-		self.txtRaiseEyebrows.resize(50, 25)
-		
-		# Smile
-		#comboBox3 = QtWidgets.QComboBox(self)
-		#comboBox3.addItem("a")
-		#comboBox3.addItem("b")
-		#comboBox3.move(300,550)
-		#comboBox3.activated.connect( lambda index: self.style_choice(comboBox3) )
-		self.txtSmile = QPlainTextEdit(self)
-		self.txtSmile.insertPlainText("")
-		self.txtSmile.move(780, 180)
-		self.txtSmile.resize(50, 25)
-
-		# Snarl
-		#comboBox4 = QtWidgets.QComboBox(self)
-		#comboBox4.addItem("a")
-		#comboBox4.addItem("b")
-		#comboBox4.move(380,550)
-		#comboBox4.activated.connect( lambda index: self.style_choice(comboBox4) )
-		self.txtSnarl = QPlainTextEdit(self)
-		self.txtSnarl.insertPlainText("")
-		self.txtSnarl.move(780, 220)
-		self.txtSnarl.resize(50, 25)
-		
-		# Blink
-		self.txtSnarl = QPlainTextEdit(self)
-		self.txtSnarl.insertPlainText("")
-		self.txtSnarl.move(780, 260)
-		self.txtSnarl.resize(50, 25)
+		self.txtBlinkT = QPlainTextEdit(self)
+		self.txtBlinkT.insertPlainText("0.046")
+		self.txtBlinkT.move(835,260)
+		self.txtBlinkT.resize(50,25)
 		
 		# Buttons
-		btnInitialize = QPushButton('activate', self)
-		btnInitialize.setToolTip('activate face detection')
-		btnInitialize.move(670, 330)
-		btnInitialize.clicked.connect(self.on_click_initialize)
-
-		btnCapture = QPushButton('revalue', self)
-		btnCapture.setToolTip('used to capture the initial face array.')
-		btnCapture.move(755, 330)
-		btnCapture.clicked.connect(self.on_click_capture)
+		self.btnInitialize = QPushButton('Activate', self)
+		self.btnInitialize.setToolTip('activate face detection')
+		self.btnInitialize.resize(110, 30)
+		self.btnInitialize.move(700, 330)
+		self.btnInitialize.clicked.connect(self.on_click_initialize)
 		
 		self.show()
-		
-	def style_choice(self, text):
-		if self.smiling == True:
-			if (text == "a"):
-				keyboard.press(Key.down)
-				print('a')
-			if (text == "b"):
-				print("b")
 
 	def btnState(self, state):
 		# checkBox activations
-		
 		# smile checkbox
 		if state.text() == "smile":
 			if state.isChecked() == True:
@@ -469,20 +471,14 @@ class App(QWidget):
 	def on_click_initialize(self):
 		if self.faceShapePredictorActivated == True:
 			self.faceShapePredictorActivated = False
+			self.btnInitialize.setText("Activate")
 			
 		elif self.faceShapePredictorActivated == False:
 			self.faceShapePredictorActivated = True
-	
-	# this method captures the points of the face, to compare the differences between the values.
-	def on_click_capture(self):
-		if (self.faceShapePredictorActivated == True):
-			self.captureFacePositions = True
-			print("capturing landmarks")
-			
-		elif (self.faceShapePredictorActivated == False):
-			print("activate required")
+			self.btnInitialize.setText("Deactivate")
 		
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
-	ex = App()
+	GUI = App()
+	#GUI.show()
 	sys.exit(app.exec_())
