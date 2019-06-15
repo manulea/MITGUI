@@ -1,6 +1,6 @@
 import sys
-from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtWidgets import QMainWindow, QCheckBox, QApplication, QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QPlainTextEdit
+from PyQt5 import QtCore, QtWidgets, QtGui, uic
+from PyQt5.QtWidgets import QMainWindow, QCheckBox, QApplication, QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QPlainTextEdit, QMessageBox
 from PyQt5.QtGui import QIcon, QPalette, QColor, QPixmap, QImage
 from PyQt5.QtCore import pyqtSlot, QSize, Qt
 
@@ -24,7 +24,11 @@ class App(QWidget):
 	def __init__(self):
 		super().__init__()
 
-		self.title = 'Face Recognition'
+		self.title = 'FR'
+		
+		#self.ui = uic.loadUi('main_window.ui')
+		
+		self.closeEvent = self.closeEvent
 		
 		self.left = 200
 		self.top = 200
@@ -38,38 +42,34 @@ class App(QWidget):
 		
 		self.count = 0
 		
+		self.webcamActive = True
+		
+		self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+		
+		pygame.init()
+		 
 		self.initUI()
-				
+		
 		self.smileActivated = False
 		self.openMouthActivated = False
 		self.raiseEyebrowsActivated = False
 		self.snarlActivated = False
 		self.blinkActivated = False
-				
-		self.topLeftX = 0
-		self.topLeftY = 0
-		self.botRightX = 0
-		self.botRightY = 0
-		
 		
 		os.startfile('file.txt')
 
 		self.landmarks()
 	
 	def landmarks(self):
-		# p = our pre-treined model directory, on my case, it's on the same script's diretory.
+		# p = our pre-treined model directory, on my case, it's on the same script's directory.
 		p = "shape_predictor_68_face_landmarks.dat"
 		
 		detector = dlib.get_frontal_face_detector()
 		predictor = dlib.shape_predictor(p)
 		
-		cap = cv2.VideoCapture(0)
-		
-		pygame.init()
-		 
-		while True:
+		while self.webcamActive == True:
 			# Getting out image by webcam 
-			_, frame = cap.read()
+			_, frame = self.cap.read()
 			# Converting the image to gray scale
 			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			# Get faces into webcam's image
@@ -81,8 +81,10 @@ class App(QWidget):
 					# Make the prediction and transfom it to numpy array
 					shape = predictor(gray, rect)
 					shape = face_utils.shape_to_np(shape)
+					
+					# Green
 					for (x, y) in shape:
-						cv2.circle(frame, (x, y), 2, (255, 0, 0), -1)
+						cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
 					# Recognise gestures
 					# Baseline
 					base_line = ((shape[16][0]) - (shape[0][0]))
@@ -160,14 +162,17 @@ class App(QWidget):
 			QImage.Format_RGB888)
 			self.webcam.setPixmap(QPixmap.fromImage(image))
 			self.webcam.show()
+			
 			k = cv2.waitKey(5) & 0xFF
 			if k == 27:
 				self.exit()
 			# Press 'q' to break out of loop
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				self.exit()
+				
 		cv2.destroyAllWindows()
-		cap.release()
+		self.cap.release()
+		
 	def wait_for_key(self):
 		e = pygame.event.wait()
 		while e.type != pygame.KEYDOWN:
@@ -175,31 +180,12 @@ class App(QWidget):
 			if e.type == pygame.QUIT:
 				return pygame.K_ESCAPE
 		return e.key
-	def leftRight(self, x, y, topLeftX, topLeftY, botRightX, botRightY, frame, count):
-		# Box - top left 
-		if x > self.topLeftX and self.topLeftX == 0:
-			self.topLeftX = x
-		if x < self.topLeftX and self.topLeftX > 0:
-			self.topLeftX = x
-		if y > self.topLeftY and self.topLeftY == 0:
-			self.topLeftY = y
-		if y < self.topLeftY and self.topLeftY > 0:
-			self.topLeftY = y
-		# Box - bot right
-		if x >= self.botRightX:
-			self.botRightX = x
-		if y >= self.botRightY:
-			self.botRightY = y
-		if (self.count > 0):
-			if (self.count >= 0) and (self.count <= 68):
-				cv2.circle(frame, (x, y), 2, (255, 255, 255), -1)
-			if (self.count == 9):
-				font = cv2.FONT_HERSHEY_SIMPLEX
-				cv2.putText(frame, ("text"), (x - 40, y + 70), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
 
 	def initUI(self):
+	
 		self.setWindowTitle(self.title)
 		self.setGeometry(self.left, self.top, self.width, self.height)
+		
 		QApplication.setStyle(QtWidgets.QStyleFactory.create('native_style'))
 		# Introducing - The QPalette 
 		dark_palette = QPalette()
@@ -295,8 +281,10 @@ class App(QWidget):
 		self.btnInitialize.resize(110, 30)
 		self.btnInitialize.move(700, 330)
 		self.btnInitialize.clicked.connect(self.on_click_initialize)
-		self.show()
 
+		self.show()
+	
+	
 	def btnState(self, state):
 		# checkBox activations
 		# smile checkbox
@@ -353,10 +341,24 @@ class App(QWidget):
 		elif self.faceShapePredictorActivated == False:
 			self.faceShapePredictorActivated = True
 			self.btnInitialize.setText("Deactivate")
+	
+	def closeEvent(self, event):
+		print("event")
+		reply = QMessageBox.question(self, 'Message',
+			"Are you sure to quit?", QMessageBox.Yes, QMessageBox.No)
+
+		if reply == QMessageBox.Yes:
+			self.webcamActive = False
+			event.accept()
+
+		else:
+			event.ignore()
+	
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
 	GUI = App()
-	#GUI.show()
-	#os.system('TASKKILL /F /IM notepad.exe')
 	pygame.quit()
-	sys.exit(app.exec_())
+	print("Now exiting")
+	sys.exit()
+	
+	#os.system('TASKKILL /F /IM notepad.exe')
