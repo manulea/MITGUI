@@ -1,19 +1,14 @@
 import sys
-from PyQt5 import QtCore, QtWidgets, QtGui, uic
-from PyQt5.QtWidgets import QMainWindow, QCheckBox, QApplication, QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QPlainTextEdit, QMessageBox
+from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtWidgets import QMainWindow, QCheckBox, QApplication, QWidget, QPushButton, QLabel, QPlainTextEdit, QMessageBox
 from PyQt5.QtGui import QIcon, QPalette, QColor, QPixmap, QImage
-from PyQt5.QtCore import pyqtSlot, QSize, Qt
-
-#from PyQt5 import *
-#from PyQt5.QtWidgets import *
-#from PyQt5.QtCore import *
-
+from PyQt5.QtCore import pyqtSlot, Qt
 from imutils import face_utils
 import numpy as np
-
 import cv2
 import dlib
 
+# Used to insert keys
 import win32com.client as comclt
 
 import os
@@ -25,9 +20,7 @@ class App(QWidget):
 		super().__init__()
 
 		self.title = 'FR'
-		
-		#self.ui = uic.loadUi('main_window.ui')
-		
+
 		self.closeEvent = self.closeEvent
 		
 		self.left = 200
@@ -44,6 +37,7 @@ class App(QWidget):
 		
 		self.webcamActive = True
 		
+		# gives an error without CAP_DSHOW
 		self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 		
 		pygame.init()
@@ -155,6 +149,7 @@ class App(QWidget):
 								wsh.SendKeys(self.txtSnarl.toPlainText())
 						except:
 							pass
+							
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
 			rgb_frame.shape[1],
@@ -182,7 +177,6 @@ class App(QWidget):
 		return e.key
 
 	def initUI(self):
-	
 		self.setWindowTitle(self.title)
 		self.setGeometry(self.left, self.top, self.width, self.height)
 		
@@ -283,8 +277,7 @@ class App(QWidget):
 		self.btnInitialize.clicked.connect(self.on_click_initialize)
 
 		self.show()
-	
-	
+
 	def btnState(self, state):
 		# checkBox activations
 		# smile checkbox
@@ -332,6 +325,7 @@ class App(QWidget):
 			else:
 				self.blinkActivated = False
 				print("blink detection deactivated")
+				
 	@pyqtSlot()
 	def on_click_initialize(self):
 		if self.faceShapePredictorActivated == True:
