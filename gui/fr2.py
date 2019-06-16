@@ -10,6 +10,7 @@ from PyQt5.QtCore import pyqtSlot, QSize, Qt
 
 from imutils import face_utils
 import numpy as np
+from collections import deque
 
 import cv2
 import dlib
@@ -52,7 +53,12 @@ class App(QWidget):
 		os.startfile('file.txt')
 
 		self.landmarks()
-
+		
+	def push(a, n):
+		a = np.roll(a, 1)
+		a[0] = n
+		return a
+		
 	def landmarks(self):
 		# p = our pre-treined model directory, on my case, it's on the same script's diretory.
 		p = "shape_predictor_68_face_landmarks.dat"
@@ -131,7 +137,10 @@ class App(QWidget):
 				[337, 276],
 				[328, 277],
 				[320, 276]]
-		 
+		
+		gesture_arr = deque(maxlen=15)
+		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+		
 		while True:
 			# Getting out image by webcam 
 			_, frame = cap.read()
@@ -166,11 +175,11 @@ class App(QWidget):
 						count = count + 1
 						
 					# Recognise gestures
+					
 					# Baseline
 					base_line = ((shape[16][0]) - (shape[0][0]))
-					#print(base_line)
-					# Open mouth
 					
+					# Open mouth
 					if (self.openMouthActivated == True):
 						mouth_top = ((shape[61][1]) + (shape[62][1]) + (shape[63][1]))/3
 						mouth_bottom = ((shape[65][1]) + (shape[66][1]) + (shape[67][1]))/3
@@ -178,10 +187,11 @@ class App(QWidget):
 						
 						try:
 							if(mouth_height/base_line > float(self.txtOpenMouthT.toPlainText())):
-								print("Mouth opened! - ",(mouth_height/base_line))
-								wsh = comclt.Dispatch("WScript.Shell")
-								wsh.AppActivate("Notepad") # select another application
-								wsh.SendKeys(self.txtOpenMouth.toPlainText())
+								#print("Mouth opened! - ",(mouth_height/base_line))
+								gesture_arr.append(0)
+								#wsh = comclt.Dispatch("WScript.Shell")
+								#wsh.AppActivate("Notepad") # select another application
+								#wsh.SendKeys(self.txtOpenMouth.toPlainText())
 						except:
 							pass
 						
@@ -194,10 +204,11 @@ class App(QWidget):
 						
 						try:
 							if(eye_height/base_line > float(self.txtRaiseEyebrowsT.toPlainText())):
-								print("Eyebrows raised! - ",(eye_height/base_line))
-								wsh = comclt.Dispatch("WScript.Shell")
-								wsh.AppActivate("Notepad") # select another application
-								wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
+								gesture_arr.append(1)
+								#print("Eyebrows raised! - ",(eye_height/base_line))
+								#wsh = comclt.Dispatch("WScript.Shell")
+								#wsh.AppActivate("Notepad") # select another application
+								#wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
 						except:
 							pass
 					
@@ -209,10 +220,11 @@ class App(QWidget):
 						
 						try:
 							if(eyelid_height/base_line < float(self.txtBlinkT.toPlainText())):
-								print("Blink detected! - ",(eyelid_height/base_line))
-								wsh = comclt.Dispatch("WScript.Shell")
-								wsh.AppActivate("Notepad") # select another application
-								wsh.SendKeys(self.txtBlink.toPlainText())
+								gesture_arr.append(2)
+								#print("Blink detected! - ",(eyelid_height/base_line))
+								#wsh = comclt.Dispatch("WScript.Shell")
+								#wsh.AppActivate("Notepad") # select another application
+								#wsh.SendKeys(self.txtBlink.toPlainText())
 						except:
 							pass
 							
@@ -224,10 +236,11 @@ class App(QWidget):
 						
 						try:
 							if(mouth_width/base_line > float(self.txtSmileT.toPlainText())):
-								print("Smile detected! - ",(mouth_width/base_line))
-								wsh = comclt.Dispatch("WScript.Shell")
-								wsh.AppActivate("Notepad") # select another application
-								wsh.SendKeys(self.txtSmile.toPlainText())
+								gesture_arr.append(3)
+								#print("Smile detected! - ",(mouth_width/base_line))
+								#wsh = comclt.Dispatch("WScript.Shell")
+								#wsh.AppActivate("Notepad") # select another application
+								#wsh.SendKeys(self.txtSmile.toPlainText())
 						except:
 							pass
 					
@@ -239,12 +252,45 @@ class App(QWidget):
 						#print(nose_height/base_line)
 						try:
 							if(nose_height/base_line < float(self.txtSnarlT.toPlainText())):
-								print("Anger detected! - ",(nose_height/base_line))
-								wsh = comclt.Dispatch("WScript.Shell")
-								wsh.AppActivate("Notepad") # select another application
-								wsh.SendKeys(self.txtSnarl.toPlainText())
+								gesture_arr.append(4)
+								#print("Anger detected! - ",(nose_height/base_line))
+								#wsh = comclt.Dispatch("WScript.Shell")
+								#wsh.AppActivate("Notepad") # select another application
+								#wsh.SendKeys(self.txtSnarl.toPlainText())
 						except:
 							pass
+					
+					gesture_output = max(set(gesture_arr), key=gesture_arr.count)
+					
+					if(gesture_output == 0):
+						print("Mouth opened! - ",(mouth_height/base_line))
+						wsh = comclt.Dispatch("WScript.Shell")
+						wsh.AppActivate("Notepad") # select another application
+						wsh.SendKeys(self.txtOpenMouth.toPlainText())
+					elif(gesture_output == 1):
+						print("Eyebrows raised! - ",(eye_height/base_line))
+						wsh = comclt.Dispatch("WScript.Shell")
+						wsh.AppActivate("Notepad") # select another application
+						wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
+					elif(gesture_output == 2):
+						print("Eye close detected! - ",(eyelid_height/base_line))
+						wsh = comclt.Dispatch("WScript.Shell")
+						wsh.AppActivate("Notepad") # select another application
+						wsh.SendKeys(self.txtBlink.toPlainText())
+					elif(gesture_output == 3):
+						print("Smile detected! - ",(mouth_width/base_line))
+						wsh = comclt.Dispatch("WScript.Shell")
+						wsh.AppActivate("Notepad") # select another application
+						wsh.SendKeys(self.txtSmile.toPlainText())
+					elif(gesture_output == 4):
+						print("Anger detected! - ",(nose_height/base_line))
+						wsh = comclt.Dispatch("WScript.Shell")
+						wsh.AppActivate("Notepad") # select another application
+						wsh.SendKeys(self.txtSnarl.toPlainText())
+				
+				if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
+					gesture_arr = deque(maxlen=20)
+					gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
@@ -338,7 +384,7 @@ class App(QWidget):
 		self.txtOpenMouth.resize(50, 25)
 		
 		self.txtOpenMouthT = QPlainTextEdit(self)
-		self.txtOpenMouthT.insertPlainText("0.10")
+		self.txtOpenMouthT.insertPlainText("0.18")
 		self.txtOpenMouthT.move(835, 100)
 		self.txtOpenMouthT.resize(50, 25)
 		
