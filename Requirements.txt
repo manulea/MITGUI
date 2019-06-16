@@ -1,0 +1,7 @@
+PyQt5
+dlib
+opencv-python
+imutils
+numpy
+win32com
+pygame
