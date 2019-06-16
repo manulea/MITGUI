@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+dlib = "*"
+opencv-python = "*"
+imutils = "*"
+numpy = "*"
+PyQt5 = "*"
+PyAutoGUI = "*"
+win32com = "*"
+pypiwin32 = {file = "https://files.pythonhosted.org/packages/cd/59/7cc2407b15bcd13d43933a5ae163de89b6f366dda8b2b7403453e61c3a05/pypiwin32-219-cp27-none-win32.whl"}
+pywin32 = "*"
+pypiwin = "*"
+pypiwin32-2019 = "*"
+pygame = "*"
+
+[requires]
+python_version = "3.6"

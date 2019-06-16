@@ -3,5 +3,5 @@ dlib
 opencv-python
 imutils
 numpy
-
-pyautogui
+win32com
+pygame

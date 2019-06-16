@@ -1,8 +1,9 @@
 # MITGUI
 
 GUI Installation
-- Read Requirement.txt and download necessary packages
+- Read Requirement.txt and install the packages or 
+  pipenv shell
 
 --- RUNNING ---
-* python FRON.py
+* python FR2.py
 
