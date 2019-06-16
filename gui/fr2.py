@@ -187,11 +187,7 @@ class App(QWidget):
 						
 						try:
 							if(mouth_height/base_line > float(self.txtOpenMouthT.toPlainText())):
-								#print("Mouth opened! - ",(mouth_height/base_line))
 								gesture_arr.append(0)
-								#wsh = comclt.Dispatch("WScript.Shell")
-								#wsh.AppActivate("Notepad") # select another application
-								#wsh.SendKeys(self.txtOpenMouth.toPlainText())
 						except:
 							pass
 						
@@ -205,10 +201,6 @@ class App(QWidget):
 						try:
 							if(eye_height/base_line > float(self.txtRaiseEyebrowsT.toPlainText())):
 								gesture_arr.append(1)
-								#print("Eyebrows raised! - ",(eye_height/base_line))
-								#wsh = comclt.Dispatch("WScript.Shell")
-								#wsh.AppActivate("Notepad") # select another application
-								#wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
 						except:
 							pass
 					
@@ -221,10 +213,6 @@ class App(QWidget):
 						try:
 							if(eyelid_height/base_line < float(self.txtBlinkT.toPlainText())):
 								gesture_arr.append(2)
-								#print("Blink detected! - ",(eyelid_height/base_line))
-								#wsh = comclt.Dispatch("WScript.Shell")
-								#wsh.AppActivate("Notepad") # select another application
-								#wsh.SendKeys(self.txtBlink.toPlainText())
 						except:
 							pass
 							
@@ -237,10 +225,6 @@ class App(QWidget):
 						try:
 							if(mouth_width/base_line > float(self.txtSmileT.toPlainText())):
 								gesture_arr.append(3)
-								#print("Smile detected! - ",(mouth_width/base_line))
-								#wsh = comclt.Dispatch("WScript.Shell")
-								#wsh.AppActivate("Notepad") # select another application
-								#wsh.SendKeys(self.txtSmile.toPlainText())
 						except:
 							pass
 					
@@ -249,14 +233,9 @@ class App(QWidget):
 						nose_top = ((shape[21][1]) + (shape[22][1]))/2
 						nose_bottom = ((shape[31][1]) + (shape[35][1]))/2
 						nose_height = nose_bottom - nose_top
-						#print(nose_height/base_line)
 						try:
 							if(nose_height/base_line < float(self.txtSnarlT.toPlainText())):
 								gesture_arr.append(4)
-								#print("Anger detected! - ",(nose_height/base_line))
-								#wsh = comclt.Dispatch("WScript.Shell")
-								#wsh.AppActivate("Notepad") # select another application
-								#wsh.SendKeys(self.txtSnarl.toPlainText())
 						except:
 							pass
 					
