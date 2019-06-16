@@ -5,11 +5,7 @@ from PyQt5.QtGui import QIcon, QPalette, QColor, QPixmap, QImage
 from PyQt5.QtCore import pyqtSlot, Qt
 from imutils import face_utils
 import numpy as np
-<<<<<<< HEAD:gui/fr2.py
 from collections import deque
-
-=======
->>>>>>> 6ebc27ecc0fb34d26a38096fd07be67a9de9b6ab:fr2.py
 import cv2
 import dlib
 
