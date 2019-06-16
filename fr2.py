@@ -1,8 +1,8 @@
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtWidgets import QMainWindow, QCheckBox, QApplication, QWidget, QPushButton, QLabel, QPlainTextEdit, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QCheckBox, QApplication, QWidget, QPushButton, QLabel, QPlainTextEdit, QMessageBox, QDesktopWidget
 from PyQt5.QtGui import QIcon, QPalette, QColor, QPixmap, QImage
-from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt5.QtCore import pyqtSlot, Qt, QPoint
 from imutils import face_utils
 import numpy as np
 from collections import deque
@@ -16,7 +16,11 @@ import os
 
 import pygame
 
-class App(QWidget):
+import psutil
+
+import time
+
+class App(QMainWindow):
 	def __init__(self):
 		super().__init__()
 
@@ -24,6 +28,9 @@ class App(QWidget):
 
 		self.closeEvent = self.closeEvent
 		
+		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+		self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
 		self.left = 200
 		self.top = 200
 		self.width = 910
@@ -51,10 +58,42 @@ class App(QWidget):
 		self.snarlActivated = False
 		self.blinkActivated = False
 		
+		# Open Notepad
 		os.startfile('file.txt')
+		self.wsh = comclt.Dispatch("WScript.Shell")
+
+		# # Iterate over all running process
+		# for proc in psutil.process_iter():
+			# try:
+				# # Get process name & pid from process object.
+				# processName = proc.name()
+				# processID = proc.pid
+				# print(processName , ' ::: ', processID)
+			# except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+				# pass
+				
+		self.center()
+		
+		self.oldPos = self.pos()
 
 		self.landmarks()
-		
+
+	#center
+	def center(self):
+		qr = self.frameGeometry()
+		cp = QDesktopWidget().availableGeometry().center()
+		qr.moveCenter(cp)
+		self.move(qr.topLeft())
+
+	def mousePressEvent(self, event):
+		self.oldPos = event.globalPos()
+
+	def mouseMoveEvent(self, event):
+		delta = QPoint (event.globalPos() - self.oldPos)
+		#print(delta)
+		self.move(self.x() + delta.x(), self.y() + delta.y())
+		self.oldPos = event.globalPos()
+	
 	def landmarks(self):
 		# p = our pre-treined model directory, on my case, it's on the same script's directory.
 		p = "shape_predictor_68_face_landmarks.dat"
@@ -62,75 +101,77 @@ class App(QWidget):
 		detector = dlib.get_frontal_face_detector()
 		predictor = dlib.shape_predictor(p)
 		
-		# Used so user knows where to put their face.
-		T = [[ 239, 181],
-				[239, 208],
-				[241, 234],
-				[245, 259],
-				[253, 283],
-				[268, 302],
-				[287, 317],
-				[307, 330],
-				[329, 333],
-				[351, 329],
-				[370, 316],
-				[390, 303],
-				[406, 285],
-				[417, 263],
-				[422, 239],
-				[424, 214],
-				[425, 188],
-				[256, 169],
-				[267, 157],
-				[284, 152],
-				[303, 154],
-				[319, 161],
-				[345, 162],
-				[361, 158],
-				[379, 157],
-				[395, 162],
-				[405, 174],
-				[331, 185],
-				[331, 201],
-				[330, 216],
-				[330, 232],
-				[311, 241],
-				[319, 245],
-				[329, 247],
-				[339, 245],
-				[348, 242],
-				[276, 186],
-				[285, 182],
-				[297, 183],
-				[308, 189],
-				[296, 192],
-				[284, 192],
-				[353, 191],
-				[363, 185],
-				[374, 186],
-				[385, 191],
-				[375, 195],
-				[363, 195],
-				[296, 271],
-				[308, 265],
-				[321, 262],
-				[329, 264],
-				[337, 263],
-				[348, 267],
-				[359, 273],
-				[348, 284],
-				[337, 288],
-				[328, 289],
-				[319, 287],
-				[307, 283],
-				[301, 271],
-				[320, 270],
-				[329, 271],
-				[337, 270],
-				[353, 274],
-				[337, 276],
-				[328, 277],
-				[320, 276]]
+		#time.sleep(2.0)
+		
+		# # Used so user knows where to put their face.
+		# T = [[ 239, 181],
+				# [239, 208],
+				# [241, 234],
+				# [245, 259],
+				# [253, 283],
+				# [268, 302],
+				# [287, 317],
+				# [307, 330],
+				# [329, 333],
+				# [351, 329],
+				# [370, 316],
+				# [390, 303],
+				# [406, 285],
+				# [417, 263],
+				# [422, 239],
+				# [424, 214],
+				# [425, 188],
+				# [256, 169],
+				# [267, 157],
+				# [284, 152],
+				# [303, 154],
+				# [319, 161],
+				# [345, 162],
+				# [361, 158],
+				# [379, 157],
+				# [395, 162],
+				# [405, 174],
+				# [331, 185],
+				# [331, 201],
+				# [330, 216],
+				# [330, 232],
+				# [311, 241],
+				# [319, 245],
+				# [329, 247],
+				# [339, 245],
+				# [348, 242],
+				# [276, 186],
+				# [285, 182],
+				# [297, 183],
+				# [308, 189],
+				# [296, 192],
+				# [284, 192],
+				# [353, 191],
+				# [363, 185],
+				# [374, 186],
+				# [385, 191],
+				# [375, 195],
+				# [363, 195],
+				# [296, 271],
+				# [308, 265],
+				# [321, 262],
+				# [329, 264],
+				# [337, 263],
+				# [348, 267],
+				# [359, 273],
+				# [348, 284],
+				# [337, 288],
+				# [328, 289],
+				# [319, 287],
+				# [307, 283],
+				# [301, 271],
+				# [320, 270],
+				# [329, 271],
+				# [337, 270],
+				# [353, 274],
+				# [337, 276],
+				# [328, 277],
+				# [320, 276]]
 		
 		gesture_arr = deque(maxlen=20)
 		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
@@ -143,9 +184,14 @@ class App(QWidget):
 			# Get faces into webcam's image
 			rects = detector(gray, 0)
 			
+			#start_time = time.time() # start time of the loop
+			
 			# Activated
 			if (self.faceShapePredictorActivated == True):
 				for (i, rect) in enumerate(rects):
+				
+					start_time = time.time() # start time of the loop
+					
 					# Make the prediction and transfom it to numpy array
 					shape = predictor(gray, rect)
 					shape = face_utils.shape_to_np(shape)
@@ -213,39 +259,44 @@ class App(QWidget):
 					
 					if(gesture_output == 0):
 						print("Mouth opened! - ",(mouth_height/base_line))
-						wsh = comclt.Dispatch("WScript.Shell")
-						wsh.AppActivate("Notepad") # select another application
-						wsh.SendKeys(self.txtOpenMouth.toPlainText())
+						
+						for i in range(48, 68, 1):
+							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (0, 0, 0), -1)
+							
+						self.wsh.AppActivate("Notepad") # select another application
+						self.wsh.SendKeys(self.txtOpenMouth.toPlainText())
+						
 					elif(gesture_output == 1):
 						print("Eyebrows raised! - ",(eye_height/base_line))
-						wsh = comclt.Dispatch("WScript.Shell")
-						wsh.AppActivate("Notepad") # select another application
-						wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
+						
+						self.wsh.AppActivate("Notepad") # select another application
+						self.wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
+						
 					elif(gesture_output == 2):
 						print("Eye close detected! - ",(eyelid_height/base_line))
-						wsh = comclt.Dispatch("WScript.Shell")
-						wsh.AppActivate("Notepad") # select another application
-						wsh.SendKeys(self.txtBlink.toPlainText())
+						self.wsh.AppActivate("Notepad") # select another application
+						self.wsh.SendKeys(self.txtBlink.toPlainText())
+						
 					elif(gesture_output == 3):
 						print("Smile detected! - ",(mouth_width/base_line))
-						wsh = comclt.Dispatch("WScript.Shell")
-						wsh.AppActivate("Notepad") # select another application
-						wsh.SendKeys(self.txtSmile.toPlainText())
+						self.wsh.AppActivate("Notepad") # select another application
+						self.wsh.SendKeys(self.txtSmile.toPlainText())
+						
 					elif(gesture_output == 4):
 						print("Anger detected! - ",(nose_height/base_line))
-						wsh = comclt.Dispatch("WScript.Shell")
-						wsh.AppActivate("Notepad") # select another application
-						wsh.SendKeys(self.txtSnarl.toPlainText())
+						self.wsh.AppActivate("Notepad") # select another application
+						self.wsh.SendKeys(self.txtSnarl.toPlainText())
 				
 					if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
 						gesture_arr = deque(maxlen=20)
 						gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
-				
+						print(gesture_output)
+						
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
-			rgb_frame.shape[1],
-			rgb_frame.shape[0],
-			QImage.Format_RGB888)
+				rgb_frame.shape[1],
+				rgb_frame.shape[0],
+				QImage.Format_RGB888)
 			self.webcam.setPixmap(QPixmap.fromImage(image))
 			self.webcam.show()
 			
@@ -255,6 +306,8 @@ class App(QWidget):
 			# Press 'q' to break out of loop
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				self.exit()
+				
+			#print("FPS: ", float(1.0 / (time.time() - start_time))) # FPS = 1 / time to process loop
 				
 		cv2.destroyAllWindows()
 		self.cap.release()
@@ -366,7 +419,13 @@ class App(QWidget):
 		self.btnInitialize.resize(110, 30)
 		self.btnInitialize.move(700, 330)
 		self.btnInitialize.clicked.connect(self.on_click_initialize)
-
+		
+		qbtn = QPushButton('X', self)
+		qbtn.clicked.connect(self.close)
+		qbtn.resize(qbtn.sizeHint())
+		qbtn.resize(30,20)
+		qbtn.move(870, 10)   
+		
 		self.show()
 
 	def btnState(self, state):
@@ -428,9 +487,9 @@ class App(QWidget):
 			self.btnInitialize.setText("Deactivate")
 	
 	def closeEvent(self, event):
-		print("event")
+		#print("event")
 		reply = QMessageBox.question(self, 'Message',
-			"Are you sure to quit?", QMessageBox.Yes, QMessageBox.No)
+			"Are you sure you want to quit?", QMessageBox.Yes, QMessageBox.No)
 
 		if reply == QMessageBox.Yes:
 			self.webcamActive = False
@@ -444,6 +503,5 @@ if __name__ == '__main__':
 	GUI = App()
 	pygame.quit()
 	print("Now exiting")
-	sys.exit()
-	
 	#os.system('TASKKILL /F /IM notepad.exe')
+	sys.exit()
