@@ -132,7 +132,7 @@ class App(QWidget):
 				[328, 277],
 				[320, 276]]
 		
-		gesture_arr = deque(maxlen=15)
+		gesture_arr = deque(maxlen=20)
 		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 		
 		while self.webcamActive == True:
@@ -237,9 +237,9 @@ class App(QWidget):
 						wsh.AppActivate("Notepad") # select another application
 						wsh.SendKeys(self.txtSnarl.toPlainText())
 				
-				if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
-					gesture_arr = deque(maxlen=20)
-					gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+					if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
+						gesture_arr = deque(maxlen=20)
+						gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 				
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
