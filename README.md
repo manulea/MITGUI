@@ -1,11 +1,11 @@
 # MITGUI
 - Python version: 3.6.7
 
---- GUI INSTALL ---
+# GUI INSTALL
 git clone https://github.com/manulea/MITGUI
 
-> In the MITGUI directory
-> Using Anaconda Prompt
+> cd in to the MITGUI directory
+> & using Anaconda Prompt
   > pipenv shell
   > pipenv sync //<----- may take a while
 
