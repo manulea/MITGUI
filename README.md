@@ -5,8 +5,8 @@
 git clone https://github.com/manulea/MITGUI
 
 > cd in to the MITGUI directory
- > pipenv shell
- > pipenv sync //<----- may take a while
+> pipenv shell
+> pipenv sync //<----- may take a while
 
 # RUNNING #
 
