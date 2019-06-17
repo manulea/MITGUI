@@ -1,14 +1,14 @@
 # MITGUI
 - Python version: 3.6.7
 
-# GUI INSTALL
+# GUI INSTALLATION INSTRUCTIONS
 git clone https://github.com/manulea/MITGUI
 
 cd in to the *MITGUI* directory
 * pipenv shell
 * pipenv sync //<----- may take a while
 
-# RUNNING #
+# RUNNING
 
 * python FR2.py
 
