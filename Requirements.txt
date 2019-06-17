@@ -1,7 +1,7 @@
-PyQt5
+pyqt5
 dlib
 opencv-python
 imutils
 numpy
-win32com
+pywin32
 pygame

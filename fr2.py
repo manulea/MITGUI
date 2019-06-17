@@ -16,7 +16,7 @@ import os
 
 import pygame
 
-import psutil
+#import psutil
 
 import time
 
