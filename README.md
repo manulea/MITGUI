@@ -1,15 +1,14 @@
 # MITGUI
+- Python version: 3.6.7
 
---- GUI INSTALLATION ---
+# GUI INSTALL
+git clone https://github.com/manulea/MITGUI
 
-- Python version 3.6.7
-- Read Requirement.txt and install the packages
-- or 
-- Enter this line in an Anaconda prompt
-  > pipenv shell
-- then:
+cd in to the *MITGUI* directory
+* pipenv shell
+* pipenv sync //<----- may take a while
 
---- RUNNING ---
+# RUNNING #
 
 * python FR2.py
 
