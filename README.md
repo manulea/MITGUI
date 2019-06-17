@@ -5,11 +5,10 @@
 git clone https://github.com/manulea/MITGUI
 
 > cd in to the MITGUI directory
-> & using Anaconda Prompt
-  > pipenv shell
-  > pipenv sync //<----- may take a while
+ > pipenv shell
+ > pipenv sync //<----- may take a while
 
---- RUNNING ---
+# RUNNING #
 
 * python FR2.py
 
