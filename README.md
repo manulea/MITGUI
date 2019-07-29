@@ -17,4 +17,8 @@ cd in to the *MITGUI* directory
 
 * python FR2.py
 
-#
+# ABOUT
+
+- Using PyQT5 as our base UI setup. We can therefore use its designer tool, to output a ui file, which can be imported in to a python file.
+- To use PyQT5's Designer Tool, you will need to have * pyqt5_tools * installed to your computer.
+
