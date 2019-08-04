@@ -11,17 +11,14 @@ import numpy as np
 from collections import deque
 import cv2
 import dlib
-
 # Used to insert keys
 import win32com.client as comclt
-
 import os
-
 import pygame
-
 #import psutil
-
 import time
+
+import json # for saving/loading settings
 
 class App(QDialog):
 	def __init__(self):
