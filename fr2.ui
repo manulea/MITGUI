@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>999</width>
+    <width>997</width>
     <height>437</height>
    </rect>
   </property>
@@ -298,7 +298,7 @@ text-align: center;</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSlider" name="horizontalSlider">
+  <widget class="QSlider" name="sliderOpenMouth">
    <property name="geometry">
     <rect>
      <x>840</x>
@@ -310,6 +310,9 @@ text-align: center;</string>
    <property name="maximum">
     <number>100</number>
    </property>
+   <property name="singleStep">
+    <number>3</number>
+   </property>
    <property name="value">
     <number>50</number>
    </property>
@@ -319,8 +322,11 @@ text-align: center;</string>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
   </widget>
-  <widget class="QSlider" name="horizontalSlider_2">
+  <widget class="QSlider" name="sliderRaiseEyebrows">
    <property name="geometry">
     <rect>
      <x>840</x>
@@ -338,8 +344,11 @@ text-align: center;</string>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
   </widget>
-  <widget class="QSlider" name="horizontalSlider_3">
+  <widget class="QSlider" name="sliderSmile">
    <property name="geometry">
     <rect>
      <x>840</x>
@@ -357,8 +366,11 @@ text-align: center;</string>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
   </widget>
-  <widget class="QSlider" name="horizontalSlider_4">
+  <widget class="QSlider" name="sliderSnarl">
    <property name="geometry">
     <rect>
      <x>840</x>
@@ -376,8 +388,11 @@ text-align: center;</string>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
   </widget>
-  <widget class="QSlider" name="horizontalSlider_5">
+  <widget class="QSlider" name="sliderBlink">
    <property name="geometry">
     <rect>
      <x>840</x>
@@ -394,6 +409,174 @@ text-align: center;</string>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtOpenMouthT">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>100</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="plainText">
+    <string>0.18</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtRaiseEyebrowsT">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>140</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="plainText">
+    <string>0.2</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtSmileT">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>180</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="plainText">
+    <string>0.3</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtSnarlT">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>230</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="plainText">
+    <string>0.354</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtBlinkT">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>270</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="plainText">
+    <string>0.046</string>
    </property>
   </widget>
  </widget>
