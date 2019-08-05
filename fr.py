@@ -28,8 +28,8 @@ class App(QDialog):
 		super(App, self).__init__()
 		self.title = 'FR'
 		self.closeEvent = self.closeEvent
-		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-		self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+		#self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+		#self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 		self.left = 200
 		self.top = 200
 		self.width = 910
@@ -282,11 +282,11 @@ class App(QDialog):
 		self.sliderSnarl.valueChanged.connect(lambda:self.valuechanged())
 		self.sliderBlink.valueChanged.connect(lambda:self.valuechanged())
 		
-		qbtn = QPushButton('X', self)
-		qbtn.clicked.connect(self.close)
-		qbtn.resize(qbtn.sizeHint())
-		qbtn.resize(30,20)
-		qbtn.move(855, 10)
+		# qbtn = QPushButton('X', self)
+		# qbtn.clicked.connect(self.close)
+		# qbtn.resize(qbtn.sizeHint())
+		# qbtn.resize(30,20)
+		# qbtn.move(855, 10)
 		  
 		# Webcam
 		self.webcam.setText("Webcam")
@@ -295,17 +295,17 @@ class App(QDialog):
 		self.show()
 
 	def valuechanged(self):
-		self.openMouthVar = float(self.sliderOpenMouth.value())/277
-		self.raiseEyebrowsVar = float(self.sliderRaiseEyebrows.value())/250
-		self.smileVar = float(self.sliderSmile.value())/166
-		self.snarlVar = float(self.sliderSnarl.value())/141
-		self.blinkVar = float(self.sliderBlink.value())/1070
+		self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 4)
+		self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 250, 4)
+		self.smileVar = round(float(self.sliderSmile.value()) / 166, 4)
+		self.snarlVar = round(float(self.sliderSnarl.value()) / 141, 4)
+		self.blinkVar = round(float(self.sliderBlink.value()) / 1070, 4)
 
-		self.txtOpenMouthT = str(self.openMouthVar)
-		self.txtRaiseEyebrowsT = str(self.raiseEyebrowsVar)
-		self.txtSmileT = str(self.smileVar)
-		self.txtSnarlT = str(self.snarlVar)
-		self.txtBlinkT = str(self.blinkVar)
+		self.txtOpenMouthT.setPlainText(str(self.openMouthVar))
+		self.txtRaiseEyebrowsT.setPlainText(str(self.raiseEyebrowsVar))
+		self.txtSmileT.setPlainText(str(self.smileVar))
+		self.txtSnarlT.setPlainText(str(self.snarlVar))
+		self.txtBlinkT.setPlainText(str(self.blinkVar))
 		
 	def btnState(self, state):
 		# checkBox activations

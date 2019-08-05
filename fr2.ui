@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>997</width>
-    <height>437</height>
+    <width>1008</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>fr</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -22,8 +22,8 @@
   <widget class="QPushButton" name="btnInitialize">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>370</y>
+     <x>60</x>
+     <y>240</y>
      <width>221</width>
      <height>41</height>
     </rect>
@@ -48,8 +48,8 @@
   <widget class="QCheckBox" name="cboxOpenMouth">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>110</y>
+     <x>20</x>
+     <y>30</y>
      <width>111</width>
      <height>17</height>
     </rect>
@@ -73,8 +73,8 @@
   <widget class="QCheckBox" name="cboxRaiseEyebrows">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>150</y>
+     <x>20</x>
+     <y>70</y>
      <width>101</width>
      <height>17</height>
     </rect>
@@ -95,8 +95,8 @@
   <widget class="QCheckBox" name="cboxSmile">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>190</y>
+     <x>20</x>
+     <y>110</y>
      <width>101</width>
      <height>17</height>
     </rect>
@@ -117,8 +117,8 @@
   <widget class="QCheckBox" name="cboxSnarl">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>230</y>
+     <x>20</x>
+     <y>150</y>
      <width>101</width>
      <height>17</height>
     </rect>
@@ -139,8 +139,8 @@
   <widget class="QCheckBox" name="cboxBlink">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>270</y>
+     <x>20</x>
+     <y>190</y>
      <width>101</width>
      <height>17</height>
     </rect>
@@ -161,8 +161,8 @@
   <widget class="QPlainTextEdit" name="txtOpenMouth">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>110</y>
+     <x>130</x>
+     <y>30</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -194,8 +194,8 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtRaiseEyebrows">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>150</y>
+     <x>130</x>
+     <y>70</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -213,8 +213,8 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtSmile">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>190</y>
+     <x>130</x>
+     <y>110</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -232,8 +232,8 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtSnarl">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>230</y>
+     <x>130</x>
+     <y>150</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -251,8 +251,8 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtBlink">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>270</y>
+     <x>130</x>
+     <y>190</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -274,7 +274,7 @@ text-align: center;</string>
   <widget class="QLabel" name="webcam">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>370</x>
      <y>20</y>
      <width>611</width>
      <height>391</height>
@@ -301,17 +301,20 @@ text-align: center;</string>
   <widget class="QSlider" name="sliderOpenMouth">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>110</y>
+     <x>200</x>
+     <y>30</y>
      <width>71</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
    </property>
    <property name="maximum">
     <number>100</number>
    </property>
    <property name="singleStep">
-    <number>3</number>
+    <number>1</number>
    </property>
    <property name="value">
     <number>50</number>
@@ -329,11 +332,14 @@ text-align: center;</string>
   <widget class="QSlider" name="sliderRaiseEyebrows">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>150</y>
+     <x>200</x>
+     <y>70</y>
      <width>71</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
    </property>
    <property name="maximum">
     <number>100</number>
@@ -351,11 +357,14 @@ text-align: center;</string>
   <widget class="QSlider" name="sliderSmile">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>190</y>
+     <x>200</x>
+     <y>110</y>
      <width>71</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
    </property>
    <property name="maximum">
     <number>100</number>
@@ -373,11 +382,14 @@ text-align: center;</string>
   <widget class="QSlider" name="sliderSnarl">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>230</y>
+     <x>200</x>
+     <y>150</y>
      <width>71</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
    </property>
    <property name="maximum">
     <number>100</number>
@@ -395,11 +407,14 @@ text-align: center;</string>
   <widget class="QSlider" name="sliderBlink">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>270</y>
+     <x>200</x>
+     <y>190</y>
      <width>71</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
    </property>
    <property name="maximum">
     <number>100</number>
@@ -417,9 +432,9 @@ text-align: center;</string>
   <widget class="QPlainTextEdit" name="txtOpenMouthT">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>100</y>
-     <width>51</width>
+     <x>280</x>
+     <y>30</y>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
@@ -450,9 +465,9 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtRaiseEyebrowsT">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>140</y>
-     <width>51</width>
+     <x>280</x>
+     <y>70</y>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
@@ -483,9 +498,9 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtSmileT">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>180</y>
-     <width>51</width>
+     <x>280</x>
+     <y>110</y>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
@@ -516,9 +531,9 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtSnarlT">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>230</y>
-     <width>51</width>
+     <x>280</x>
+     <y>150</y>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
@@ -549,9 +564,9 @@ alignment: AlignCenter;</string>
   <widget class="QPlainTextEdit" name="txtBlinkT">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>270</y>
-     <width>51</width>
+     <x>280</x>
+     <y>190</y>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
