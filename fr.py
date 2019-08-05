@@ -65,7 +65,12 @@ class App(QDialog):
 		self.oldPos = self.pos()
 		self.landmarks()
 		
-	#center
+		self.openMouthVar = 0.18
+		self.raiseEyebrowsVar = 0.2
+		self.smileVar = 0.3
+		self.snarlVar = 0.354
+		self.blinkVar = 0.046
+
 	def center(self):
 		qr = self.frameGeometry()
 		cp = QDesktopWidget().availableGeometry().center()
@@ -87,79 +92,7 @@ class App(QDialog):
 		
 		detector = dlib.get_frontal_face_detector()
 		predictor = dlib.shape_predictor(p)
-		
-		#time.sleep(2.0)
-		
-		# # Used so user knows where to put their face.
-		# T = [[ 239, 181],
-				# [239, 208],
-				# [241, 234],
-				# [245, 259],
-				# [253, 283],
-				# [268, 302],
-				# [287, 317],
-				# [307, 330],
-				# [329, 333],
-				# [351, 329],
-				# [370, 316],
-				# [390, 303],
-				# [406, 285],
-				# [417, 263],
-				# [422, 239],
-				# [424, 214],
-				# [425, 188],
-				# [256, 169],
-				# [267, 157],
-				# [284, 152],
-				# [303, 154],
-				# [319, 161],
-				# [345, 162],
-				# [361, 158],
-				# [379, 157],
-				# [395, 162],
-				# [405, 174],
-				# [331, 185],
-				# [331, 201],
-				# [330, 216],
-				# [330, 232],
-				# [311, 241],
-				# [319, 245],
-				# [329, 247],
-				# [339, 245],
-				# [348, 242],
-				# [276, 186],
-				# [285, 182],
-				# [297, 183],
-				# [308, 189],
-				# [296, 192],
-				# [284, 192],
-				# [353, 191],
-				# [363, 185],
-				# [374, 186],
-				# [385, 191],
-				# [375, 195],
-				# [363, 195],
-				# [296, 271],
-				# [308, 265],
-				# [321, 262],
-				# [329, 264],
-				# [337, 263],
-				# [348, 267],
-				# [359, 273],
-				# [348, 284],
-				# [337, 288],
-				# [328, 289],
-				# [319, 287],
-				# [307, 283],
-				# [301, 271],
-				# [320, 270],
-				# [329, 271],
-				# [337, 270],
-				# [353, 274],
-				# [337, 276],
-				# [328, 277],
-				# [320, 276]]
-		
+
 		gesture_arr = deque(maxlen=20)
 		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 		
@@ -197,7 +130,7 @@ class App(QDialog):
 						mouth_bottom = ((shape[65][1]) + (shape[66][1]) + (shape[67][1]))/3
 						mouth_height = mouth_bottom - mouth_top
 						try:
-							if(mouth_height/base_line > float(self.txtOpenMouthT.toPlainText())):
+							if(mouth_height/base_line > float(self.openMouthVar)):
 								gesture_arr.append(0)
 						except:
 							pass
@@ -207,7 +140,7 @@ class App(QDialog):
 						eye_bottom = ((shape[27][1]) + (shape[28][1]))/2
 						eye_height = eye_bottom - eye_top
 						try:
-							if(eye_height/base_line > float(self.txtRaiseEyebrowsT.toPlainText())):
+							if(eye_height/base_line > float(self.raiseEyebrowsVar)):
 								gesture_arr.append(1)
 						except:
 							pass
@@ -217,7 +150,7 @@ class App(QDialog):
 						eyelid_bottom = ((shape[40][1]) + (shape[41][1]) + (shape[46][1]) + (shape[47][1]))/4
 						eyelid_height = eyelid_bottom - eyelid_top
 						try:
-							if(eyelid_height/base_line < float(self.txtBlinkT.toPlainText())):
+							if(eyelid_height/base_line < float(self.blinkVar)):
 								gesture_arr.append(2)
 						except:
 							pass
@@ -227,7 +160,7 @@ class App(QDialog):
 						mouth_right = ((shape[53][0]) + (shape[54][0]) + (shape[55][0]) + (shape[64][0]))/4
 						mouth_width = mouth_right - mouth_left
 						try:
-							if(mouth_width/base_line > float(self.txtSmileT.toPlainText())):
+							if(mouth_width/base_line > float(self.smileVar)):
 								gesture_arr.append(3)
 						except:
 							pass
@@ -237,7 +170,7 @@ class App(QDialog):
 						nose_bottom = ((shape[31][1]) + (shape[35][1]))/2
 						nose_height = nose_bottom - nose_top
 						try:
-							if(nose_height/base_line < float(self.txtSnarlT.toPlainText())):
+							if(nose_height/base_line < float(self.snarlVar)):
 								gesture_arr.append(4)
 						except:
 							pass
@@ -342,6 +275,13 @@ class App(QDialog):
 		self.btnInitialize.setToolTip('activate face detection')
 		self.btnInitialize.clicked.connect(self.on_click_initialize)		
 		
+		# Sliders
+		self.sliderOpenMouth.valueChanged.connect(lambda:self.valuechanged())
+		self.sliderRaiseEyebrows.valueChanged.connect(lambda:self.valuechanged())
+		self.sliderSmile.valueChanged.connect(lambda:self.valuechanged())
+		self.sliderSnarl.valueChanged.connect(lambda:self.valuechanged())
+		self.sliderBlink.valueChanged.connect(lambda:self.valuechanged())
+		
 		qbtn = QPushButton('X', self)
 		qbtn.clicked.connect(self.close)
 		qbtn.resize(qbtn.sizeHint())
@@ -354,6 +294,19 @@ class App(QDialog):
 		#self.webcam.resize(640, 480)
 		self.show()
 
+	def valuechanged(self):
+		self.openMouthVar = float(self.sliderOpenMouth.value())/277
+		self.raiseEyebrowsVar = float(self.sliderRaiseEyebrows.value())/250
+		self.smileVar = float(self.sliderSmile.value())/166
+		self.snarlVar = float(self.sliderSnarl.value())/141
+		self.blinkVar = float(self.sliderBlink.value())/1070
+
+		self.txtOpenMouthT = str(self.openMouthVar)
+		self.txtRaiseEyebrowsT = str(self.raiseEyebrowsVar)
+		self.txtSmileT = str(self.smileVar)
+		self.txtSnarlT = str(self.snarlVar)
+		self.txtBlinkT = str(self.blinkVar)
+		
 	def btnState(self, state):
 		# checkBox activations
 		# smile checkbox
