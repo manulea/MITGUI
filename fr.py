@@ -159,7 +159,12 @@ class App(QDialog):
 		
 		gesture_arr = deque(maxlen=20)
 		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
-                
+		
+		def saveSettings(path, fileName, data):
+			filePathNameWExt = './' + path + '/' + fileName + '.json'
+			with open(filePathNameWExt, 'w') as fp:
+				json.dump(data, fp)
+		
 		while self.webcamActive == True:
 			# Getting out image by webcam 
 			_, frame = self.cap.read()
