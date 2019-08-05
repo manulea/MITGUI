@@ -159,15 +159,18 @@ class App(QDialog):
 		
 		gesture_arr = deque(maxlen=20)
 		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
-		
+                
 		while self.webcamActive == True:
 			# Getting out image by webcam 
 			_, frame = self.cap.read()
 			# Converting the image to gray scale
-			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-			# Get faces into webcam's image
-			rects = detector(gray, 0)
-			
+			if(frame is not None):
+				gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+				# Get faces into webcam's image
+				rects = detector(gray, 0)
+			else:
+				print("Error connecting to webcam! Exiting...")
+				sys.exit()
 			#start_time = time.time() # start time of the loop
 			
 			# Activated
