@@ -17,10 +17,10 @@ cd in to the *MITGUI* directory
 * python FR2.py
 
 # A special thanks to the following creators of these Libraries:
-pyqt5
-dlib
-opencv-python
-imutils
-numpy
-pywin32
-pygame
+* pyqt5
+* dlib
+* opencv-python
+* imutils
+* numpy
+* pywin32
+* pygame
