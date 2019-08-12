@@ -1,17 +1,70 @@
 # MITGUI
 Authors: Sione Manulea, Joshua Clarke
-- Python version: 3.6.7
+- Python version: 3.6.8
 
 This software was created by students at the Otago Polytechnic for our Project 1 & 2 papers in the BIT degree. It is a prototype demo of software that has the potential to allow physically impaired individuals to use a personal computer via facial gestures.
 
 For example they could map a keystroke to the "open mouth" gesture. This would mean that while running the software, they could open their mouth and the keystroke of their choosing would be sent to the computer by the software, rather than by the keyboard.
 
-# GUI INSTALLATION INSTRUCTIONS
-git clone https://github.com/manulea/MITGUI
+# Installation instructions
+## 1. Git
+Download Git for your operating system here: https://git-scm.com/downloads
+And depending if your computer is 34-bit or 64-bit, download Git for windows setup.
 
+Once it's downloaded, you need to run the Git.exe from your downloads folder.
+
+Here is the step by step instructions on how to install it correctly.
+
+GNU General Public License -> Click Next 
+Selection Destination Location -> Nothing to change here, click Next
+Select Components -> Nothing to change here, click Next
+Select Start Menu Folder -> Nothing to change here, click Next
+Choosing the default editor used by Git -> Unless your a professional, click Next
+Adjusting your PATH environment -> Again, unless you know what you're doing or your a wizard, click Next
+Choosing HTTPS transport backend -> click Next
+Configuring the line ending conversions -> click Next
+Configuring the terminal emulator to use with Git Bash -> click Next
+Configuring extra options -> click Next
+Configuring experimental options -> click Next
+Click Install
+
+This shouldn't take too long.
+
+Completing the Git Setup Wizard -> Make sure "Launch Git Bash" is checked, and then click Finish
+
+### A wild prompt should appear (if it doesn't, then click the start menu, and while the start menu is active type "Git Bash" and click the Git Bash app)
+
+Once the command prompt is open, click anywhere in the box then type these commands:
+
+* mkdir fr
+* cd fr
+* git clone https://github.com/manulea/MITGUI
+
+If the command is successful you should beable to see "Cloning into 'MITGUI'"
+
+Okay now you can close the Git Bash app with the X button.
+
+
+## 2. Anaconda Distribution
+Go to this website to install Anaconda Distribution: https://www.anaconda.com/distribution/
+While on the page, scroll down a bit until you see Windows, Mac or Linux.
+Choose the operating system that you are installing this software on.
+Then under Python 3.7 version, you will need to download the Graphical installer.
+For windows: if you don't know if you're 64 bit or 32 bit here is a guide: https://www.lifewire.com/am-i-running-a-32-bit-or-64-bit-version-of-windows-2624475
+
+--- TO BE CONTINUED ---
+
+Once it's downloaded and installed, open Anaconda Prompt from the start menu and type in these commands:
+* conda update conda
+* conda install -c anaconda python
+
+## You are now ready to run the software 
+
+# GUI how to run the software.
+Using the Anaconda prompt
 cd in to the *MITGUI* directory
 * pipenv shell
-* pipenv sync //<----- may take a while
+* pipenv sync
 
 # RUNNING
 * python FR2.py
