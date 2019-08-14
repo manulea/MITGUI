@@ -9,24 +9,24 @@ For example they could map a keystroke to the "open mouth" gesture. This would m
 # Installation instructions
 ## 1. Git
 Download Git for your operating system here: https://git-scm.com/downloads
-And depending if your computer is 34-bit or 64-bit, download Git for windows setup.
+And depending if your computer is 34-bit or 64-bit, download Git for your particular windows setup.
 
-Once it's downloaded, you need to run the Git.exe from your downloads folder.
+Once it's downloaded, you need to open the Git.exe file you downloaded.
 
-Here is the step by step instructions on how to install it correctly.
+Here is the step by step instructions on how to install git correctly.
 
-GNU General Public License -> Click Next 
-Selection Destination Location -> Nothing to change here, click Next
-Select Components -> Nothing to change here, click Next
-Select Start Menu Folder -> Nothing to change here, click Next
-Choosing the default editor used by Git -> Unless your a professional, click Next
-Adjusting your PATH environment -> Again, unless you know what you're doing or your a wizard, click Next
-Choosing HTTPS transport backend -> click Next
-Configuring the line ending conversions -> click Next
-Configuring the terminal emulator to use with Git Bash -> click Next
-Configuring extra options -> click Next
-Configuring experimental options -> click Next
-Click Install
+1. GNU General Public License -> Click Next 
+2. Selection Destination Location -> Nothing to change here, click Next
+3. Select Components -> Nothing to change here, click Next
+4. Select Start Menu Folder -> Nothing to change here, click Next
+5. Choosing the default editor used by Git -> Unless your a professional, click Next
+6. Adjusting your PATH environment -> Again, unless you know what you're doing or your a wizard, click Next
+7. Choosing HTTPS transport backend -> click Next
+8. Configuring the line ending conversions -> click Next
+9. Configuring the terminal emulator to use with Git Bash -> click Next
+10. Configuring extra options -> click Next
+11. Configuring experimental options -> click Next
+12. Click Install
 
 This shouldn't take too long.
 
