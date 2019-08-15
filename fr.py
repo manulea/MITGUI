@@ -96,7 +96,7 @@ class App(QDialog):
 		def saveSettings(path, fileName, data):
 			filePathNameWExt = './' + path + '/' + fileName + '.json'
 			with open(filePathNameWExt, 'w') as fp:
-				json.dump(data, fp)
+				json.dump(data, fp)bb
 		
 		while self.webcamActive == True:
 			# Getting out image by webcam 
@@ -216,6 +216,7 @@ class App(QDialog):
 						gesture_arr = deque(maxlen=20)
 						gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 						print(gesture_output)
+						time.sleep(0.5)
 						
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
@@ -292,7 +293,7 @@ class App(QDialog):
 		qbtn.resize(qbtn.sizeHint())
 		qbtn.resize(30,20)
 		qbtn.move(855, 10)
-		  
+		
 		# Webcam
 		self.webcam.setText("Webcam")
 		#self.webcam.move(10, 10)
