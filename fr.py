@@ -25,30 +25,38 @@ class App(QDialog):
 		super(App, self).__init__()
 		self.title = 'FR'
 		self.closeEvent = self.closeEvent
-		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-		self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-		self.left = 200
-		self.top = 200
-		self.width = 910
-		self.height = 420
+		#self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+		#self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 		self.setWindowIcon(QtGui.QIcon('icon.png'))
+		
 		self.captureFacePositions = True
 		self.capturedPositions = False
 		self.faceShapePredictorActivated = False
+		
 		self.count = 0
 		self.webcamActive = True
+		
 		# gives an error without CAP_DSHOW
+		
 		self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+		
 		pygame.init()
+		
 		self.initUI()
+		
 		self.smileActivated = False
 		self.openMouthActivated = False
 		self.raiseEyebrowsActivated = False
 		self.snarlActivated = False
 		self.blinkActivated = False
+		
 		# Open Notepad
-		os.startfile('file.txt')
+		#os.startfile('file.txt')
+		
+		# Open keytyper
+		
 		self.wsh = comclt.Dispatch("WScript.Shell")
+		
 		# # Iterate over all running process
 		# for proc in psutil.process_iter():
 			# try:
@@ -58,13 +66,14 @@ class App(QDialog):
 				# print(processName , ' ::: ', processID)
 			# except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
 				# pass
+
 		self.center()
 		self.oldPos = self.pos()
 		self.landmarks()
 		
 		self.openMouthVar = 0.18
-		self.raiseEyebrowsVar = 0.2
-		self.smileVar = 0.3
+		self.raiseEyebrowsVar = 0.21
+		self.smileVar = 0.30
 		self.snarlVar = 0.354
 		self.blinkVar = 0.046
 
@@ -188,28 +197,28 @@ class App(QDialog):
 						for i in range(48, 68, 1):
 							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (0, 0, 0), -1)
 							
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtOpenMouth.toPlainText())
 						
 					elif(gesture_output == 1):
 						print("Eyebrows raised! - ",(eye_height/base_line))
 						
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
 						
 					elif(gesture_output == 2):
 						print("Eye close detected! - ",(eyelid_height/base_line))
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtBlink.toPlainText())
 						
 					elif(gesture_output == 3):
 						print("Smile detected! - ",(mouth_width/base_line))
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtSmile.toPlainText())
 						
 					elif(gesture_output == 4):
 						print("Anger detected! - ",(nose_height/base_line))
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtSnarl.toPlainText())
 				
 					if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
@@ -247,9 +256,13 @@ class App(QDialog):
 		return e.key
 		
 	def initUI(self):
-		self.setWindowTitle(self.title)
-		self.setGeometry(self.left, self.top, self.width, self.height)
 		loadUi('fr2.ui',self)
+		
+		self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 2)
+		self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 251, 2)
+		self.smileVar = round(float(self.sliderSmile.value()) / 166, 2)
+		self.snarlVar = round(float(self.sliderSnarl.value()) / 141, 3)
+		self.blinkVar = round(float(self.sliderBlink.value()) / 1070, 3)
 		
 		# QApplication.setStyle(QtWidgets.QStyleFactory.create('native_style'))
 		# # Introducing - The QPalette 
@@ -288,11 +301,11 @@ class App(QDialog):
 		self.sliderSnarl.valueChanged.connect(lambda:self.valuechanged())
 		self.sliderBlink.valueChanged.connect(lambda:self.valuechanged())
 		
-		qbtn = QPushButton('X', self)
-		qbtn.clicked.connect(self.close)
-		qbtn.resize(qbtn.sizeHint())
-		qbtn.resize(30,20)
-		qbtn.move(855, 10)
+		# qbtn = QPushButton('X', self)
+		# qbtn.clicked.connect(self.close)
+		# qbtn.resize(qbtn.sizeHint())
+		# qbtn.resize(30,20)
+		# qbtn.move(855, 10)
 		
 		# Webcam
 		self.webcam.setText("Webcam")
@@ -301,17 +314,17 @@ class App(QDialog):
 		self.show()
 
 	def valuechanged(self):
-		self.openMouthVar = float(self.sliderOpenMouth.value())/277
-		self.raiseEyebrowsVar = float(self.sliderRaiseEyebrows.value())/250
-		self.smileVar = float(self.sliderSmile.value())/166
-		self.snarlVar = float(self.sliderSnarl.value())/141
-		self.blinkVar = float(self.sliderBlink.value())/1070
+		self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 2)
+		self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 250, 2)
+		self.smileVar = round(float(self.sliderSmile.value()) / 166, 2)
+		self.snarlVar = round(float(self.sliderSnarl.value()) / 141, 3)
+		self.blinkVar = round(float(self.sliderBlink.value()) / 1070, 3)
 
-		self.txtOpenMouthT = str(self.openMouthVar)
-		self.txtRaiseEyebrowsT = str(self.raiseEyebrowsVar)
-		self.txtSmileT = str(self.smileVar)
-		self.txtSnarlT = str(self.snarlVar)
-		self.txtBlinkT = str(self.blinkVar)
+		self.txtOpenMouthT.setPlainText(str(self.openMouthVar))
+		self.txtRaiseEyebrowsT.setPlainText(str(self.raiseEyebrowsVar))
+		self.txtSmileT.setPlainText(str(self.smileVar))
+		self.txtSnarlT.setPlainText(str(self.snarlVar))
+		self.txtBlinkT.setPlainText(str(self.blinkVar))
 		
 	def btnState(self, state):
 		# checkBox activations

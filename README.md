@@ -2,23 +2,111 @@
 Authors: Sione Manulea, Joshua Clarke
 - Python version: 3.6.7
 
-This software was created by students at the Otago Polytrechnic for the Project 1 paper in the BIT degree. It is a prototype demo of software that has the potential to allow physically impaired individuals to use a personal computer via facial gestures.
+This software was created by students at the Otago Polytechnic for our Project 1 & 2 papers in the BIT degree. It is a prototype demo of software that has the potential to allow physically impaired individuals to use a personal computer via facial gestures.
 
 For example they could map a keystroke to the "open mouth" gesture. This would mean that while running the software, they could open their mouth and the keystroke of their choosing would be sent to the computer by the software, rather than by the keyboard.
 
-# GUI INSTALLATION INSTRUCTIONS
-git clone https://github.com/manulea/MITGUI
+# Installation instructions
+## 1. Git [ If you have Git software installed, you can skip this section ]
+* Download Git for your operating system here: https://git-scm.com/downloads
+* Once it's downloaded, you need to open the Git.exe file you downloaded.
 
-cd in to the *MITGUI* directory
-* pipenv shell
-* pipenv sync //<----- may take a while
+#### Here is a step by step guide for how to install git correctly.
+
+1. GNU General Public License -> Click Next 
+2. Selection Destination Location -> Nothing to change here, click Next
+3. Select Components -> Nothing to change here, click Next
+4. Select Start Menu Folder -> Nothing to change here, click Next
+5. Choosing the default editor used by Git -> Unless your a professional, click Next
+6. Adjusting your PATH environment -> Again, unless you know what you're doing or your a wizard, click Next
+7. Choosing HTTPS transport backend -> click Next
+8. Configuring the line ending conversions -> click Next
+9. Configuring the terminal emulator to use with Git Bash -> click Next
+10. Configuring extra options -> click Next
+11. Configuring experimental options -> click Next
+12. Click Install
+13. Completing the Git Setup Wizard -> Make sure "Launch Git Bash" is checked, and then click Finish
+
+### A wild prompt should appear (if it doesn't, then click the start menu, and while the start menu is active type "Git Bash" and click the Git Bash app)
+
+Once the command prompt is open, click anywhere in the black box to type these commands in to:
+
+1. mkdir fr
+2. cd fr
+3. git clone https://github.com/manulea/MITGUI
+
+If the commands are successful you should beable to see "Cloning into 'MITGUI'" in your command prompt.
+
+You can now close this window. 
+
+## 2. Anaconda Distribution [ If you have anaconda interpreter installed, you can skip this section ]
+* Go to the Anaconda website to install the Anaconda Distribution: https://www.anaconda.com/distribution/
+* Scroll down a bit until you see Windows, Mac or Linux.
+* Choose the operating system that you are installing this software on.
+* Under Python 3.7 version, you will need to download the "Graphical installer".
+
+For windows: if you don't know if you're 64 bit or 32 bit here is a guide: https://www.lifewire.com/am-i-running-a-32-bit-or-64-bit-version-of-windows-2624475
+
+* Click Save File
+
+* Run the Anaconda3-2019.07-Windows-x86_64 file that you just saved to your computer. Mine was saved under my Downloads directory.
+
+1. Click Next
+2. Read License Agreement, then click I Agree
+3. Make sure [Just Me (recommended)] is checked, then click Next 
+4. Destionation folder should be: C:\Users\user\Anaconda3, or something similar, click Next
+5. Make sure Register Anaconda as my default Python 3.7 is checked, then click Install
+6. Click Next on the Installation Complete menu
+7. Click Next
+8. Uncheck both boxes, unless you are curious.
+9. Click Finish.
+
+Congratulations, you should now have Anaconda installed!
+
+## 3. Preparing anaconda
+
+Once anaconda is installed, open Anaconda Prompt by clicking on the start menu, and while the start menu is active, type in 
+anaconda prompt, then press enter.
+
+While the anaconda prompt is open, click anywhere in the black box and then follow these instructions:
+
+1. Type: "conda update conda" without the quotation marks, then press the Enter key.
+2. Wait until you see "Proceed <[y]/n>?" 
+3. Type: "y" without the quotaton marks, then press the Enter key to proceed.
+
+4. Wait until you are back at <base> C:\Users\user>_ 
+
+5. Type: "conda install python=3.6.7" without the quotation marks, then press enter on your keyboard.
+6. Wait until you see "Proceed <[y]/n>?" 
+7. Type: "y" without the quotaton marks, then press the Enter key to confirm.
+9. Your Prompt should now be downloading all the packages.
+8. Wait until you are back at <base> C:\Users\user>_ 
+
+You are now ready to run the Face Recognition software.
+
+## 4. Running the software
+
+Using the Anaconda prompt, follow these instructions:
+
+1. Type: "cd fr" without the quotation marks, then press the Enter key on your keyboard.
+2. Type: "cd MITGUI" without the quotation marks, then press the Enter key on your keyboard.
+3. You should now be in <base> C:\Users\user\fr\MITGUI> 
+4. Type "pip install pipenv" without the quotation marks, then press Enter key on your keyboard.
+5. Wait until you see Successfully installed pipenv-2018.11.26
+6. Run pipenv shell by typing: "pipenv shell" in to the command prompt without the qutation marks, then send the instruction to the computer by pressing the Enter key on your keyboard.
+7. You should now be in the virtual environment if you see <MITGUI-*****> <base> C:\Users\user\fr\MITGUI>
+8. Type: "pipenv sync" without the quotation marks, then press Enter key on your keyboard.
+9. This will take a while.
+10. 
 
 # RUNNING
-
 * python FR2.py
 
-# ABOUT
-
-- Using PyQT5 as our base UI setup. We can therefore use its designer tool, to output a ui file, which can be imported in to a python file.
-- To use PyQT5's Designer Tool, you will need to have * pyqt5_tools * installed to your computer.
-
+# A special thanks to the following creators of these Libraries:
+* [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
+* [dlib 19.17.0](https://pypi.org/project/dlib/)
+* [opencv-python 4.1.0.25](https://pypi.org/project/opencv-python/)
+* [imutils 0.5.2](https://pypi.org/project/imutils/)
+* [numpy 1.17.0 ](https://pypi.org/project/numpy/)
+* [pywin32 224](https://pypi.org/project/pywin32/)
+* [pygame 1.9.6](https://pypi.org/project/pygame/)
