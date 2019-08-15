@@ -27,16 +27,16 @@
   <widget class="QPushButton" name="btnInitialize">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>20</x>
      <y>240</y>
-     <width>141</width>
+     <width>131</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Yu Gothic UI Semibold</family>
-     <pointsize>20</pointsize>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>16</pointsize>
      <italic>false</italic>
     </font>
    </property>
@@ -206,6 +206,11 @@ alignment: AlignCenter;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
@@ -224,6 +229,11 @@ alignment: AlignCenter;</string>
      <width>51</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);</string>
@@ -244,6 +254,11 @@ alignment: AlignCenter;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
@@ -262,6 +277,11 @@ alignment: AlignCenter;</string>
      <width>51</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
@@ -309,7 +329,7 @@ text-align: center;</string>
     <rect>
      <x>200</x>
      <y>30</y>
-     <width>71</width>
+     <width>91</width>
      <height>22</height>
     </rect>
    </property>
@@ -340,7 +360,7 @@ text-align: center;</string>
     <rect>
      <x>200</x>
      <y>70</y>
-     <width>71</width>
+     <width>91</width>
      <height>22</height>
     </rect>
    </property>
@@ -368,7 +388,7 @@ text-align: center;</string>
     <rect>
      <x>200</x>
      <y>110</y>
-     <width>71</width>
+     <width>91</width>
      <height>22</height>
     </rect>
    </property>
@@ -396,7 +416,7 @@ text-align: center;</string>
     <rect>
      <x>200</x>
      <y>150</y>
-     <width>71</width>
+     <width>91</width>
      <height>22</height>
     </rect>
    </property>
@@ -424,7 +444,7 @@ text-align: center;</string>
     <rect>
      <x>200</x>
      <y>190</y>
-     <width>71</width>
+     <width>91</width>
      <height>22</height>
     </rect>
    </property>
@@ -447,183 +467,155 @@ text-align: center;</string>
     <enum>QSlider::TicksAbove</enum>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="txtOpenMouthT">
+  <widget class="QPushButton" name="btnSave">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>30</y>
-     <width>71</width>
+     <x>240</x>
+     <y>240</y>
+     <width>111</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>MS Shell Dlg 2</family>
-     <pointsize>11</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
+     <pointsize>12</pointsize>
     </font>
    </property>
-   <property name="whatsThis">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(69, 40, 212);</string>
+   </property>
+   <property name="text">
+    <string>Save Settings</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblOpenMouthT">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>30</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 font: 11pt &quot;MS Shell Dlg 2&quot;;
 alignment: AlignCenter;</string>
    </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
    </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="plainText">
+   <property name="text">
     <string>0.18</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="txtRaiseEyebrowsT">
+  <widget class="QLabel" name="lblRaiseEyebrowsT">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>300</x>
      <y>70</y>
-     <width>71</width>
+     <width>51</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>MS Shell Dlg 2</family>
      <pointsize>11</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
     </font>
-   </property>
-   <property name="whatsThis">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 font: 11pt &quot;MS Shell Dlg 2&quot;;
 alignment: AlignCenter;</string>
    </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
    </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="plainText">
+   <property name="text">
     <string>0.2</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="txtSmileT">
+  <widget class="QLabel" name="lblSmileT">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>300</x>
      <y>110</y>
-     <width>71</width>
+     <width>51</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>MS Shell Dlg 2</family>
      <pointsize>11</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
     </font>
-   </property>
-   <property name="whatsThis">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 font: 11pt &quot;MS Shell Dlg 2&quot;;
 alignment: AlignCenter;</string>
    </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
    </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="plainText">
+   <property name="text">
     <string>0.3</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="txtSnarlT">
+  <widget class="QLabel" name="lblSnarlT">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>300</x>
      <y>150</y>
-     <width>71</width>
+     <width>51</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>MS Shell Dlg 2</family>
      <pointsize>11</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
     </font>
-   </property>
-   <property name="whatsThis">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 font: 11pt &quot;MS Shell Dlg 2&quot;;
 alignment: AlignCenter;</string>
    </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
    </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="plainText">
+   <property name="text">
     <string>0.354</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="txtBlinkT">
+  <widget class="QLabel" name="lblBlinkT">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>300</x>
      <y>190</y>
-     <width>71</width>
+     <width>51</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>MS Shell Dlg 2</family>
      <pointsize>11</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
     </font>
-   </property>
-   <property name="whatsThis">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 font: 11pt &quot;MS Shell Dlg 2&quot;;
 alignment: AlignCenter;</string>
    </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
    </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="plainText">
+   <property name="text">
     <string>0.046</string>
    </property>
   </widget>

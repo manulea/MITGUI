@@ -102,11 +102,6 @@ class App(QDialog):
 		gesture_arr = deque(maxlen=20)
 		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 		
-		def saveSettings(path, fileName, data):
-			filePathNameWExt = './' + path + '/' + fileName + '.json'
-			with open(filePathNameWExt, 'w') as fp:
-				json.dump(data, fp)bb
-		
 		while self.webcamActive == True:
 			# Getting out image by webcam 
 			_, frame = self.cap.read()
@@ -320,11 +315,25 @@ class App(QDialog):
 		self.snarlVar = round(float(self.sliderSnarl.value()) / 141, 3)
 		self.blinkVar = round(float(self.sliderBlink.value()) / 1070, 3)
 
-		self.txtOpenMouthT.setPlainText(str(self.openMouthVar))
-		self.txtRaiseEyebrowsT.setPlainText(str(self.raiseEyebrowsVar))
-		self.txtSmileT.setPlainText(str(self.smileVar))
-		self.txtSnarlT.setPlainText(str(self.snarlVar))
-		self.txtBlinkT.setPlainText(str(self.blinkVar))
+		self.lblOpenMouthT.setText(str(self.openMouthVar))
+		self.lblRaiseEyebrowsT.setText(str(self.raiseEyebrowsVar))
+		self.lblSmileT.setText(str(self.smileVar))
+		self.lblSnarlT.setText(str(self.snarlVar))
+		self.lblBlinkT.setText(str(self.blinkVar))
+	
+	def saveSettings(path, fileName, data):
+		filePathNameWExt = './' + path + '/' + fileName + '.json'
+		with open(filePathNameWExt, 'w') as fp:
+			json.dump(data, fp)	
+	
+	def btnSaveSettings(self):
+		data = {
+		}
+		name, ok = QInputDialog.getText(self, 'Save Settings', 'Enter your name:')
+		
+		if ok:
+			
+		
 		
 	def btnState(self, state):
 		# checkBox activations
