@@ -1,5 +1,5 @@
 import sys 
-from PyQt5.QtWidgets import QApplication,QDialog
+from PyQt5.QtWidgets import QApplication,QDialog,QInputDialog
 from PyQt5.uic import loadUi
 
 from PyQt5 import QtCore, QtWidgets, QtGui
@@ -287,7 +287,9 @@ class App(QDialog):
 		
 		# Buttons
 		self.btnInitialize.setToolTip('activate face detection')
-		self.btnInitialize.clicked.connect(self.on_click_initialize)		
+		self.btnInitialize.clicked.connect(self.on_click_initialize)
+		self.btnInitialize.setToolTip('Save settings')		
+		self.btnSave.clicked.connect(self.btn_save_settings(self.txtOpenMouth.toPlainText(), self.txtRaiseEyebrows.toPlainText(), self.txtSmile.toPlainText(), self.txtSnarl.toPlainText(), self.txtBlink.toPlainText(), self.openMouthVar, self.raiseEyebrowsVar, self.smileVar, self.snarlVar, self.blinkVar))
 		
 		# Sliders
 		self.sliderOpenMouth.valueChanged.connect(lambda:self.valuechanged())
@@ -321,19 +323,29 @@ class App(QDialog):
 		self.lblSnarlT.setText(str(self.snarlVar))
 		self.lblBlinkT.setText(str(self.blinkVar))
 	
-	def saveSettings(path, fileName, data):
-		filePathNameWExt = './' + path + '/' + fileName + '.json'
-		with open(filePathNameWExt, 'w') as fp:
-			json.dump(data, fp)	
+	def save_settings(self, path, fileName, data):
+		filePathNameWExt = path + '/' + fileName + '.json'
+		with open(filePathNameWExt, 'w') as f:
+			json.dump(data, f)
 	
-	def btnSaveSettings(self):
-		data = {
-		}
+	def btn_save_settings(self, openMouthTxt, raiseEyebrowsTxt, smileTxt, snarlTxt, blinkTxt, openMouthVar, raiseEyebrowsVar, smileVar, snarlVar, blinkVar):
+		openMouthKey = openMouthTxt
+		raiseEyebrowsKey = raiseEyebrowsTxt
+		smileKey = smileTxt
+		snarlKey = snarlTxt
+		blinkKey = blinkTxt
+		openMouth = openMouthVar
+		raiseEyebrows = raiseEyebrowsVar
+		smile = smileVar
+		snarl = snarlVar
+		blink = blinkVar
+		data_to_save = { 'openMouthKey' : openMouthKey, 'raiseEyebrowsKey' : raiseEyebrowsKey, 'smileKey' : smileKey, 'snarlKey' : snarlKey, 'blinkKey' : blinkKey, 'openMouthVar' : openMouth, 'raiseEyebrowsVar' : raiseEyebrows, 'smileVar' : smile, 'snarlVar' : snarl, 'blinkVar' : blink }
+		#print(data_to_save)
+		cwd = os.getcwd()
 		name, ok = QInputDialog.getText(self, 'Save Settings', 'Enter your name:')
 		
-		if ok:
-			
-		
+		if ok and name != '':
+			self.save_settings(cwd, name, data_to_save)
 		
 	def btnState(self, state):
 		# checkBox activations
