@@ -619,6 +619,28 @@ alignment: AlignCenter;</string>
     <string>0.046</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="btnLoad">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>280</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(69, 40, 212);</string>
+   </property>
+   <property name="text">
+    <string>Load Settings</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

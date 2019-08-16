@@ -288,8 +288,10 @@ class App(QDialog):
 		# Buttons
 		self.btnInitialize.setToolTip('activate face detection')
 		self.btnInitialize.clicked.connect(self.on_click_initialize)
-		self.btnInitialize.setToolTip('Save settings')		
-		self.btnSave.clicked.connect(self.btn_save_settings(self.txtOpenMouth.toPlainText(), self.txtRaiseEyebrows.toPlainText(), self.txtSmile.toPlainText(), self.txtSnarl.toPlainText(), self.txtBlink.toPlainText(), self.openMouthVar, self.raiseEyebrowsVar, self.smileVar, self.snarlVar, self.blinkVar))
+		self.btnSave.setToolTip('Save settings')		
+		self.btnSave.clicked.connect(lambda:self.btn_save_settings(self.txtOpenMouth.toPlainText(), self.txtRaiseEyebrows.toPlainText(), self.txtSmile.toPlainText(), self.txtSnarl.toPlainText(), self.txtBlink.toPlainText(), self.openMouthVar, self.raiseEyebrowsVar, self.smileVar, self.snarlVar, self.blinkVar))
+		self.btnLoad.setToolTip('Load settings')
+		self.btnLoad.clicked.connect(lambda:self.btn_load_settings)
 		
 		# Sliders
 		self.sliderOpenMouth.valueChanged.connect(lambda:self.valuechanged())
