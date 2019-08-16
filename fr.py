@@ -291,14 +291,14 @@ class App(QDialog):
 		self.btnSave.setToolTip('Save settings')		
 		self.btnSave.clicked.connect(lambda:self.btn_save_settings(self.txtOpenMouth.toPlainText(), self.txtRaiseEyebrows.toPlainText(), self.txtSmile.toPlainText(), self.txtSnarl.toPlainText(), self.txtBlink.toPlainText(), self.openMouthVar, self.raiseEyebrowsVar, self.smileVar, self.snarlVar, self.blinkVar))
 		self.btnLoad.setToolTip('Load settings')
-		self.btnLoad.clicked.connect(lambda:self.btn_load_settings)
+		self.btnLoad.clicked.connect(lambda:self.btn_load_settings())
 		
 		# Sliders
-		self.sliderOpenMouth.valueChanged.connect(lambda:self.valuechanged())
-		self.sliderRaiseEyebrows.valueChanged.connect(lambda:self.valuechanged())
-		self.sliderSmile.valueChanged.connect(lambda:self.valuechanged())
-		self.sliderSnarl.valueChanged.connect(lambda:self.valuechanged())
-		self.sliderBlink.valueChanged.connect(lambda:self.valuechanged())
+		self.sliderOpenMouth.valueChanged.connect(lambda:self.value_changed())
+		self.sliderRaiseEyebrows.valueChanged.connect(lambda:self.value_changed())
+		self.sliderSmile.valueChanged.connect(lambda:self.value_changed())
+		self.sliderSnarl.valueChanged.connect(lambda:self.value_changed())
+		self.sliderBlink.valueChanged.connect(lambda:self.value_changed())
 		
 		# qbtn = QPushButton('X', self)
 		# qbtn.clicked.connect(self.close)
@@ -312,7 +312,7 @@ class App(QDialog):
 		#self.webcam.resize(640, 480)
 		self.show()
 
-	def valuechanged(self):
+	def value_changed(self):
 		self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 2)
 		self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 250, 2)
 		self.smileVar = round(float(self.sliderSmile.value()) / 166, 2)
@@ -349,21 +349,34 @@ class App(QDialog):
 		if ok and name != '':
 			self.save_settings(cwd, name, data_to_save)
 	
-	def load_settings(self, path, fileName):
+	def load_settings(self, fileName):
 		data = {}
-		filePathNameWExt = path + '/' + fileName + '.json'
-		with open(filePathNameWExt, 'r') as f:
-			data = json.load(f)
+		cwd = os.getcwd()
+		name = fileName
+		filePathNameWExt = cwd + '/' + name + '.json'
+		try:
+			with open(filePathNameWExt, 'r') as f:
+				data = json.load(f)
+				self.txtOpenMouth.setPlainText(str(data['openMouthKey']))
+				self.txtRaiseEyebrows.setPlainText(str(data['raiseEyebrowsKey']))
+				self.txtSmile.setPlainText(str(data['smileKey']))
+				self.txtSnarl.setPlainText(str(data['snarlKey']))
+				self.txtBlink.setPlainText(str(data['blinkKey']))
+				self.sliderOpenMouth.setValue(int(data['openMouthVar']*277))
+				self.sliderRaiseEyebrows.setValue(int(data['raiseEyebrowsVar']*250))
+				self.sliderSmile.setValue(int(data['smileVar']*166))
+				self.sliderSnarl.setValue(int(data['snarlVar']*141))
+				self.sliderBlink.setValue(int(data['blinkVar']*1070))
+				self.value_changed()
+		except:
+			print("Settings file: '" + filePathNameWExt + "' not found!")
+		
 		
 	
-	def btn_load_settings(self)
+	def btn_load_settings(self):
 		name, ok = QInputDialog.getText(self, 'Load Settings', 'Enter settings file name:')
-		filePathNameWExt = path + '/' + name + '.json'
 		if ok and name != '':
-			try:
-				self.load_settings(filePathNameWExt)
-			except:
-				print("Settings file: '" + name + ".json' not found!")
+			self.load_settings(name)
 	
 	def btnState(self, state):
 		# checkBox activations

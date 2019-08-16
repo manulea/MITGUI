@@ -351,6 +351,9 @@ text-align: center;</string>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
+   <property name="invertedAppearance">
+    <bool>false</bool>
+   </property>
    <property name="tickPosition">
     <enum>QSlider::TicksAbove</enum>
    </property>
