@@ -329,12 +329,7 @@ class App(QDialog):
 		filePathNameWExt = path + '/' + fileName + '.json'
 		with open(filePathNameWExt, 'w') as f:
 			json.dump(data, f)
-	
-	def load_settings(self, path, fileName, data):
-		filePathNameWExt = path + '/' + fileName + '.json'
-		with open(filePathNameWExt, 'r') as f:
-			data = json.load(f)
-	
+		
 	def btn_save_settings(self, openMouthTxt, raiseEyebrowsTxt, smileTxt, snarlTxt, blinkTxt, openMouthVar, raiseEyebrowsVar, smileVar, snarlVar, blinkVar):
 		openMouthKey = openMouthTxt
 		raiseEyebrowsKey = raiseEyebrowsTxt
@@ -353,7 +348,23 @@ class App(QDialog):
 		
 		if ok and name != '':
 			self.save_settings(cwd, name, data_to_save)
+	
+	def load_settings(self, path, fileName):
+		data = {}
+		filePathNameWExt = path + '/' + fileName + '.json'
+		with open(filePathNameWExt, 'r') as f:
+			data = json.load(f)
 		
+	
+	def btn_load_settings(self)
+		name, ok = QInputDialog.getText(self, 'Load Settings', 'Enter settings file name:')
+		filePathNameWExt = path + '/' + name + '.json'
+		if ok and name != '':
+			try:
+				self.load_settings(filePathNameWExt)
+			except:
+				print("Settings file: '" + name + ".json' not found!")
+	
 	def btnState(self, state):
 		# checkBox activations
 		# smile checkbox
