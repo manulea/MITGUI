@@ -330,6 +330,11 @@ class App(QDialog):
 		with open(filePathNameWExt, 'w') as f:
 			json.dump(data, f)
 	
+	def load_settings(self, path, fileName, data):
+		filePathNameWExt = path + '/' + fileName + '.json'
+		with open(filePathNameWExt, 'r') as f:
+			data = json.load(f)
+	
 	def btn_save_settings(self, openMouthTxt, raiseEyebrowsTxt, smileTxt, snarlTxt, blinkTxt, openMouthVar, raiseEyebrowsVar, smileVar, snarlVar, blinkVar):
 		openMouthKey = openMouthTxt
 		raiseEyebrowsKey = raiseEyebrowsTxt
