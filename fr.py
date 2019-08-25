@@ -99,8 +99,8 @@ class App(QDialog):
 		detector = dlib.get_frontal_face_detector()
 		predictor = dlib.shape_predictor(p)
 
-		gesture_arr = deque(maxlen=20)
-		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+		gesture_arr = deque(maxlen=15)
+		gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 		
 		while self.webcamActive == True:
 			# Getting out image by webcam 
@@ -217,10 +217,10 @@ class App(QDialog):
 						self.wsh.SendKeys(self.txtSnarl.toPlainText())
 				
 					if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
-						gesture_arr = deque(maxlen=20)
-						gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+						gesture_arr = deque(maxlen=15)
+						gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 						print(gesture_output)
-						time.sleep(0.5)
+						#time.sleep(0.5) # for testing
 						
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
