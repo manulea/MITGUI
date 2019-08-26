@@ -93,14 +93,14 @@ Using the Anaconda prompt, follow these instructions:
 3. You should now be in <base> C:\Users\user\fr\MITGUI> 
 4. Type "pip install pipenv" without the quotation marks, then press Enter key on your keyboard.
 5. Wait until you see Successfully installed pipenv-2018.11.26
-6. Run pipenv shell by typing: "pipenv shell" in to the command prompt without the qutation marks, then send the instruction to the computer by pressing the Enter key on your keyboard.
+6. Run pipenv shell by typing: "pipenv shell" in to the command prompt without the quotation marks, then send the instruction to the computer by pressing the Enter key on your keyboard.
 7. You should now be in the virtual environment if you see <MITGUI-*****> <base> C:\Users\user\fr\MITGUI>
 8. Type: "pipenv sync" without the quotation marks, then press Enter key on your keyboard.
 9. This will take a while.
-10. 
+10. Type: "python fr.py" in to the command prompt without the quotation marks, then press Enter on your keyboard.
 
-# RUNNING
-* python FR2.py
+# How to use the software.
+-- Under Construction --
 
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
