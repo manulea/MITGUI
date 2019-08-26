@@ -1,4 +1,4 @@
-# MITGUI
+# fr
 Authors: Sione Manulea, Joshua Clarke
 - Python version: 3.6.7
 
@@ -8,7 +8,7 @@ For example they could map a keystroke to the "open mouth" gesture. This would m
 
 # Installation instructions
 
-# You will need to have a physical webcam to use this software.
+#### You will need to have a physical webcam to use this software.
 
 ## 1. Git [ If you have Git software installed, you can skip this section ]
 * Download Git for your operating system here: https://git-scm.com/downloads
