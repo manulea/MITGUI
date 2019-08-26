@@ -7,6 +7,9 @@ This software was created by students at the Otago Polytechnic for our Project 1
 For example they could map a keystroke to the "open mouth" gesture. This would mean that while running the software, they could open their mouth and the keystroke of their choosing would be sent to the computer by the software, rather than by the keyboard.
 
 # Installation instructions
+
+# You will need to have a physical webcam to use this software.
+
 ## 1. Git [ If you have Git software installed, you can skip this section ]
 * Download Git for your operating system here: https://git-scm.com/downloads
 * Once it's downloaded, you need to open the Git.exe file you downloaded.
