@@ -99,7 +99,7 @@ Using the Anaconda prompt, follow these instructions:
 9. This will take a while.
 10. Type: "python fr.py" in to the command prompt without the quotation marks, then press Enter on your keyboard.
 
-# How to use the software.
+# 5. How to use the software
 -- Under Construction --
 
 # A special thanks to the following creators of these Libraries:
