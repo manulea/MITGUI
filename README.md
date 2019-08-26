@@ -10,7 +10,7 @@ For example they could map a keystroke to the "open mouth" gesture. This would m
 
 #### You will need to have a physical webcam to use this software.
 
-## 1. Git [ If you have Git software installed, you can skip this section ]
+### 1. Git [ If you have Git software installed, you can skip this section ]
 * Download Git for your operating system here: https://git-scm.com/downloads
 * Once it's downloaded, you need to open the Git.exe file you downloaded.
 
@@ -42,7 +42,7 @@ If the commands are successful you should beable to see "Cloning into 'MITGUI'" 
 
 You can now close this window. 
 
-## 2. Anaconda Distribution [ If you have anaconda interpreter installed, you can skip this section ]
+### 2. Anaconda Distribution [ If you have anaconda interpreter installed, you can skip this section ]
 * Go to the Anaconda website to install the Anaconda Distribution: https://www.anaconda.com/distribution/
 * Scroll down a bit until you see Windows, Mac or Linux.
 * Choose the operating system that you are installing this software on.
@@ -66,7 +66,7 @@ For windows: if you don't know if you're 64 bit or 32 bit here is a guide: https
 
 Congratulations, you should now have Anaconda installed!
 
-## 3. Preparing anaconda
+### 3. Preparing anaconda
 
 Once anaconda is installed, open Anaconda Prompt by clicking on the start menu, and while the start menu is active, type in 
 anaconda prompt, then press enter.
@@ -87,7 +87,7 @@ While the anaconda prompt is open, click anywhere in the black box and then foll
 
 You are now ready to run the Face Recognition software.
 
-## 4. Running the software
+### 4. Running the software
 
 Using the Anaconda prompt, follow these instructions:
 
@@ -102,7 +102,7 @@ Using the Anaconda prompt, follow these instructions:
 9. This will take a while.
 10. Type: "python fr.py" in to the command prompt without the quotation marks, then press Enter on your keyboard.
 
-# 5. How to use the software
+### 5. How to use the software
 -- Under Construction --
 
 # A special thanks to the following creators of these Libraries:
