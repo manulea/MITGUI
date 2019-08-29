@@ -251,7 +251,7 @@ class App(QDialog):
 		return e.key
 		
 	def initUI(self):
-		loadUi('fr2.ui',self)
+		loadUi('fr.ui',self)
 		
 		self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 2)
 		self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 251, 2)
