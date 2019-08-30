@@ -375,48 +375,48 @@ class App(QDialog):
 		if state.objectName() == "cboxOpenMouth":
 			if state.isChecked() == True:
 				if (self.openMouthActivated == False):
-					print("open mouth detection activated")
+					print("Open Mouth detection activated")
 					self.openMouthActivated = True
 			else:
 				self.openMouthActivated = False
-				print("open mouth detection deactivated")
+				print("Open Mouth detection deactivated")
 		# raise eyebrow checkbox
 		if state.objectName() == "cboxRaiseEyebrows":
 			if state.isChecked() == True:
 				if (self.raiseEyebrowsActivated == False):
-					print("raise eyebrows detection activated")
+					print("Raise Eyebrows detection activated")
 					self.raiseEyebrowsActivated = True
 			else:
 				self.raiseEyebrowsActivated = False
-				print("raise eyebrows detection deactivated")
+				print("Raise Eyebrows detection deactivated")
 	    # smile checkbox
 		if state.objectName() == "cboxSmile":
 			if state.isChecked() == True:
 				if (self.smileActivated == False):
-					print("smile detection activated")
+					print("Smile detection activated")
 					self.smileActivated = True
 			else:
 				self.smileActivated = False
-				print("smile detection deactivated")	
+				print("Smile detection deactivated")	
 				
 		# snarl checkbox
 		if state.objectName() == "cboxSnarl":
 			if state.isChecked() == True:
 				if (self.snarlActivated == False):
-					print("snarl detection activated")
+					print("Snarl detection activated")
 					self.snarlActivated = True
 			else:
 				self.snarlActivated = False
-				print("snarl detection deactivated")
+				print("Snarl detection deactivated")
 		# blink checkbox
 		if state.objectName() == "cboxBlink":
 			if state.isChecked() == True:
 				if (self.blinkActivated == False):
-					print("blink detection activated")
+					print("Blink detection activated")
 					self.blinkActivated = True
 			else:
 				self.blinkActivated = False
-				print("blink detection deactivated")
+				print("Blink detection deactivated")
 				
 	@pyqtSlot()
 	def on_click_initialize(self):
