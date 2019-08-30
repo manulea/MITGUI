@@ -189,7 +189,11 @@ class App(QDialog):
 						except:
 							pass
 					print(gesture_arr)
-					gesture_output = max(set(gesture_arr), key=gesture_arr.count)
+					
+					gesture_output = -1 # Set the default value to -1 (no gesture)
+					# Get the most common number (gesture) from the array and set it to be the registered gesture (eliminates noise)
+					if(-1 not in gesture_arr): # Only if the array is full of gesture recognitions (i.e. no default values)
+						gesture_output = max(set(gesture_arr), key=gesture_arr.count)
 					
 					if(gesture_output == 0):
 						print("Mouth opened! - ",(mouth_height/base_line))
