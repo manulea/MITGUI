@@ -14,6 +14,7 @@ pywin32 = "*"
 pygame = "*"
 PyQt5 = "*"
 pyqt5-tools = "*"
+breeze-resources = "*"
 
 [requires]
 python_version = "3.6"

@@ -1,11 +1,10 @@
 import sys 
-from PyQt5.QtWidgets import QApplication,QDialog,QInputDialog
 from PyQt5.uic import loadUi
 
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtWidgets import QMainWindow, QCheckBox, QWidget, QPushButton, QLabel, QPlainTextEdit, QMessageBox, QDesktopWidget
+from PyQt5.QtWidgets import QApplication, QDialog, QInputDialog, QMainWindow, QCheckBox, QWidget, QPushButton, QLabel, QPlainTextEdit, QMessageBox, QDesktopWidget
 from PyQt5.QtGui import QIcon, QPalette, QColor, QPixmap, QImage
-from PyQt5.QtCore import pyqtSlot, Qt, QPoint
+from PyQt5.QtCore import pyqtSlot, Qt, QPoint, QFile, QTextStream
 from imutils import face_utils
 import numpy as np
 from collections import deque
@@ -23,7 +22,7 @@ import json # for saving/loading settings
 class App(QDialog):
 	def __init__(self):
 		super(App, self).__init__()
-		self.title = 'FR'
+		self.title = 'Face Switch 2.0'
 		self.closeEvent = self.closeEvent
 		#self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 		#self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
@@ -71,11 +70,17 @@ class App(QDialog):
 		self.oldPos = self.pos()
 		self.landmarks()
 		
-		self.openMouthVar = 0.18
-		self.raiseEyebrowsVar = 0.21
-		self.smileVar = 0.30
-		self.snarlVar = 0.354
-		self.blinkVar = 0.046
+		# self.openMouthVar = 0.18
+		# self.raiseEyebrowsVar = 0.21
+		# self.smileVar = 0.30
+		# self.snarlVar = 0.354
+		# self.blinkVar = 0.046
+		
+		self.openMouthVar = 0
+		self.raiseEyebrowsVar = 0
+		self.smileVar = 0
+		self.snarlVar = 0
+		self.blinkVar = 0
 
 	def center(self):
 		qr = self.frameGeometry()
@@ -183,44 +188,35 @@ class App(QDialog):
 								gesture_arr.append(4)
 						except:
 							pass
-					
+					print(gesture_arr)
 					gesture_output = max(set(gesture_arr), key=gesture_arr.count)
 					
 					if(gesture_output == 0):
 						print("Mouth opened! - ",(mouth_height/base_line))
-						
-						for i in range(48, 68, 1):
-							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (0, 0, 0), -1)
-							
-						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtOpenMouth.toPlainText())
+						#for i in range(48, 68, 1):
+						#	cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (0, 0, 0), -1)
 						
 					elif(gesture_output == 1):
 						print("Eyebrows raised! - ",(eye_height/base_line))
-						
-						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
 						
 					elif(gesture_output == 2):
 						print("Eye close detected! - ",(eyelid_height/base_line))
-						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtBlink.toPlainText())
 						
 					elif(gesture_output == 3):
 						print("Smile detected! - ",(mouth_width/base_line))
-						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtSmile.toPlainText())
 						
 					elif(gesture_output == 4):
 						print("Anger detected! - ",(nose_height/base_line))
-						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtSnarl.toPlainText())
 				
 					if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
 						gesture_arr = deque(maxlen=15)
 						gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
 						print(gesture_output)
-						#time.sleep(0.5) # for testing
 						
 			rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			image = QImage(rgb_frame.tobytes(), 
@@ -236,9 +232,7 @@ class App(QDialog):
 			# Press 'q' to break out of loop
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				self.exit()
-				
-			#print("FPS: ", float(1.0 / (time.time() - start_time))) # FPS = 1 / time to process loop
-				
+								
 		cv2.destroyAllWindows()
 		self.cap.release()
 		
@@ -253,31 +247,30 @@ class App(QDialog):
 	def initUI(self):
 		loadUi('fr.ui',self)
 		
-		self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 2)
-		self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 251, 2)
-		self.smileVar = round(float(self.sliderSmile.value()) / 166, 2)
-		self.snarlVar = round(float(self.sliderSnarl.value()) / 141, 3)
-		self.blinkVar = round(float(self.sliderBlink.value()) / 1070, 3)
+		# self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 2)
+		# self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 251, 2)
+		# self.smileVar = round(float(self.sliderSmile.value()) / 166, 2)
+		# self.snarlVar = round(float(self.sliderSnarl.value()) / 141, 3)
+		# self.blinkVar = round(float(self.sliderBlink.value()) / 1070, 3)
 		
-		# QApplication.setStyle(QtWidgets.QStyleFactory.create('native_style'))
-		# # Introducing - The QPalette 
-		# dark_palette = QPalette()
-		# dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
-		# dark_palette.setColor(QPalette.WindowText, Qt.red)
-		# dark_palette.setColor(QPalette.Base, Qt.red)
-		# dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-		# dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
-		# dark_palette.setColor(QPalette.ToolTipText, Qt.white)
-		# dark_palette.setColor(QPalette.Text, Qt.white)
-		# dark_palette.setColor(QPalette.Button, Qt.red)
-		# dark_palette.setColor(QPalette.ButtonText, Qt.white)
-		# #dark_palette.setColor(QPalette.BRightSideMouthText, Qt.red)
-		# dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
-		# dark_palette.setColor(QPalette.Highlight, Qt.white)
-		# dark_palette.setColor(QPalette.HighlightedText, Qt.red)
-		# QApplication.setPalette(dark_palette)
-		# self.setStyleSheet("QPushButton { background-color: gray; }\n"
-              # "QPushButton:enabled { background-color: red; }\n")
+		self.value_changed()
+		
+		QApplication.setStyle("Fusion")
+		palette = QPalette()
+		palette.setColor(QPalette.Window, QColor(53, 53, 53))
+		palette.setColor(QPalette.WindowText, Qt.white)
+		palette.setColor(QPalette.Base, QColor(25, 25, 25))
+		palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+		palette.setColor(QPalette.ToolTipBase, Qt.white)
+		palette.setColor(QPalette.ToolTipText, Qt.white)
+		palette.setColor(QPalette.Text, Qt.white)
+		palette.setColor(QPalette.Button, QColor(53, 53, 53))
+		palette.setColor(QPalette.ButtonText, Qt.white)
+		palette.setColor(QPalette.BrightText, Qt.red)
+		palette.setColor(QPalette.Link, QColor(42, 130, 218))
+		palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+		palette.setColor(QPalette.HighlightedText, Qt.black)
+		QApplication.setPalette(palette)
 
 		self.cboxOpenMouth.stateChanged.connect(lambda:self.btnState(self.cboxOpenMouth))
 		self.cboxRaiseEyebrows.stateChanged.connect(lambda:self.btnState(self.cboxRaiseEyebrows))
@@ -317,7 +310,7 @@ class App(QDialog):
 		self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 250, 2)
 		self.smileVar = round(float(self.sliderSmile.value()) / 166, 2)
 		self.snarlVar = round(float(self.sliderSnarl.value()) / 141, 3)
-		self.blinkVar = round(float(self.sliderBlink.value()) / 1070, 3)
+		self.blinkVar = round(float(self.sliderBlink.value()) / 1000, 3)
 
 		self.lblOpenMouthT.setText(str(self.openMouthVar))
 		self.lblRaiseEyebrowsT.setText(str(self.raiseEyebrowsVar))
@@ -366,12 +359,10 @@ class App(QDialog):
 				self.sliderRaiseEyebrows.setValue(int(data['raiseEyebrowsVar']*250))
 				self.sliderSmile.setValue(int(data['smileVar']*166))
 				self.sliderSnarl.setValue(int(data['snarlVar']*141))
-				self.sliderBlink.setValue(int(data['blinkVar']*1070))
+				self.sliderBlink.setValue(int(data['blinkVar']*1000))
 				self.value_changed()
 		except:
 			print("Settings file: '" + filePathNameWExt + "' not found!")
-		
-		
 	
 	def btn_load_settings(self):
 		name, ok = QInputDialog.getText(self, 'Load Settings', 'Enter settings file name:')
@@ -380,17 +371,17 @@ class App(QDialog):
 	
 	def btnState(self, state):
 		# checkBox activations
-		# smile checkbox
-		if state.text() == "smile":
+		# open mouth checkbox
+		if state.objectName() == "cboxOpenMouth":
 			if state.isChecked() == True:
-				if (self.smileActivated == False):
-					print("smile detection activated")
-					self.smileActivated = True
+				if (self.openMouthActivated == False):
+					print("open mouth detection activated")
+					self.openMouthActivated = True
 			else:
-				self.smileActivated = False
-				print("smile detection deactivated")	
+				self.openMouthActivated = False
+				print("open mouth detection deactivated")
 		# raise eyebrow checkbox
-		if state.text() == "raise eyebrows":
+		if state.objectName() == "cboxRaiseEyebrows":
 			if state.isChecked() == True:
 				if (self.raiseEyebrowsActivated == False):
 					print("raise eyebrows detection activated")
@@ -398,17 +389,18 @@ class App(QDialog):
 			else:
 				self.raiseEyebrowsActivated = False
 				print("raise eyebrows detection deactivated")
-	    # open mouth checkbox
-		if state.text() == "open mouth":
+	    # smile checkbox
+		if state.objectName() == "cboxSmile":
 			if state.isChecked() == True:
-				if (self.openMouthActivated == False):
-					print("open mouth detection activated")
-					self.openMouthActivated = True
+				if (self.smileActivated == False):
+					print("smile detection activated")
+					self.smileActivated = True
 			else:
-				self.openMouthActivated = False
-				print("open mouth detection deactivated")			
+				self.smileActivated = False
+				print("smile detection deactivated")	
+				
 		# snarl checkbox
-		if state.text() == "snarl":
+		if state.objectName() == "cboxSnarl":
 			if state.isChecked() == True:
 				if (self.snarlActivated == False):
 					print("snarl detection activated")
@@ -417,7 +409,7 @@ class App(QDialog):
 				self.snarlActivated = False
 				print("snarl detection deactivated")
 		# blink checkbox
-		if state.text() == "blink":
+		if state.objectName() == "cboxBlink":
 			if state.isChecked() == True:
 				if (self.blinkActivated == False):
 					print("blink detection activated")
@@ -435,7 +427,7 @@ class App(QDialog):
 		elif self.faceShapePredictorActivated == False:
 			self.faceShapePredictorActivated = True
 			self.btnInitialize.setText("Deactivate")
-	
+
 	def closeEvent(self, event):
 		#print("event")
 		reply = QMessageBox.question(self, 'Message',
