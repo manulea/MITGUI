@@ -16,6 +16,8 @@ import os
 import pygame
 #import psutil
 import time
+import tkinter
+from tkinter import filedialog
 
 import json # for saving/loading settings
 
@@ -338,7 +340,8 @@ class App(QDialog):
 		data = {}
 		cwd = os.getcwd()
 		name = fileName
-		filePathNameWExt = cwd + '/' + name + '.json'
+		#filePathNameWExt = cwd + '/' + name + '.json'
+		filePathNameWExt = name
 		try:
 			with open(filePathNameWExt, 'r') as f:
 				data = json.load(f)
@@ -357,9 +360,20 @@ class App(QDialog):
 			print("Settings file: '" + filePathNameWExt + "' not found!")
 	
 	def btn_load_settings(self):
-		name, ok = QInputDialog.getText(self, 'Load Settings', 'Enter settings file name:')
-		if ok and name != '':
-			self.load_settings(name)
+		# load tkinter
+		root = tkinter.Tk()
+		root.withdraw()
+		
+		# prepare file dialog box
+		ftypes=[('json file',"*.json")]
+		ttl = "Title"
+		cwd = os.getcwd()
+		
+		# Open file dialog box
+		root.fileName = filedialog.askopenfilename(filetypes=ftypes, initialdir=cwd, title=ttl)
+		
+		if root.fileName != '':
+			self.load_settings(root.fileName)
 	
 	def btnState(self, state):
 		# checkBox activations
