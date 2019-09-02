@@ -6,31 +6,46 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>899</width>
-    <height>429</height>
+    <width>1008</width>
+    <height>427</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>MS Reference Sans Serif</family>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>fr</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(69, 40, 212);</string>
   </property>
   <widget class="QPushButton" name="btnInitialize">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>380</y>
-     <width>221</width>
-     <height>41</height>
+     <x>70</x>
+     <y>240</y>
+     <width>141</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Nirmala UI Semilight</family>
-     <pointsize>10</pointsize>
-     <italic>true</italic>
+     <family>Yu Gothic UI Semibold</family>
+     <pointsize>20</pointsize>
+     <italic>false</italic>
     </font>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(69, 40, 212);</string>
    </property>
    <property name="text">
     <string>Activate</string>
@@ -39,8 +54,8 @@
   <widget class="QCheckBox" name="cboxOpenMouth">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>110</y>
+     <x>20</x>
+     <y>30</y>
      <width>111</width>
      <height>17</height>
     </rect>
@@ -54,6 +69,9 @@
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
    <property name="text">
     <string>open mouth</string>
    </property>
@@ -61,7 +79,51 @@
   <widget class="QCheckBox" name="cboxRaiseEyebrows">
    <property name="geometry">
     <rect>
-     <x>660</x>
+     <x>20</x>
+     <y>70</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Nirmala UI Semilight</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>raise eyebrows</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cboxSmile">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Nirmala UI Semilight</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>smile</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cboxSnarl">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
      <y>150</y>
      <width>101</width>
      <height>17</height>
@@ -73,14 +135,17 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
    <property name="text">
-    <string>raise eyebrows</string>
+    <string>snarl</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="cboxSmile">
+  <widget class="QCheckBox" name="cboxBlink">
    <property name="geometry">
     <rect>
-     <x>660</x>
+     <x>20</x>
      <y>190</y>
      <width>101</width>
      <height>17</height>
@@ -92,43 +157,8 @@
      <pointsize>10</pointsize>
     </font>
    </property>
-   <property name="text">
-    <string>smile</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="cboxSnarl">
-   <property name="geometry">
-    <rect>
-     <x>660</x>
-     <y>230</y>
-     <width>101</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Nirmala UI Semilight</family>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>snarl</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="cboxBlink">
-   <property name="geometry">
-    <rect>
-     <x>660</x>
-     <y>270</y>
-     <width>101</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Nirmala UI Semilight</family>
-     <pointsize>10</pointsize>
-    </font>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>blink</string>
@@ -137,16 +167,28 @@
   <widget class="QPlainTextEdit" name="txtOpenMouth">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>110</y>
+     <x>130</x>
+     <y>30</y>
      <width>51</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <kerning>true</kerning>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -158,11 +200,14 @@
   <widget class="QPlainTextEdit" name="txtRaiseEyebrows">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>150</y>
+     <x>130</x>
+     <y>70</y>
      <width>51</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -174,11 +219,14 @@
   <widget class="QPlainTextEdit" name="txtSmile">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>190</y>
+     <x>130</x>
+     <y>110</y>
      <width>51</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -187,62 +235,17 @@
     <string>c</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="txtOpenMouthT">
-   <property name="geometry">
-    <rect>
-     <x>830</x>
-     <y>110</y>
-     <width>51</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="plainText">
-    <string>0.18</string>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="txtRaiseEyebrowsT">
-   <property name="geometry">
-    <rect>
-     <x>830</x>
-     <y>150</y>
-     <width>51</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="plainText">
-    <string>0.2</string>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="txtSmileT">
-   <property name="geometry">
-    <rect>
-     <x>830</x>
-     <y>190</y>
-     <width>51</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="plainText">
-    <string>0.3</string>
-   </property>
-  </widget>
   <widget class="QPlainTextEdit" name="txtSnarl">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>230</y>
+     <x>130</x>
+     <y>150</y>
      <width>51</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -254,11 +257,15 @@
   <widget class="QPlainTextEdit" name="txtBlink">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>270</y>
+     <x>130</x>
+     <y>190</y>
      <width>51</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+text-align: center;</string>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -266,47 +273,26 @@
    <property name="plainText">
     <string>e</string>
    </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="txtBlinkT">
-   <property name="geometry">
-    <rect>
-     <x>830</x>
-     <y>270</y>
-     <width>51</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="plainText">
-    <string>0.046</string>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="txtSnarlT">
-   <property name="geometry">
-    <rect>
-     <x>830</x>
-     <y>230</y>
-     <width>51</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="plainText">
-    <string>0.0354</string>
+   <property name="centerOnScroll">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QLabel" name="webcam">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>370</x>
      <y>20</y>
      <width>611</width>
      <height>391</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Myriad Arabic</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>loading webcam</string>
@@ -316,6 +302,329 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sliderOpenMouth">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>30</y>
+     <width>71</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="singleStep">
+    <number>20</number>
+   </property>
+   <property name="value">
+    <number>50</number>
+   </property>
+   <property name="sliderPosition">
+    <number>50</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sliderRaiseEyebrows">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>70</y>
+     <width>71</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="singleStep">
+    <number>20</number>
+   </property>
+   <property name="sliderPosition">
+    <number>50</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sliderSmile">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>110</y>
+     <width>71</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="singleStep">
+    <number>20</number>
+   </property>
+   <property name="sliderPosition">
+    <number>50</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sliderSnarl">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>150</y>
+     <width>71</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="singleStep">
+    <number>20</number>
+   </property>
+   <property name="sliderPosition">
+    <number>50</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sliderBlink">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>190</y>
+     <width>71</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="singleStep">
+    <number>20</number>
+   </property>
+   <property name="sliderPosition">
+    <number>50</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksAbove</enum>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtOpenMouthT">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>30</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="plainText">
+    <string>0.18</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtRaiseEyebrowsT">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>70</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="plainText">
+    <string>0.2</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtSmileT">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>110</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="plainText">
+    <string>0.3</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtSnarlT">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>150</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="plainText">
+    <string>0.354</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtBlinkT">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>190</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;a&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="plainText">
+    <string>0.046</string>
    </property>
   </widget>
  </widget>
