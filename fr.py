@@ -49,32 +49,13 @@ class App(QDialog):
 		self.snarlActivated = False
 		self.blinkActivated = False
 		
-		# Open Notepad
-		#os.startfile('file.txt')
-		
 		# Open keytyper
 		
 		self.wsh = comclt.Dispatch("WScript.Shell")
-		
-		# # Iterate over all running process
-		# for proc in psutil.process_iter():
-			# try:
-				# # Get process name & pid from process object.
-				# processName = proc.name()
-				# processID = proc.pid
-				# print(processName , ' ::: ', processID)
-			# except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-				# pass
 
 		self.center()
 		self.oldPos = self.pos()
 		self.landmarks()
-		
-		# self.openMouthVar = 0.18
-		# self.raiseEyebrowsVar = 0.21
-		# self.smileVar = 0.30
-		# self.snarlVar = 0.354
-		# self.blinkVar = 0.046
 		
 		self.openMouthVar = 0
 		self.raiseEyebrowsVar = 0
@@ -93,7 +74,6 @@ class App(QDialog):
 
 	def mouseMoveEvent(self, event):
 		delta = QPoint (event.globalPos() - self.oldPos)
-		#print(delta)
 		self.move(self.x() + delta.x(), self.y() + delta.y())
 		self.oldPos = event.globalPos()
 	
@@ -188,7 +168,6 @@ class App(QDialog):
 								gesture_arr.append(4)
 						except:
 							pass
-					print(gesture_arr)
 					
 					gesture_output = -1 # Set the default value to -1 (no gesture)
 					# Get the most common number (gesture) from the array and set it to be the registered gesture (eliminates noise)
@@ -198,16 +177,20 @@ class App(QDialog):
 					if(gesture_output == 0):
 						print("Mouth opened! - ",(mouth_height/base_line))
 						self.wsh.SendKeys(self.txtOpenMouth.toPlainText())
-						#for i in range(48, 68, 1):
-						#	cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (0, 0, 0), -1)
+						for i in range([50,51,52,], 1):
+							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
 						
 					elif(gesture_output == 1):
 						print("Eyebrows raised! - ",(eye_height/base_line))
 						self.wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
+						for i in range(17, 27, 1):
+							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
 						
 					elif(gesture_output == 2):
 						print("Eye close detected! - ",(eyelid_height/base_line))
 						self.wsh.SendKeys(self.txtBlink.toPlainText())
+						for i in range(36, 48, 1):
+							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
 						
 					elif(gesture_output == 3):
 						print("Smile detected! - ",(mouth_width/base_line))
