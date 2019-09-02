@@ -249,29 +249,28 @@ class App(QDialog):
 						
 						for i in range(48, 68, 1):
 							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (0, 0, 0), -1)
-							
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtOpenMouth.toPlainText())
 						
 					elif(gesture_output == 1):
 						print("Eyebrows raised! - ",(eye_height/base_line))
 						
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
 						
 					elif(gesture_output == 2):
 						print("Eye close detected! - ",(eyelid_height/base_line))
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtBlink.toPlainText())
 						
 					elif(gesture_output == 3):
 						print("Smile detected! - ",(mouth_width/base_line))
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtSmile.toPlainText())
 						
 					elif(gesture_output == 4):
 						print("Anger detected! - ",(nose_height/base_line))
-						self.wsh.AppActivate("Notepad") # select another application
+						#self.wsh.AppActivate("Notepad") # select another application
 						self.wsh.SendKeys(self.txtSnarl.toPlainText())
 				
 					if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
@@ -312,26 +311,27 @@ class App(QDialog):
 		self.setGeometry(self.left, self.top, self.width, self.height)
 		loadUi('fr2.ui',self)
 		
-		QApplication.setStyle(QtWidgets.QStyleFactory.create('native_style'))
-		# Introducing - The QPalette 
-		dark_palette = QPalette()
-		dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
-		dark_palette.setColor(QPalette.WindowText, Qt.red)
-		dark_palette.setColor(QPalette.Base, Qt.red)
-		dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-		dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
-		dark_palette.setColor(QPalette.ToolTipText, Qt.white)
-		dark_palette.setColor(QPalette.Text, Qt.white)
-		dark_palette.setColor(QPalette.Button, Qt.red)
-		dark_palette.setColor(QPalette.ButtonText, Qt.white)
-		#dark_palette.setColor(QPalette.BRightSideMouthText, Qt.red)
-		dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
-		dark_palette.setColor(QPalette.Highlight, Qt.white)
-		dark_palette.setColor(QPalette.HighlightedText, Qt.red)
-		QApplication.setPalette(dark_palette)
-		self.setStyleSheet("QPushButton { background-color: gray; }\n"
-              "QPushButton:enabled { background-color: red; }\n")
-
+		# QApplication.setStyle(QtWidgets.QStyleFactory.create('native_style'))
+		# # Introducing - The QPalette 
+		# dark_palette = QPalette()
+		# dark_palette.setColor(QPalette.Window, Qt.white)
+		# dark_palette.setColor(QPalette.WindowText, Qt.red)
+		# dark_palette.setColor(QPalette.Base, Qt.red)
+		# dark_palette.setColor(QPalette.AlternateBase, Qt.white)
+		# dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
+		# dark_palette.setColor(QPalette.ToolTipText, Qt.white)
+		# dark_palette.setColor(QPalette.Text, Qt.white)
+		# dark_palette.setColor(QPalette.Button, Qt.red)
+		# dark_palette.setColor(QPalette.ButtonText, Qt.white)
+		# #dark_palette.setColor(QPalette.BRightSideMouthText, Qt.red)
+		# dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
+		# dark_palette.setColor(QPalette.Highlight, Qt.white)
+		# dark_palette.setColor(QPalette.HighlightedText, Qt.red)
+		
+		# QApplication.setPalette(dark_palette)
+		# self.setStyleSheet("QPushButton { background-color: gray; }\n"
+              # "QPushButton:enabled { background-color: red; }\n")
+			  
 		self.cboxOpenMouth.stateChanged.connect(lambda:self.btnState(self.cboxOpenMouth))
 		self.cboxRaiseEyebrows.stateChanged.connect(lambda:self.btnState(self.cboxRaiseEyebrows))
 		self.cboxSmile.stateChanged.connect(lambda:self.btnState(self.cboxSmile))
@@ -416,7 +416,7 @@ class App(QDialog):
 		#print("event")
 		reply = QMessageBox.question(self, 'Message',
 			"Are you sure you want to quit?", QMessageBox.Yes, QMessageBox.No)
-
+		reply.
 		if reply == QMessageBox.Yes:
 			self.webcamActive = False
 			event.accept()
