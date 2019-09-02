@@ -177,7 +177,7 @@ class App(QDialog):
 					if(gesture_output == 0):
 						print("Mouth opened! - ",(mouth_height/base_line))
 						self.wsh.SendKeys(self.txtOpenMouth.toPlainText())
-						for i in range([50,51,52,], 1):
+						for i in range(60, 68, 1):
 							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
 						
 					elif(gesture_output == 1):
@@ -195,10 +195,15 @@ class App(QDialog):
 					elif(gesture_output == 3):
 						print("Smile detected! - ",(mouth_width/base_line))
 						self.wsh.SendKeys(self.txtSmile.toPlainText())
+						for i in range(54, 60, 1):
+							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
+						cv2.circle(frame, (shape[48][0], shape[48][1]), 2, (255, 0, 0), -1)
 						
 					elif(gesture_output == 4):
 						print("Anger detected! - ",(nose_height/base_line))
 						self.wsh.SendKeys(self.txtSnarl.toPlainText())
+						for i in range(27, 36, 1):
+							cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
 				
 					if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
 						gesture_arr = deque(maxlen=15)
@@ -266,11 +271,11 @@ class App(QDialog):
 		self.cboxBlink.stateChanged.connect(lambda:self.btnState(self.cboxBlink))
 		
 		# Buttons
-		self.btnInitialize.setToolTip('activate face detection')
+		self.btnInitialize.setToolTip('Toggle Gesture Detection ON/OFF')
 		self.btnInitialize.clicked.connect(self.on_click_initialize)
-		self.btnSave.setToolTip('Save settings')		
+		self.btnSave.setToolTip('Save Settings')		
 		self.btnSave.clicked.connect(lambda:self.btn_save_settings(self.txtOpenMouth.toPlainText(), self.txtRaiseEyebrows.toPlainText(), self.txtSmile.toPlainText(), self.txtSnarl.toPlainText(), self.txtBlink.toPlainText(), self.openMouthVar, self.raiseEyebrowsVar, self.smileVar, self.snarlVar, self.blinkVar))
-		self.btnLoad.setToolTip('Load settings')
+		self.btnLoad.setToolTip('Load Settings')
 		self.btnLoad.clicked.connect(lambda:self.btn_load_settings())
 		
 		# Sliders
