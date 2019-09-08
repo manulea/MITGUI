@@ -14,7 +14,7 @@ pywin32 = "*"
 pygame = "*"
 PyQt5 = "*"
 pyqt5-tools = "*"
-breeze-resources = "*"
+cmake = "*"
 
 [requires]
 python_version = "3.6"

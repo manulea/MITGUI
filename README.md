@@ -1,4 +1,4 @@
-# MITGUI
+# fr
 Authors: Sione Manulea, Joshua Clarke
 - Python version: 3.6.7
 
@@ -7,7 +7,10 @@ This software was created by students at the Otago Polytechnic for our Project 1
 For example they could map a keystroke to the "open mouth" gesture. This would mean that while running the software, they could open their mouth and the keystroke of their choosing would be sent to the computer by the software, rather than by the keyboard.
 
 # Installation instructions
-## 1. Git [ If you have Git software installed, you can skip this section ]
+
+#### You will need to have a physical webcam to use this software.
+
+### 1. Git [ If you have Git software installed, you can skip this section ]
 * Download Git for your operating system here: https://git-scm.com/downloads
 * Once it's downloaded, you need to open the Git.exe file you downloaded.
 
@@ -39,7 +42,7 @@ If the commands are successful you should beable to see "Cloning into 'MITGUI'" 
 
 You can now close this window. 
 
-## 2. Anaconda Distribution [ If you have anaconda interpreter installed, you can skip this section ]
+### 2. Anaconda Distribution [ If you have anaconda interpreter installed, you can skip this section ]
 * Go to the Anaconda website to install the Anaconda Distribution: https://www.anaconda.com/distribution/
 * Scroll down a bit until you see Windows, Mac or Linux.
 * Choose the operating system that you are installing this software on.
@@ -63,7 +66,7 @@ For windows: if you don't know if you're 64 bit or 32 bit here is a guide: https
 
 Congratulations, you should now have Anaconda installed!
 
-## 3. Preparing anaconda
+### 3. Preparing anaconda
 
 Once anaconda is installed, open Anaconda Prompt by clicking on the start menu, and while the start menu is active, type in 
 anaconda prompt, then press enter.
@@ -84,7 +87,7 @@ While the anaconda prompt is open, click anywhere in the black box and then foll
 
 You are now ready to run the Face Recognition software.
 
-## 4. Running the software
+### 4. Running the software
 
 Using the Anaconda prompt, follow these instructions:
 
@@ -93,14 +96,14 @@ Using the Anaconda prompt, follow these instructions:
 3. You should now be in <base> C:\Users\user\fr\MITGUI> 
 4. Type "pip install pipenv" without the quotation marks, then press Enter key on your keyboard.
 5. Wait until you see Successfully installed pipenv-2018.11.26
-6. Run pipenv shell by typing: "pipenv shell" in to the command prompt without the qutation marks, then send the instruction to the computer by pressing the Enter key on your keyboard.
+6. Run pipenv shell by typing: "pipenv shell" in to the command prompt without the quotation marks, then send the instruction to the computer by pressing the Enter key on your keyboard.
 7. You should now be in the virtual environment if you see <MITGUI-*****> <base> C:\Users\user\fr\MITGUI>
 8. Type: "pipenv sync" without the quotation marks, then press Enter key on your keyboard.
 9. This will take a while.
-10. 
+10. Type: "python fr.py" in to the command prompt without the quotation marks, then press Enter on your keyboard.
 
-# RUNNING
-* python FR2.py
+### 5. How to use the software
+-- Under Construction --
 
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
