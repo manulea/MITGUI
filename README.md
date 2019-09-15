@@ -108,13 +108,15 @@ Using the Anaconda prompt, follow these instructions:
 
 # Download the windows app! #
 
-Click this link!
+Open this link in to your browser.
+
 https://www.dropbox.com/s/vd5ofvmu0h31oh4/fr.exe?dl=0
 
 ![Image0](https://i.imgur.com/RTcdOG5.png)
 
-Click [open with]
-Click Download!
+Click Open with
+
+Click Download
 
 ![Image01](https://i.imgur.com/fesOP6w.png)
 
