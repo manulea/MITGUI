@@ -128,17 +128,19 @@ Find where you saved this file, and double click it!
 
 ![Image1.2](https://i.imgur.com/6l91vx4.png)
 
-You may have a security issue.. click more info.
+You may have a security issue.. if this is the case then:
+
+click More info.
 
 ![Image1.3](https://i.imgur.com/5kd2qkR.png)
 
-Then click [Run Anyway]
+Click Run Anyway
 
-### A windows dialog box should come up, press YES 
+#### A windows security prompt should come up, press yes. 
 
 ![Image2](https://i.imgur.com/UO40SxR.png)
 
-Choose your destination folder or leave it as default.
+Choose your destination folder or leave it default.
 
 Click Install
 
@@ -148,7 +150,7 @@ Wait for the download to complete.
 
 ![Image4](https://i.imgur.com/n74RUUd.png)
 
-Click Close
+Click Close.
 
 ![Image5](https://i.imgur.com/CiqcXxO.png)
 
