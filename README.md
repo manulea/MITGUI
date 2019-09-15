@@ -118,6 +118,8 @@ Using the Anaconda prompt, follow these instructions:
 
 ![Image5](https://imgur.com/CiqcXxO.png)
 
+![Image6](https://imgur.com/rYDgYJy.png)
+
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
 * [dlib 19.17.0](https://pypi.org/project/dlib/)
