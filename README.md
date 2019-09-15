@@ -109,7 +109,14 @@ Using the Anaconda prompt, follow these instructions:
 # Download the .exe #
 
 ![Image1](https://i.imgur.com/rpf0os7.png)
+
 ![Image2](https://i.imgur.com/UO40SxR.png)
+
+![Image3](https://imgur.com/Wpps3uU.png)
+
+![Image4](https://imgur.com/n74RUUd.png)
+
+![Image5](https://imgur.com/CiqcXxO.png)
 
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
