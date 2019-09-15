@@ -112,13 +112,17 @@ Using the Anaconda prompt, follow these instructions:
 
 ![Image2](https://i.imgur.com/UO40SxR.png)
 
-![Image3](https://imgur.com/Wpps3uU.png)
+![Image3](https://i.imgur.com/Wpps3uU.png)
 
-![Image4](https://imgur.com/n74RUUd.png)
+![Image4](https://i.imgur.com/n74RUUd.png)
 
-![Image5](https://imgur.com/CiqcXxO.png)
+![Image5](https://i.imgur.com/CiqcXxO.png)
 
-![Image6](https://imgur.com/rYDgYJy.png)
+![Image6](https://i.imgur.com/rYDgYJy.png)
+
+![Image7](https://i.imgur.com/wqhjJ5k.png)
+
+![Image8](https://i.imgur.com/VuyW4Ap.png)
 
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
