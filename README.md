@@ -105,6 +105,71 @@ Using the Anaconda prompt, follow these instructions:
 ### 5. How to use the software
 -- Under Construction --
 
+
+# Download the windows app! #
+
+Open this link in to your browser.
+
+https://www.dropbox.com/s/vd5ofvmu0h31oh4/fr.exe?dl=0
+
+![Image0](https://i.imgur.com/RTcdOG5.png)
+
+Click Open with
+
+Click Download
+
+![Image01](https://i.imgur.com/fesOP6w.png)
+
+Click Save File
+
+![Image1](https://i.imgur.com/rpf0os7.png)
+
+Find where you saved this file, and double click it!
+
+![Image1.2](https://i.imgur.com/6l91vx4.png)
+
+You may have a security issue.. if this is the case then:
+
+click More info.
+
+![Image1.3](https://i.imgur.com/5kd2qkR.png)
+
+Click Run anyway
+
+#### A windows security prompt should come up, press yes. 
+
+![Image2](https://i.imgur.com/UO40SxR.png)
+
+Choose your destination folder or leave it default.
+
+Click Install
+
+![Image3](https://i.imgur.com/Wpps3uU.png)
+
+Wait for the download to complete.
+
+![Image4](https://i.imgur.com/n74RUUd.png)
+
+Click Close.
+
+![Image5](https://i.imgur.com/CiqcXxO.png)
+
+A new folder is created.
+
+Double click the folder to open the folder.
+
+![Image6](https://i.imgur.com/rYDgYJy.png)
+
+Locate a file named fr.exe and double click it.
+
+![Image7](https://i.imgur.com/wqhjJ5k.png)
+
+A command prompt should start running the scripts.
+
+![Image8](https://i.imgur.com/VuyW4Ap.png)
+
+If all is successful, the user interface should appear like this on the screen.
+
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
 * [dlib 19.17.0](https://pypi.org/project/dlib/)
