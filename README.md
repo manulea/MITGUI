@@ -134,7 +134,7 @@ click More info.
 
 ![Image1.3](https://i.imgur.com/5kd2qkR.png)
 
-Click Run Anyway
+Click Run anyway
 
 #### A windows security prompt should come up, press yes. 
 
