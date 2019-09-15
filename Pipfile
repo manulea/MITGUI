@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+cmake = "*"
 dlib = "*"
 opencv-python = "*"
 imutils = "*"
@@ -14,10 +15,6 @@ pywin32 = "*"
 pygame = "*"
 PyQt5 = "==5.13.0"
 pyqt5-tools = "*"
-<<<<<<< HEAD
-cmake = "*"
-=======
->>>>>>> newbranch
 
 [requires]
 python_version = "3.6"
