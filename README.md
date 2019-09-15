@@ -105,6 +105,11 @@ Using the Anaconda prompt, follow these instructions:
 ### 5. How to use the software
 -- Under Construction --
 
+
+# Download the .exe #
+
+![Image1](https://i.imgur.com/rpf0os7.png)
+
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
 * [dlib 19.17.0](https://pypi.org/project/dlib/)
