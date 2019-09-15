@@ -122,19 +122,46 @@ Click Save File
 
 ![Image1](https://i.imgur.com/rpf0os7.png)
 
+Find where you saved this file, and double click it!
+
+![Image1.2](https://i.imgur.com/6l91vx4.png)
+
+You may have a security issue.. click more info.
+
+![Image1.3](https://i.imgur.com/5kd2qkR.png)
+
+Then click [Run Anyway]
+
+### A windows dialog box should come up, press YES 
+
 ![Image2](https://i.imgur.com/UO40SxR.png)
+
+Choose your destination folder or leave it as default.
+Click Install
 
 ![Image3](https://i.imgur.com/Wpps3uU.png)
 
+Wait for the download to complete.
+
 ![Image4](https://i.imgur.com/n74RUUd.png)
+
+Click Close
 
 ![Image5](https://i.imgur.com/CiqcXxO.png)
 
+A new folder is created.
+
 ![Image6](https://i.imgur.com/rYDgYJy.png)
+
+Double click the folder to open the folder.
 
 ![Image7](https://i.imgur.com/wqhjJ5k.png)
 
+Locate a file named fr.exe and double click it.
+
 ![Image8](https://i.imgur.com/VuyW4Ap.png)
+
+If all is successful, this user interface should appear on the screen.
 
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
