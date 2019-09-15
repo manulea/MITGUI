@@ -156,13 +156,15 @@ Double click the folder to open the folder.
 
 ![Image6](https://i.imgur.com/rYDgYJy.png)
 
+Locate a file named fr.exe and double click it.
+
 ![Image7](https://i.imgur.com/wqhjJ5k.png)
 
-Locate a file named fr.exe and double click it.
+A command prompt should start running the scripts.
 
 ![Image8](https://i.imgur.com/VuyW4Ap.png)
 
-If all is successful, this user interface should appear on the screen.
+If all is successful, the user interface should appear like this on the screen.
 
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
