@@ -137,6 +137,7 @@ Then click [Run Anyway]
 ![Image2](https://i.imgur.com/UO40SxR.png)
 
 Choose your destination folder or leave it as default.
+
 Click Install
 
 ![Image3](https://i.imgur.com/Wpps3uU.png)
@@ -151,9 +152,9 @@ Click Close
 
 A new folder is created.
 
-![Image6](https://i.imgur.com/rYDgYJy.png)
-
 Double click the folder to open the folder.
+
+![Image6](https://i.imgur.com/rYDgYJy.png)
 
 ![Image7](https://i.imgur.com/wqhjJ5k.png)
 
