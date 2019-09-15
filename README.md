@@ -106,7 +106,19 @@ Using the Anaconda prompt, follow these instructions:
 -- Under Construction --
 
 
-# Download the .exe #
+# Download the windows app! #
+
+Click this link!
+https://www.dropbox.com/s/vd5ofvmu0h31oh4/fr.exe?dl=0
+
+![Image0](https://i.imgur.com/RTcdOG5.png)
+
+Click [open with]
+Click Download!
+
+![Image01](https://i.imgur.com/fesOP6w.png)
+
+Click Save File
 
 ![Image1](https://i.imgur.com/rpf0os7.png)
 
