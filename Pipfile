@@ -6,15 +6,15 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-cmake = "*"
 dlib = "*"
 opencv-python = "*"
 imutils = "*"
 numpy = "*"
-pywin32 = "*"
+pywin32 = "==224"
 pygame = "*"
 PyQt5 = "==5.13.0"
 pyqt5-tools = "*"
+cmake = "*"
 
 [requires]
 python_version = "3.6"

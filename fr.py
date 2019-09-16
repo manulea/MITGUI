@@ -28,7 +28,7 @@ class App(QDialog):
 		self.closeEvent = self.closeEvent
 		#self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 		#self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-		self.setWindowIcon(QtGui.QIcon('icon.png'))
+		self.setWindowIcon(QtGui.QIcon('interface\icon.png'))
 		
 		self.captureFacePositions = True
 		self.capturedPositions = False
@@ -81,7 +81,7 @@ class App(QDialog):
 	
 	def landmarks(self):
 		# p = our pre-treined model directory, on my case, it's on the same script's directory.
-		p = "shape_predictor_68_face_landmarks.dat"
+		p = "resources\shape_predictor_68_face_landmarks.dat"
 		
 		detector = dlib.get_frontal_face_detector()
 		predictor = dlib.shape_predictor(p)
@@ -239,7 +239,7 @@ class App(QDialog):
 		return e.key
 		
 	def initUI(self):
-		loadUi('fr.ui',self)
+		loadUi('interface/fr.ui',self)
 		
 		# self.openMouthVar = round(float(self.sliderOpenMouth.value()) / 277, 2)
 		# self.raiseEyebrowsVar = round(float(self.sliderRaiseEyebrows.value()) / 251, 2)
