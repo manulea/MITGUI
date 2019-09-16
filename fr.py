@@ -6,17 +6,11 @@ from PyQt5.QtWidgets import QApplication, QDialog, QInputDialog, QMainWindow, QC
 from PyQt5.QtGui import QIcon, QPalette, QColor, QPixmap, QImage
 from PyQt5.QtCore import pyqtSlot, Qt, QPoint, QFile, QTextStream
 from imutils import face_utils
-import numpy as np
 from collections import deque
 import cv2
 import dlib
-# Used to insert keys
-import win32com.client as comclt
+import win32com.client as comclt # Used to insert keys
 import os
-import pygame
-#import psutil
-import time
-
 import json # for saving/loading settings
 
 class App(QDialog):
@@ -24,8 +18,6 @@ class App(QDialog):
         super(App, self).__init__()
         self.title = 'Face Switch 2.0'
         self.closeEvent = self.closeEvent
-        #self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        #self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setWindowIcon(QtGui.QIcon('icon.png'))
         
         self.captureFacePositions = True
@@ -38,8 +30,6 @@ class App(QDialog):
         # gives an error without CAP_DSHOW
         
         self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        
-        pygame.init()
         
         self.initUI()
         
@@ -78,8 +68,7 @@ class App(QDialog):
         self.oldPos = event.globalPos()
 
     def landmarks(self):
-        # p = our pre-treined model directory, on my case, it's on the same script's directory.
-        p = "shape_predictor_68_face_landmarks.dat"
+        p = "shape_predictor_68_face_landmarks.dat" # p = our pre-treined model
         
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor(p)
@@ -98,7 +87,6 @@ class App(QDialog):
             else:
                 print("Error connecting to webcam! Exiting...")
                 sys.exit()
-            #start_time = time.time() # start time of the loop
             
             # Activated
             if (self.faceShapePredictorActivated == True):
@@ -228,14 +216,6 @@ class App(QDialog):
         cv2.destroyAllWindows()
         self.cap.release()
         
-    def wait_for_key(self):
-        e = pygame.event.wait()
-        while e.type != pygame.KEYDOWN:
-            e = pygame.event.wait()
-            if e.type == pygame.QUIT:
-                return pygame.K_ESCAPE
-        return e.key
-        
     def initUI(self):
         loadUi('fr.ui',self)
         
@@ -279,16 +259,8 @@ class App(QDialog):
         self.sliderSnarl.valueChanged.connect(lambda:self.value_changed())
         self.sliderBlink.valueChanged.connect(lambda:self.value_changed())
         
-        # qbtn = QPushButton('X', self)
-        # qbtn.clicked.connect(self.close)
-        # qbtn.resize(qbtn.sizeHint())
-        # qbtn.resize(30,20)
-        # qbtn.move(855, 10)
-        
         # Webcam
         self.webcam.setText("Webcam")
-        #self.webcam.move(10, 10)
-        #self.webcam.resize(640, 480)
         self.show()
     
     def value_changed(self):
@@ -339,7 +311,6 @@ class App(QDialog):
         snarl = snarlVar
         blink = blinkVar
         data_to_save = { 'openMouthKey' : openMouthKey, 'raiseEyebrowsKey' : raiseEyebrowsKey, 'smileKey' : smileKey, 'snarlKey' : snarlKey, 'blinkKey' : blinkKey, 'openMouthVar' : openMouth, 'raiseEyebrowsVar' : raiseEyebrows, 'smileVar' : smile, 'snarlVar' : snarl, 'blinkVar' : blink }
-        #print(data_to_save)
         cwd = os.getcwd()
         name, ok = QInputDialog.getText(self, 'Save Settings', 'Enter your name:')
         
@@ -431,25 +402,22 @@ class App(QDialog):
         elif self.faceShapePredictorActivated == False:
             self.faceShapePredictorActivated = True
             self.btnInitialize.setText("Deactivate")
-    
+
     def closeEvent(self, event):
         #print("event")
         reply = QMessageBox.question(self, 'Message',
             "Are you sure you want to quit?", QMessageBox.Yes, QMessageBox.No)
-    
+
         if reply == QMessageBox.Yes:
             # Save the settings before exiting
             self.save_state(self.txtOpenMouth.toPlainText(), self.txtRaiseEyebrows.toPlainText(), self.txtSmile.toPlainText(), self.txtSnarl.toPlainText(), self.txtBlink.toPlainText(), self.openMouthVar, self.raiseEyebrowsVar, self.smileVar, self.snarlVar, self.blinkVar)
-            
             self.webcamActive = False
             event.accept()
-            
         else:
             event.ignore()
-    
+
 app = QApplication(sys.argv)
 widget = App()
 widget.show()
-pygame.quit()
 print("Now exiting")
 sys.exit()
