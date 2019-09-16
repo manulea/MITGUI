@@ -110,15 +110,7 @@ Using the Anaconda prompt, follow these instructions:
 
 Open this link in to your browser.
 
-https://www.dropbox.com/s/vd5ofvmu0h31oh4/fr.exe?dl=0
-
-![Image0](https://i.imgur.com/RTcdOG5.png)
-
-Click Open with
-
-Click Download
-
-![Image01](https://i.imgur.com/fesOP6w.png)
+https://github.com/manulea/MITGUI/releases/download/v3.0/fr.exe
 
 Click Save File
 
