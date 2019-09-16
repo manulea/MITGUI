@@ -21,14 +21,16 @@ class App(QDialog):
         self.closeEvent = self.closeEvent
         self.setWindowIcon(QtGui.QIcon('interface\icon.png'))
         
-        dir = os.environ['USERPROFILE'] + '\\.FaceSwitch2' # Path to application settings
-        if not os.path.isdir(dir): # Create the directory if it does not already exist
+        global app_dir # Allow the variable to be used anywhere
+        app_dir = os.environ['USERPROFILE'] + '\\.FaceSwitch2' # Path to application settings
+        
+        if not os.path.isdir(app_dir): # Create the directory if it does not already exist
             try:
-                os.mkdir(dir) # Make the .FaceSwitch2 folder
+                os.mkdir(app_dir) # Make the .FaceSwitch2 folder
             except OSError:
-                print ("Creation of the directory %s failed" % dir)
+                print ("Creation of the directory %s failed" % app_dir)
             else:
-                print ("Successfully created the directory %s " % dir)
+                print ("Successfully created the directory %s " % app_dir)
         
         self.captureFacePositions = True
         self.capturedPositions = False
@@ -226,11 +228,9 @@ class App(QDialog):
         self.value_changed()
         
         # Load previous state settings from file
-        try:
-            print("Checking for state settings...")
-            self.load_settings("state_settings.json") # Load the last settings that were used
-        except:
-            print("No state settings found (e.g. First program run)") 
+        print("Checking for state settings...")
+        state_settings_path = app_dir + './state_settings.json'
+        self.load_settings(state_settings_path) # Load the last settings that were used
         
         QApplication.setStyle("Fusion")
         palette = QPalette()
@@ -300,9 +300,7 @@ class App(QDialog):
         blink = blinkVar
         data = { 'openMouthKey' : openMouthKey, 'raiseEyebrowsKey' : raiseEyebrowsKey, 'smileKey' : smileKey, 'snarlKey' : snarlKey, 'blinkKey' : blinkKey, 'openMouthVar' : openMouth, 'raiseEyebrowsVar' : raiseEyebrows, 'smileVar' : smile, 'snarlVar' : snarl, 'blinkVar' : blink }
         
-        dir = os.environ['USERPROFILE'] + '\\.FaceSwitch2'
-        
-        filePathNameWExt = dir + '\\state_settings.json'
+        filePathNameWExt = app_dir + '\\state_settings.json'
         with open(filePathNameWExt, 'w') as f:
             json.dump(data, f)
     
@@ -310,6 +308,7 @@ class App(QDialog):
         filePathNameWExt = path + '/' + fileName + '.json'
         with open(filePathNameWExt, 'w') as f:
             json.dump(data, f)
+        print("Settings file: '" + filePathNameWExt + "' saved successfully!")
         
     def btn_save_settings(self, openMouthTxt, raiseEyebrowsTxt, smileTxt, snarlTxt, blinkTxt, openMouthVar, raiseEyebrowsVar, smileVar, snarlVar, blinkVar):
         openMouthKey = openMouthTxt
@@ -323,20 +322,16 @@ class App(QDialog):
         snarl = snarlVar
         blink = blinkVar
         data_to_save = { 'openMouthKey' : openMouthKey, 'raiseEyebrowsKey' : raiseEyebrowsKey, 'smileKey' : smileKey, 'snarlKey' : snarlKey, 'blinkKey' : blinkKey, 'openMouthVar' : openMouth, 'raiseEyebrowsVar' : raiseEyebrows, 'smileVar' : smile, 'snarlVar' : snarl, 'blinkVar' : blink }
-        dir = os.environ['USERPROFILE'] + '\\.FaceSwitch2'
         name, ok = QInputDialog.getText(self, 'Save Settings', 'Enter your name:')
         
         if ok and name != '':
-            self.save_settings(dir, name, data_to_save)
+            self.save_settings(app_dir, name, data_to_save)
     
     def load_settings(self, fileName):
         data = {}
-        dir = os.getcwd()
         name = fileName
-        #filePathNameWExt = dir + '/' + name + '.json'
-        filePathNameWExt = name
         try:
-            with open(filePathNameWExt, 'r') as f:
+            with open(name, 'r') as f:
                 data = json.load(f)
                 self.txtOpenMouth.setPlainText(str(data['openMouthKey']))
                 self.txtRaiseEyebrows.setPlainText(str(data['raiseEyebrowsKey']))
@@ -349,8 +344,9 @@ class App(QDialog):
                 self.sliderSnarl.setValue(int(data['snarlVar']*141))
                 self.sliderBlink.setValue(int(data['blinkVar']*1000))
                 self.value_changed()
+                print("Settings file: '" + name + "' loaded successfully!")
         except:
-            print("Settings file: '" + filePathNameWExt + "' not found!")
+            print("Settings file: '" + name + "' not found!")
     
     def btn_load_settings(self):
         # load tkinter
@@ -360,10 +356,9 @@ class App(QDialog):
         # prepare file dialog box
         ftypes=[('json file',"*.json")]
         ttl = "Title"
-        dir = os.getcwd()
         
         # Open file dialog box
-        root.fileName = filedialog.askopenfilename(filetypes=ftypes, initialdir=dir, title=ttl)
+        root.fileName = filedialog.askopenfilename(filetypes=ftypes, initialdir=app_dir, title=ttl)
         
         if root.fileName != '':
             self.load_settings(root.fileName)
@@ -418,13 +413,15 @@ class App(QDialog):
                 print("Blink detection deactivated")
                 
     @pyqtSlot()
-    def on_click_initialize(self):
+    def on_click_initialize(self): # Used to turn the gesture detection ON or OFF
         if self.faceShapePredictorActivated == True:
             self.faceShapePredictorActivated = False
+            print("Gesture detection Deactivated!")
             self.btnInitialize.setText("Activate")
             
         elif self.faceShapePredictorActivated == False:
             self.faceShapePredictorActivated = True
+            print("Gesture detection Activated!")
             self.btnInitialize.setText("Deactivate")
 
     def closeEvent(self, event):
