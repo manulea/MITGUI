@@ -110,6 +110,8 @@ Using the Anaconda prompt, follow these instructions:
 
 [Click here to download](https://github.com/manulea/MITGUI/releases/download/v3.0/fr.exe)
 
+![Image0](https://i.imgur.com/blbhQhH.png)
+
 Click Save File
 
 ![Image1](https://i.imgur.com/rpf0os7.png)
