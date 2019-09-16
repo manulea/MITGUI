@@ -108,7 +108,7 @@ Using the Anaconda prompt, follow these instructions:
 
 # Download the windows app! #
 
-[https://github.com/manulea/MITGUI/releases/download/v3.0/fr.exe](Click here to download)
+[Click here to download](https://github.com/manulea/MITGUI/releases/download/v3.0/fr.exe)
 
 Click Save File
 
