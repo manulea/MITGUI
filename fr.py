@@ -19,10 +19,10 @@ class App(QDialog):
         super(App, self).__init__()
         self.title = 'Face Switch 2.0'
         self.closeEvent = self.closeEvent
-        self.setWindowIcon(QtGui.QIcon('interface\icon.png'))
+        self.setWindowIcon(QtGui.QIcon('interface/icon.png'))
         
         global app_dir # Allow the variable to be used anywhere
-        app_dir = os.environ['USERPROFILE'] + '\\.FaceSwitch2' # Path to application settings
+        app_dir = os.environ['USERPROFILE'] + '/.FaceSwitch2' # Path to application settings
         
         if not os.path.isdir(app_dir): # Create the directory if it does not already exist
             try:
@@ -76,7 +76,7 @@ class App(QDialog):
         self.oldPos = event.globalPos()
 
     def landmarks(self):
-        p = "resources\shape_predictor_68_face_landmarks.dat" # p = our pre-treined model
+        p = "resources/shape_predictor_68_face_landmarks.dat" # p = our pre-treined model
         
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor(p)
@@ -229,7 +229,7 @@ class App(QDialog):
         
         # Load previous state settings from file
         print("Checking for state settings...")
-        state_settings_path = app_dir + './state_settings.json'
+        state_settings_path = app_dir + '/state_settings.json'
         self.load_settings(state_settings_path) # Load the last settings that were used
         
         QApplication.setStyle("Fusion")
@@ -300,7 +300,7 @@ class App(QDialog):
         blink = blinkVar
         data = { 'openMouthKey' : openMouthKey, 'raiseEyebrowsKey' : raiseEyebrowsKey, 'smileKey' : smileKey, 'snarlKey' : snarlKey, 'blinkKey' : blinkKey, 'openMouthVar' : openMouth, 'raiseEyebrowsVar' : raiseEyebrows, 'smileVar' : smile, 'snarlVar' : snarl, 'blinkVar' : blink }
         
-        filePathNameWExt = app_dir + '\\state_settings.json'
+        filePathNameWExt = app_dir + '/state_settings.json'
         with open(filePathNameWExt, 'w') as f:
             json.dump(data, f)
     
