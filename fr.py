@@ -215,7 +215,7 @@ class App(QDialog):
         
         # Load default settings
         self.value_changed()
-        print(os.environ['USERPROFILE'])
+        
         # Load previous state settings from file
         try:
             print("Checking for state settings...")
