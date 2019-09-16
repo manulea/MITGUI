@@ -19,7 +19,18 @@ class App(QDialog):
         super(App, self).__init__()
         self.title = 'Face Switch 2.0'
         self.closeEvent = self.closeEvent
-        self.setWindowIcon(QtGui.QIcon('interface\icon.png'))
+        self.setWindowIcon(QtGui.QIcon('interface/icon.png'))
+        
+        global app_dir # Allow the variable to be used anywhere
+        app_dir = os.environ['USERPROFILE'] + '/.FaceSwitch2' # Path to application settings
+        
+        if not os.path.isdir(app_dir): # Create the directory if it does not already exist
+            try:
+                os.mkdir(app_dir) # Make the .FaceSwitch2 folder
+            except OSError:
+                print ("Creation of the directory %s failed" % app_dir)
+            else:
+                print ("Successfully created the directory %s " % app_dir)
         
         self.captureFacePositions = True
         self.capturedPositions = False
@@ -65,7 +76,7 @@ class App(QDialog):
         self.oldPos = event.globalPos()
 
     def landmarks(self):
-        p = "resources\shape_predictor_68_face_landmarks.dat" # p = our pre-treined model
+        p = "resources/shape_predictor_68_face_landmarks.dat" # p = our pre-treined model
         
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor(p)
@@ -77,7 +88,7 @@ class App(QDialog):
             # Getting out image by webcam 
             _, frame = self.cap.read()
             # Converting the image to gray scale
-            if(frame is not None):
+            if frame is not None:
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 # Get faces into webcam's image
                 rects = detector(gray, 0)
@@ -86,7 +97,7 @@ class App(QDialog):
                 sys.exit()
             
             # Activated
-            if (self.faceShapePredictorActivated == True):
+            if self.faceShapePredictorActivated == True:
                 for (i, rect) in enumerate(rects):
                     # Make the prediction and transfom it to numpy array
                     shape = predictor(gray, rect)
@@ -101,93 +112,93 @@ class App(QDialog):
                     base_line = ((shape[16][0]) - (shape[0][0]))
                     
                     # Open mouth
-                    if (self.openMouthActivated == True):
+                    if self.openMouthActivated == True:
                         mouth_top = ((shape[61][1]) + (shape[62][1]) + (shape[63][1]))/3
                         mouth_bottom = ((shape[65][1]) + (shape[66][1]) + (shape[67][1]))/3
                         mouth_height = mouth_bottom - mouth_top
                         try:
-                            if(mouth_height/base_line > float(self.openMouthVar)):
+                            if mouth_height/base_line > float(self.openMouthVar):
                                 gesture_arr.append(0)
                         except:
                             pass
                     # Raise Eyebrow
-                    if (self.raiseEyebrowsActivated == True):
+                    if self.raiseEyebrowsActivated == True:
                         eye_top = ((shape[18][1]) + (shape[19][1]) + (shape[20][1]) + (shape[23][1]) + (shape[24][1]) + (shape[25][1]))/6
                         eye_bottom = ((shape[27][1]) + (shape[28][1]))/2
                         eye_height = eye_bottom - eye_top
                         try:
-                            if(eye_height/base_line > float(self.raiseEyebrowsVar)):
+                            if eye_height/base_line > float(self.raiseEyebrowsVar):
                                 gesture_arr.append(1)
                         except:
                             pass
                     # Blink
-                    if (self.blinkActivated == True):
+                    if self.blinkActivated == True:
                         eyelid_top = ((shape[37][1]) + (shape[38][1]) + (shape[43][1]) + (shape[44][1]))/4
                         eyelid_bottom = ((shape[40][1]) + (shape[41][1]) + (shape[46][1]) + (shape[47][1]))/4
                         eyelid_height = eyelid_bottom - eyelid_top
                         try:
-                            if(eyelid_height/base_line < float(self.blinkVar)):
+                            if eyelid_height/base_line < float(self.blinkVar):
                                 gesture_arr.append(2)
                         except:
                             pass
                     # Smile
-                    if (self.smileActivated == True):
+                    if self.smileActivated == True:
                         mouth_left = ((shape[48][0]) + (shape[49][0]) + (shape[59][0]) + (shape[60][0]))/4
                         mouth_right = ((shape[53][0]) + (shape[54][0]) + (shape[55][0]) + (shape[64][0]))/4
                         mouth_width = mouth_right - mouth_left
                         try:
-                            if(mouth_width/base_line > float(self.smileVar)):
+                            if mouth_width/base_line > float(self.smileVar):
                                 gesture_arr.append(3)
                         except:
                             pass
                     # Scrunch nose
-                    if (self.snarlActivated == True):
+                    if self.snarlActivated == True:
                         nose_top = ((shape[21][1]) + (shape[22][1]))/2
                         nose_bottom = ((shape[31][1]) + (shape[35][1]))/2
                         nose_height = nose_bottom - nose_top
                         try:
-                            if(nose_height/base_line < float(self.snarlVar)):
+                            if nose_height/base_line < float(self.snarlVar):
                                 gesture_arr.append(4)
                         except:
                             pass
                     
                     gesture_output = -1 # Set the default value to -1 (no gesture)
                     # Get the most common number (gesture) from the array and set it to be the registered gesture (eliminates noise)
-                    if(-1 not in gesture_arr): # Only if the array is full of gesture recognitions (i.e. no default values)
+                    if -1 not in gesture_arr: # Only if the array is full of gesture recognitions (i.e. no default values)
                         gesture_output = max(set(gesture_arr), key=gesture_arr.count)
                     
-                    if(gesture_output == 0):
+                    if gesture_output == 0:
                         print("Mouth opened! - ",(mouth_height/base_line))
                         self.wsh.SendKeys(self.txtOpenMouth.toPlainText())
                         for i in range(60, 68, 1):
                             cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
                         
-                    elif(gesture_output == 1):
+                    elif gesture_output == 1:
                         print("Eyebrows raised! - ",(eye_height/base_line))
                         self.wsh.SendKeys(self.txtRaiseEyebrows.toPlainText())
                         for i in range(17, 27, 1):
                             cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
                         
-                    elif(gesture_output == 2):
+                    elif gesture_output == 2:
                         print("Eye close detected! - ",(eyelid_height/base_line))
                         self.wsh.SendKeys(self.txtBlink.toPlainText())
                         for i in range(36, 48, 1):
                             cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
                         
-                    elif(gesture_output == 3):
+                    elif gesture_output == 3:
                         print("Smile detected! - ",(mouth_width/base_line))
                         self.wsh.SendKeys(self.txtSmile.toPlainText())
                         for i in range(54, 60, 1):
                             cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
                         cv2.circle(frame, (shape[48][0], shape[48][1]), 2, (255, 0, 0), -1)
                         
-                    elif(gesture_output == 4):
+                    elif gesture_output == 4:
                         print("Anger detected! - ",(nose_height/base_line))
                         self.wsh.SendKeys(self.txtSnarl.toPlainText())
                         for i in range(27, 36, 1):
                             cv2.circle(frame, (shape[i][0], shape[i][1]), 2, (255, 0, 0), -1)
                 
-                    if(gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4):
+                    if gesture_output == 0 or gesture_output == 1 or gesture_output == 2 or gesture_output == 3 or gesture_output == 4:
                         gesture_arr = deque(maxlen=15)
                         gesture_arr.extend([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
                         print(gesture_output)
@@ -217,11 +228,9 @@ class App(QDialog):
         self.value_changed()
         
         # Load previous state settings from file
-        try:
-            print("Checking for state settings...")
-            self.load_settings("state_settings.json") # Load the last settings that were used
-        except:
-            print("No state settings found (e.g. First program run)") 
+        print("Checking for state settings...")
+        state_settings_path = app_dir + '/state_settings.json'
+        self.load_settings(state_settings_path) # Load the last settings that were used
         
         QApplication.setStyle("Fusion")
         palette = QPalette()
@@ -290,9 +299,8 @@ class App(QDialog):
         snarl = snarlVar
         blink = blinkVar
         data = { 'openMouthKey' : openMouthKey, 'raiseEyebrowsKey' : raiseEyebrowsKey, 'smileKey' : smileKey, 'snarlKey' : snarlKey, 'blinkKey' : blinkKey, 'openMouthVar' : openMouth, 'raiseEyebrowsVar' : raiseEyebrows, 'smileVar' : smile, 'snarlVar' : snarl, 'blinkVar' : blink }
-        dir = os.getcwd()
         
-        filePathNameWExt = dir + '/state_settings.json'
+        filePathNameWExt = app_dir + '/state_settings.json'
         with open(filePathNameWExt, 'w') as f:
             json.dump(data, f)
     
@@ -300,6 +308,7 @@ class App(QDialog):
         filePathNameWExt = path + '/' + fileName + '.json'
         with open(filePathNameWExt, 'w') as f:
             json.dump(data, f)
+        print("Settings file: '" + filePathNameWExt + "' saved successfully!")
         
     def btn_save_settings(self, openMouthTxt, raiseEyebrowsTxt, smileTxt, snarlTxt, blinkTxt, openMouthVar, raiseEyebrowsVar, smileVar, snarlVar, blinkVar):
         openMouthKey = openMouthTxt
@@ -313,21 +322,16 @@ class App(QDialog):
         snarl = snarlVar
         blink = blinkVar
         data_to_save = { 'openMouthKey' : openMouthKey, 'raiseEyebrowsKey' : raiseEyebrowsKey, 'smileKey' : smileKey, 'snarlKey' : snarlKey, 'blinkKey' : blinkKey, 'openMouthVar' : openMouth, 'raiseEyebrowsVar' : raiseEyebrows, 'smileVar' : smile, 'snarlVar' : snarl, 'blinkVar' : blink }
-        #print(data_to_save)
-        dir = os.getcwd()
         name, ok = QInputDialog.getText(self, 'Save Settings', 'Enter your name:')
         
         if ok and name != '':
-            self.save_settings(dir, name, data_to_save)
+            self.save_settings(app_dir, name, data_to_save)
     
     def load_settings(self, fileName):
         data = {}
-        dir = os.getcwd()
         name = fileName
-        #filePathNameWExt = dir + '/' + name + '.json'
-        filePathNameWExt = name
         try:
-            with open(filePathNameWExt, 'r') as f:
+            with open(name, 'r') as f:
                 data = json.load(f)
                 self.txtOpenMouth.setPlainText(str(data['openMouthKey']))
                 self.txtRaiseEyebrows.setPlainText(str(data['raiseEyebrowsKey']))
@@ -340,8 +344,9 @@ class App(QDialog):
                 self.sliderSnarl.setValue(int(data['snarlVar']*141))
                 self.sliderBlink.setValue(int(data['blinkVar']*1000))
                 self.value_changed()
+                print("Settings file: '" + name + "' loaded successfully!")
         except:
-            print("Settings file: '" + filePathNameWExt + "' not found!")
+            print("Settings file: '" + name + "' not found!")
     
     def btn_load_settings(self):
         # load tkinter
@@ -351,10 +356,9 @@ class App(QDialog):
         # prepare file dialog box
         ftypes=[('json file',"*.json")]
         ttl = "Title"
-        dir = os.getcwd()
         
         # Open file dialog box
-        root.fileName = filedialog.askopenfilename(filetypes=ftypes, initialdir=dir, title=ttl)
+        root.fileName = filedialog.askopenfilename(filetypes=ftypes, initialdir=app_dir, title=ttl)
         
         if root.fileName != '':
             self.load_settings(root.fileName)
@@ -364,7 +368,7 @@ class App(QDialog):
         # open mouth checkbox
         if state.objectName() == "cboxOpenMouth":
             if state.isChecked() == True:
-                if (self.openMouthActivated == False):
+                if self.openMouthActivated == False:
                     print("Open Mouth detection activated")
                     self.openMouthActivated = True
             else:
@@ -373,7 +377,7 @@ class App(QDialog):
         # raise eyebrow checkbox
         if state.objectName() == "cboxRaiseEyebrows":
             if state.isChecked() == True:
-                if (self.raiseEyebrowsActivated == False):
+                if self.raiseEyebrowsActivated == False:
                     print("Raise Eyebrows detection activated")
                     self.raiseEyebrowsActivated = True
             else:
@@ -382,7 +386,7 @@ class App(QDialog):
         # smile checkbox
         if state.objectName() == "cboxSmile":
             if state.isChecked() == True:
-                if (self.smileActivated == False):
+                if self.smileActivated == False:
                     print("Smile detection activated")
                     self.smileActivated = True
             else:
@@ -392,7 +396,7 @@ class App(QDialog):
         # snarl checkbox
         if state.objectName() == "cboxSnarl":
             if state.isChecked() == True:
-                if (self.snarlActivated == False):
+                if self.snarlActivated == False:
                     print("Snarl detection activated")
                     self.snarlActivated = True
             else:
@@ -401,7 +405,7 @@ class App(QDialog):
         # blink checkbox
         if state.objectName() == "cboxBlink":
             if state.isChecked() == True:
-                if (self.blinkActivated == False):
+                if self.blinkActivated == False:
                     print("Blink detection activated")
                     self.blinkActivated = True
             else:
@@ -409,13 +413,15 @@ class App(QDialog):
                 print("Blink detection deactivated")
                 
     @pyqtSlot()
-    def on_click_initialize(self):
+    def on_click_initialize(self): # Used to turn the gesture detection ON or OFF
         if self.faceShapePredictorActivated == True:
             self.faceShapePredictorActivated = False
+            print("Gesture detection Deactivated!")
             self.btnInitialize.setText("Activate")
             
         elif self.faceShapePredictorActivated == False:
             self.faceShapePredictorActivated = True
+            print("Gesture detection Activated!")
             self.btnInitialize.setText("Deactivate")
 
     def closeEvent(self, event):
