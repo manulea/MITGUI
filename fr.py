@@ -1,6 +1,5 @@
 import sys 
 from PyQt5.uic import loadUi
-
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QDialog, QInputDialog, QMainWindow, QCheckBox, QWidget, QPushButton, QLabel, QPlainTextEdit, QMessageBox, QDesktopWidget
 from PyQt5.QtGui import QIcon, QPalette, QColor, QPixmap, QImage
