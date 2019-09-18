@@ -14,57 +14,51 @@ For example they could map a keystroke to the "open mouth" gesture. This would m
 
 ## 1.
 
-![Image0](https://i.imgur.com/blbhQhH.png)
+![Image0](https://i.imgur.com/ojV1OHI.png)
 
-Click Save File
+## 2.
 
-![Image1](https://i.imgur.com/rpf0os7.png)
+![Image1](https://i.imgur.com/xDRQBfC.png)
 
-Find where you saved this file, and double click it!
+## 3.
 
-![Image1.2](https://i.imgur.com/6l91vx4.png)
+![Image1.2](https://i.imgur.com/mAFDR1d.png)
 
-You may have a security issue.. if this is the case then:
+## 4.
 
-click More info.
+![Image1.3](https://i.imgur.com/63pghRO.png)
 
-![Image1.3](https://i.imgur.com/5kd2qkR.png)
+## 5.
 
-Click Run anyway
+![Image2](https://i.imgur.com/Dx0L3Qq.png)
 
-#### A windows security prompt should come up, press yes. 
+## 6
 
-![Image2](https://i.imgur.com/UO40SxR.png)
+![Image3](https://i.imgur.com/43C8nvW.png)
 
-Choose your destination folder or leave it default.
+## 7
 
-Click Install
+![Image4](https://i.imgur.com/hu2BA0O.png)
 
-![Image3](https://i.imgur.com/Wpps3uU.png)
+## 8
 
-Wait for the download to complete.
+![Image5](https://i.imgur.com/RmqTXmi.png)
 
-![Image4](https://i.imgur.com/n74RUUd.png)
+## 9
 
-Click Close.
+![Image6](https://i.imgur.com/RmqTXmi.png)
 
-![Image5](https://i.imgur.com/CiqcXxO.png)
+## 10
 
-A new folder is created.
+![Image7](https://i.imgur.com/auiPl77.png)
 
-Double click the folder to open the folder.
+## 11 
 
-![Image6](https://i.imgur.com/rYDgYJy.png)
+![Image8](https://i.imgur.com/zh0Mrk9.png)
 
-Locate a file named fr.exe and double click it.
+## 12
 
-![Image7](https://i.imgur.com/wqhjJ5k.png)
-
-A command prompt should start running the scripts.
-
-![Image8](https://i.imgur.com/VuyW4Ap.png)
-
-If everything is successful, the user interface should appear like this on the screen.
+![Image9](https://i.imgur.com/V3sT9OS.png)
 
 # A special thanks to the following creators of these Libraries:
 * [PyQt5 5.13.0](https://pypi.org/project/PyQt5/)
