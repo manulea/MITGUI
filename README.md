@@ -10,6 +10,10 @@ For example they could map a keystroke to the "open mouth" gesture. This would m
 
 [Click here to download](https://github.com/manulea/MITGUI/releases/download/v3.0/fr.exe)
 
+# Installation Guide
+
+## 1.
+
 ![Image0](https://i.imgur.com/blbhQhH.png)
 
 Click Save File
