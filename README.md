@@ -46,17 +46,13 @@ For example they could map a keystroke to the "open mouth" gesture. This would m
 
 ## 9
 
-![Image6](https://i.imgur.com/RmqTXmi.png)
-
-## 10
-
 ![Image7](https://i.imgur.com/auiPl77.png)
 
-## 11 
+## 10 
 
 ![Image8](https://i.imgur.com/zh0Mrk9.png)
 
-## 12
+## 11
 
 ![Image9](https://i.imgur.com/V3sT9OS.png)
 
